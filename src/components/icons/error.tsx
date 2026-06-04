@@ -1,0 +1,14 @@
+import { IconProps } from "@/types/icon";
+
+export default function Error(props: IconProps) {
+	return (
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M8 1C4.2 1 1 4.2 1 8C1 11.8 4.2 15 8 15C11.8 15 15 11.9 15 8C15 4.1 11.9 1 8 1ZM7.5 4H8.5V9H7.5V4ZM8 12.2C7.6 12.2 7.2 11.8 7.2 11.4C7.2 11 7.5 10.6 8 10.6C8.4 10.6 8.8 11 8.8 11.4C8.8 11.8 8.4 12.2 8 12.2Z"
+				fill="currentColor"
+			/>
+		</svg>
+	);
+}
