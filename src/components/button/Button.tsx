@@ -18,7 +18,7 @@ export default function Button({
 		let className;
 		switch (variants) {
 			case "primary": {
-				className = `flex items-center gap-[0.8rem] text-[1.6rem] py-[1em] px-[1.75em] max-lg:px-[1.3em] max-lg:py-[0.4em] text-btn-black font-semibold [background:var(--gradient-text)] rounded-lg disabled:[background:transparent] disabled:border-glass-stroke disabled:border-1 disabled:text-input-light-gray disabled:focus:outline-none disabled:hover:brightness-100 disabled:active:brightness-100 ${isLoading ? "cursor-not-allowed active:brightness-100 hover:brightness-100 focus:outline-none" : "cursor-pointer active:brightness-80 hover:brightness-125 focus:brightness-125 focus:outline-btn-purple focus:outline-2"}`;
+				className = `flex items-center justify-center gap-[0.8rem] text-[1.6rem] py-[1em] px-[1.75em] max-lg:px-[1.3em] max-lg:py-[0.4em] text-btn-black font-semibold [background:var(--gradient-text)] rounded-lg disabled:[background:transparent] disabled:border-glass-stroke disabled:border-1 disabled:text-input-light-gray disabled:focus:outline-none disabled:hover:brightness-100 disabled:active:brightness-100 ${isLoading ? "cursor-not-allowed active:brightness-100 hover:brightness-100 focus:outline-none" : "cursor-pointer active:brightness-80 hover:brightness-125 focus:brightness-125 focus:outline-btn-purple focus:outline-2"}`;
 				break;
 			}
 			case "outline": {

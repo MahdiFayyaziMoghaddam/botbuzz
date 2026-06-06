@@ -2,12 +2,13 @@
 
 * {
 	accent-color: var(--color-btn-purple);
+	-webkit-user-drag: none;
 }
 
 :root {
 	text-box: trim-both;
 	line-height: 1.4;
-	-webkit-user-drag: none;
+	scroll-behavior: smooth;
 }
 
 @theme {
@@ -52,26 +53,46 @@
 	--spacing: 1rem;
 }
 
-*::selection {
-	color: var(--color-btn-white);
-	background-color: var(--color-btn-purple);
+* {
+	&::selection {
+		color: var(--color-btn-white);
+		background-color: var(--color-btn-purple);
+	}
+	&::-webkit-scrollbar {
+		width: 0.6vw;
+		min-width: 5px;
+		height: 0.6vw;
+		min-height: 5px;
+		background-color: var(--color-icon-black);
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--color-btn-purple);
+		cursor: pointer;
+	}
+	&::-webkit-scrollbar-corner {
+		background-color: var(--color-btn-purple);
+	}
+}
+
+@utility link-underline {
+	@apply underline underline-offset-[0.15em] decoration-transparent hover:decoration-current duration-300;
 }
 
 h1 {
-	@apply text-[5.8rem];
+	@apply text-[5.8rem] font-bold;
 }
 h2 {
-	@apply text-[4.8rem];
+	@apply text-[4.8rem] font-bold;
 }
 h3 {
-	@apply text-[4rem];
+	@apply text-[4rem] font-bold;
 }
 h4 {
-	@apply text-[3.2rem];
+	@apply text-[3.2rem] font-bold;
 }
 h5 {
-	@apply text-[2.4rem];
+	@apply text-[2.4rem] font-bold;
 }
 h6 {
-	@apply text-[1.8rem];
+	@apply text-[1.8rem] font-bold;
 }

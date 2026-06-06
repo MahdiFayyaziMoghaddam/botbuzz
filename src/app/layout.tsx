@@ -15,6 +15,11 @@ const poppinsFont = localFont({
 			style: "normal"
 		},
 		{
+			path: "./../fonts/Poppins-Bold.ttf",
+			weight: "700",
+			style: "normal"
+		},
+		{
 			path: "./../fonts/Poppins-SemiBoldItalic.ttf",
 			weight: "600",
 			style: "italic"
@@ -28,7 +33,7 @@ const poppinsFont = localFont({
 
 export const metadata: Metadata = {
 	title: "BotBuzz",
-	description: "ai chat app by MFM",
+	description: "Ai chat app by MFM",
 	icons: "/images/favicon.png"
 };
 
@@ -45,7 +50,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={`antialiased text-[62.5%] ${poppinsFont.variable}`}>
-			<body className="min-h-dvh text-[1.6rem] font-poppins font-normal bg-background">{children}</body>
+			<body className="min-h-dvh text-[1.6rem] font-poppins font-normal text-typo-light-white bg-background">
+				{children}
+			</body>
 		</html>
 	);
 }

@@ -1,0 +1,17 @@
+details {
+	interpolate-size: allow-keywords;
+	&::details-content {
+		opacity: 0;
+		overflow-y: clip;
+		transition:
+			content-visibility 300ms allow-discrete,
+			opacity 300ms,
+			block-size 300ms;
+		transition-behavior: allow-discrete;
+		block-size: 0;
+	}
+	&[open]::details-content {
+		opacity: 1;
+		block-size: auto;
+	}
+}
