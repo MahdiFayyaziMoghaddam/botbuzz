@@ -46,6 +46,11 @@
 	--text-xl: 2rem;
 	--text-2xl: 2.2rem;
 	--spacing: 0.1rem;
+	--breakpoint-xs: 350px;
+	--breakpoint-sm: 480px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
 }
 
 * {
@@ -77,21 +82,25 @@
 	@apply underline underline-offset-[0.15em] decoration-transparent hover:decoration-current duration-300;
 }
 
+@utility badge {
+	@apply bg-btn-purple text-nowrap rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] justify-self-end text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] py-[0.5rem] max-lg:py-[0.4rem] max-md:py-[0.3rem] max-sm:py-[0.2rem] px-[1.6rem] max-lg:px-[1.3rem] max-md:px-[1rem] max-sm:px-[0.7rem] text-typo-main-black select-none;
+}
+
 h1 {
-	@apply text-[5.8rem] font-bold;
+	@apply text-[5.8rem] max-xl:text-[5rem] max-lg:text-[4.3rem] max-md:text-[2.9rem] max-sm:text-[2.5rem] max-xs:text-[1.8rem] font-bold;
 }
 h2 {
-	@apply text-[4.8rem] font-bold;
+	@apply text-[4.8rem] max-xl:text-[4.1rem] max-lg:text-[3.6rem] max-md:text-[2.4rem] max-sm:text-[1.7rem] max-xs:text-[1.5rem] font-bold;
 }
 h3 {
-	@apply text-[4rem] font-bold;
+	@apply text-[4rem] max-xl:text-[3.4rem] max-lg:text-[3rem] max-md:text-[2rem] max-sm:text-[1.7rem] max-xs:text-[1.3rem] font-bold;
 }
 h4 {
-	@apply text-[3.2rem] font-bold;
+	@apply text-[3.2rem] max-xl:text-[2.7rem] max-lg:text-[2.4rem] max-md:text-[1.6rem] max-sm:text-[1.4rem] max-xs:text-[1.1rem] font-bold;
 }
 h5 {
-	@apply text-[2.4rem] font-bold;
+	@apply text-[2.4rem] max-xl:text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.4rem] max-sm:text-[1.2rem] max-xs:text-[1rem] font-bold;
 }
 h6 {
-	@apply text-[1.8rem] font-bold;
+	@apply text-[1.8rem] max-xl:text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.85rem] font-bold;
 }

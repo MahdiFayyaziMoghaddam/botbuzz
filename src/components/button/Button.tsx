@@ -2,12 +2,12 @@ import { ButtonHTMLAttributes, useCallback } from "react";
 import Loader from "../loader/Loader";
 
 interface Button extends ButtonHTMLAttributes<HTMLButtonElement> {
-	variants?: "primary" | "outline" | "ghost";
+	variant?: "gradient" | "solid" | "outline" | "ghost";
 	isLoading?: boolean;
 }
 
 export default function Button({
-	variants = "primary",
+	variant = "gradient",
 	isLoading = false,
 	onClick,
 	className,
@@ -16,9 +16,37 @@ export default function Button({
 }: Button) {
 	const generateVariant = useCallback(() => {
 		let className;
-		switch (variants) {
-			case "primary": {
-				className = `flex items-center justify-center gap-[0.8rem] text-[1.6rem] py-[1em] px-[1.75em] max-lg:px-[1.3em] max-lg:py-[0.4em] text-btn-black font-semibold [background:var(--gradient-text)] rounded-lg disabled:[background:transparent] disabled:border-glass-stroke disabled:border-1 disabled:text-input-light-gray disabled:focus:outline-none disabled:hover:brightness-100 disabled:active:brightness-100 ${isLoading ? "cursor-not-allowed active:brightness-100 hover:brightness-100 focus:outline-none" : "cursor-pointer active:brightness-80 hover:brightness-125 focus:brightness-125 focus:outline-btn-purple focus:outline-2"}`;
+		switch (variant) {
+			case "gradient": {
+				className = `
+					flex items-center justify-center gap-[0.8rem] 
+					max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem] 
+					text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] 
+					py-[1em] max-lg:py-[0.88em] max-md:py-[0.72em] max-sm:py-[0.65em] max-xs:py-[0.6em] 
+					px-[1.75em] max-lg:px-[1.5em] max-md:px-[1.25em] max-sm:px-[1em] max-xs:px-[0.9em] 
+					text-btn-black font-semibold 
+					[background:var(--gradient-text)] 
+					rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] 
+					disabled:[background:transparent] disabled:border-glass-stroke disabled:border-1 
+					disabled:text-input-light-gray disabled:focus:outline-none 
+					disabled:hover:brightness-100 disabled:active:brightness-100 
+					${isLoading ? "cursor-not-allowed active:brightness-100 hover:brightness-100 focus:outline-none" : "cursor-pointer active:brightness-80 hover:brightness-125 focus:brightness-125 focus:outline-btn-purple focus:outline-2"}"}`;
+				break;
+			}
+			case "solid": {
+				className = `
+					flex items-center justify-center gap-[0.8rem] 
+					max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem] 
+					text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] 
+					py-[1em] max-lg:py-[0.88em] max-md:py-[0.72em] max-sm:py-[0.65em] max-xs:py-[0.6em] 
+					px-[1.75em] max-lg:px-[1.5em] max-md:px-[1.25em] max-sm:px-[1em] max-xs:px-[0.9em] 
+					text-btn-black 
+					bg-btn-purple
+					rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] 
+					disabled:[background:transparent] disabled:border-glass-stroke disabled:border-1 
+					disabled:text-input-light-gray disabled:focus:outline-none 
+					disabled:hover:brightness-100 disabled:active:brightness-100 
+					${isLoading ? "cursor-not-allowed active:brightness-100 hover:brightness-100 focus:outline-none" : "cursor-pointer active:brightness-80 hover:brightness-125 focus:brightness-125 focus:outline-btn-purple focus:outline-2"}"}`;
 				break;
 			}
 			case "outline": {
@@ -33,7 +61,7 @@ export default function Button({
 			}
 		}
 		return className;
-	}, [isLoading, variants]);
+	}, [isLoading, variant]);
 
 	return (
 		<button

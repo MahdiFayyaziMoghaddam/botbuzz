@@ -22,8 +22,8 @@ export default function Textbox({ label, className, required = false, error, typ
 			<label className={`font-semibold text-input-gray`}>
 				{label}
 				{required && "*"}
-				<div ref={borderElemRef} className={`p-[0.1rem] rounded-lg mt-[1.2rem] duration-200`}>
-					<div className="flex items-center gap-[0.8rem] bg-input-dark w-full rounded-lg px-[1.4rem]">
+				<div ref={borderElemRef} className={`p-[0.1rem] rounded-[0.8rem] mt-[1.2rem] duration-200`}>
+					<div className="flex items-center gap-[0.8rem] bg-input-dark w-full rounded-[0.8rem] px-[1.4rem]">
 						<input
 							type={isVisible ? "text" : "password"}
 							onFocus={(e) => {
@@ -38,7 +38,7 @@ export default function Textbox({ label, className, required = false, error, typ
 									: "var(--gradient-stroke)";
 								onBlur?.(e);
 							}}
-							className={`placeholder:text-input-light-gray duration-200 py-[1.7rem]  text-typo-light-white caret-btn-purple rounded-lg w-full font-normal outline-none`}
+							className={`placeholder:text-input-light-gray duration-200 py-[1.7rem]  text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none`}
 							{...props}
 						/>
 						{error && <Error className="size-[1.8rem] text-error" />}
