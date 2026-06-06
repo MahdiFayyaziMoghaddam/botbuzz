@@ -49,7 +49,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`antialiased text-[62.5%] ${poppinsFont.variable}`}>
+		<html lang="en" className={`antialiased ${poppinsFont.variable}`}>
 			<body className="min-h-dvh text-[1.6rem] font-poppins font-normal text-typo-light-white bg-background">
 				{children}
 			</body>

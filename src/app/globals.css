@@ -1,17 +1,12 @@
 @import "tailwindcss";
 
-* {
-	accent-color: var(--color-btn-purple);
-	-webkit-user-drag: none;
-}
-
 :root {
-	text-box: trim-both;
-	line-height: 1.4;
 	scroll-behavior: smooth;
+	font-size: 62.5%;
 }
 
 @theme {
+	--color-light-pink: #e9dfff;
 	--color-error: #ee2917;
 	--color-typo-main-white: #fafafa;
 	--color-typo-light-white: #f5f5f5;
@@ -50,10 +45,14 @@
 	--text-lg: 1.8rem;
 	--text-xl: 2rem;
 	--text-2xl: 2.2rem;
-	--spacing: 1rem;
+	--spacing: 0.1rem;
 }
 
 * {
+	accent-color: var(--color-btn-purple);
+	-webkit-user-drag: none;
+	line-height: 1.4;
+	text-box: trim-both;
 	&::selection {
 		color: var(--color-btn-white);
 		background-color: var(--color-btn-purple);
