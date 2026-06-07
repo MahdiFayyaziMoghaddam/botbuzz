@@ -1,5 +1,3 @@
-"use client";
-
 import Accordion from "@/components/accordion/Accordion";
 import Button from "@/components/button/Button";
 import Automation from "@/components/icons/automation";

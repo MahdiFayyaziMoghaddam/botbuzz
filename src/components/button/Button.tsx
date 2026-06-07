@@ -1,3 +1,4 @@
+"use client";
 import { ButtonHTMLAttributes, useCallback } from "react";
 import Loader from "../loader/Loader";
 
