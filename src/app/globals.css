@@ -35,7 +35,6 @@
 	--color-onboarding: #282a2f;
 	--color-glass-white: color-mix(in srgb, #ffffff 15%, transparent);
 	--color-glass-stroke: color-mix(in srgb, #8692a6 15%, transparent);
-	--color-card: rgb(#282a2f / 0.86);
 	--gradient-stroke: linear-gradient(to right, #8692a6, #343840);
 	--gradient-text: linear-gradient(to right, #7468fc, #a7a0f8, #a7a0f8, #847ec8);
 	--font-poppins: var(--font-poppins);
@@ -84,6 +83,10 @@
 
 @utility badge {
 	@apply bg-btn-purple text-nowrap rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] justify-self-end text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] py-[0.5rem] max-lg:py-[0.4rem] max-md:py-[0.3rem] max-sm:py-[0.2rem] px-[1.6rem] max-lg:px-[1.3rem] max-md:px-[1rem] max-sm:px-[0.7rem] text-typo-main-black select-none;
+}
+
+@utility bg-gradient-stroke {
+	@apply [background:var(--gradient-stroke)];
 }
 
 h1 {

@@ -51,13 +51,24 @@ export default function Button({
 				break;
 			}
 			case "outline": {
-				className =
-					"cursor-pointer text-sm text-btn-white font-normal rounded-[1rem] border-1 border-btn-white py-[0.8rem] px-[2.4rem] disabled:text-input-light-gray disabled:border-glass-stroke";
+				className = `
+					cursor-pointer text-sm text-btn-white font-normal 
+					rounded-[1rem] max-lg:rounded-[0.8rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.4rem] 
+					border-1 border-btn-white 
+					py-[0.8rem] max-lg:py-[0.7rem] max-md:py-[0.6rem] max-sm:py-[0.5rem] 
+					px-[2.4rem] max-lg:px-[2rem] max-md:px-[1.5rem] max-sm:px-[1rem] 
+					disabled:text-input-light-gray disabled:border-glass-stroke`;
 				break;
 			}
 			case "ghost": {
-				className =
-					"cursor-pointer text-btn-white hover:text-icon-blue focus:text-icon-blue active:text-icon-blue disabled:text-typo-dark-gray focus:outline-none py-[1.5rem] px-[5.4rem] font-semibold bg-inherit";
+				className = `
+					cursor-pointer text-btn-white hover:text-icon-blue focus:text-icon-blue active:text-icon-blue 
+					disabled:text-typo-dark-gray focus:outline-none 
+					font-semibold bg-inherit
+					py-[1.5rem] max-lg:py-[1.2rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.6rem]
+					px-[5.4rem] max-lg:px-[4rem] max-md:px-[3rem] max-sm:px-[2rem] max-xs:px-[1.5rem]
+					text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]
+					gap-[0.8rem] max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem]`;
 				break;
 			}
 		}

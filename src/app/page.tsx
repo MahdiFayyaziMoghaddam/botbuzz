@@ -14,7 +14,7 @@ export default function Home() {
 	return (
 		<>
 			<nav className="grid grid-cols-[1fr_2fr_1fr] items-center place-content-evenly px-64 py-24 max-md:py-20 max-sm:py-18 max-xs:py-14 max-xl:px-48 max-lg:px-32 max-md:px-16 max-sm:px-12 max-xs:px-11">
-				<div className="flex items-center gap-[0.8rem] select-none justify-self-start">
+				<div className="flex items-center gap-[0.8rem] max-lg:gap-7 max-md:gap-6 max-sm:gap-5 max-xs:gap-4 select-none justify-self-start">
 					<Image
 						src={"/images/logo.png"}
 						alt="icon"
@@ -33,7 +33,7 @@ export default function Home() {
 						Pricing
 					</Link>
 					<Link
-						href={"#signin"}
+						href={"/signin"}
 						className="link-underline max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]"
 					>
 						Sign in
@@ -276,7 +276,10 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="flex justify-between items-center max-lg:flex-col max-lg:gap-[4rem] mt-120 max-xl:mt-90 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 px-[14rem] max-xl:px-[4rem] max-md:px-[1.6rem]">
+			<section
+				id="personalize"
+				className="flex justify-between items-center max-lg:flex-col max-lg:gap-[4rem] mt-120 max-xl:mt-90 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 px-[14rem] max-xl:px-[4rem] max-md:px-[1.6rem]"
+			>
 				<div className="max-lg:text-center max-lg:flex max-lg:flex-col max-lg:items-center">
 					<p className="[background:var(--gradient-text)] text-transparent bg-clip-text! max-lg:text-[1.4rem] max-md:text-[1.2rem]">
 						AI Features
@@ -525,7 +528,7 @@ export default function Home() {
 							Explore
 						</h6>
 						<div className="flex flex-col gap-[0.86rem] max-lg:gap-[0.7rem] max-md:gap-[0.6rem] max-sm:gap-[0.5rem] mt-[1.6rem] max-lg:mt-[1.4rem] max-md:mt-[1.2rem] max-sm:mt-[0.7rem] max-xs:mt-[0.5rem] text-typo-medium-gray *:link-underline *:text-[1.4rem] max-xl:*:text-[1.2rem] max-md:*:text-[1rem] max-sm:*:text-[0.9rem]">
-							<Link href="#">AI Personalities</Link>
+							<Link href="#personalize">AI Personalities</Link>
 							<Link href="#">Bot Buzz AI</Link>
 						</div>
 					</div>
@@ -558,12 +561,12 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="flex items-center gap-[0.8rem] max-md:gap-[0.6rem]">
-						<div className="[background:var(--gradient-stroke)] p-1 rounded-[0.8rem] max-md:rounded-[0.6rem]">
+						<div className="bg-gradient-stroke p-1 rounded-[0.8rem] max-md:rounded-[0.6rem]">
 							<div className="rounded-[0.76rem] max-md:rounded-[0.56rem] py-[0.5rem] px-[0.8rem] max-md:py-[0.4rem] max-md:px-[0.6rem] bg-input-dark text-[1.45rem] max-lg:text-[1.2rem] max-md:text-[1rem]">
 								Socials
 							</div>
 						</div>
-						<div className="[background:var(--gradient-stroke)] p-1 rounded-[0.8rem] max-md:rounded-[0.6rem]">
+						<div className="bg-gradient-stroke p-1 rounded-[0.8rem] max-md:rounded-[0.6rem]">
 							<div className="rounded-[0.76rem] max-md:rounded-[0.56rem] py-[0.5rem] px-[0.8rem] max-md:py-[0.4rem] max-md:px-[0.6rem] bg-input-dark text-[1.45rem] max-lg:text-[1.2rem] max-md:text-[1rem]">
 								Botbuzz Community
 							</div>

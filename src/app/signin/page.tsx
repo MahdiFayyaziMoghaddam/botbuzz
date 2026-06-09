@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function Signup() {
 	return (
-		<div className="grid grid-cols-[30vw_51vw] max-lg:grid-cols-1 justify-between items-start bg-onboarding py-[2.2vw] px-[4.4vw] min-h-screen">
+		<div className="grid grid-cols-[30vw_51vw] max-lg:grid-cols-1 justify-between items-start bg-onboarding py-[2.2vw] px-[4.4vw] min-h-dvh">
 			<div>
-				<div className="flex items-center gap-[0.8rem] select-none justify-self-start">
+				<div className="flex items-center gap-[0.8rem] max-lg:gap-7 max-md:gap-6 max-sm:gap-5 max-xs:gap-4 select-none justify-self-start">
 					<Image
 						src={"/images/logo.png"}
 						alt="icon"
