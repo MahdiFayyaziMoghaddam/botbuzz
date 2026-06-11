@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
 	devIndicators: false,
 	reactStrictMode: false,
 	experimental: {
-		optimizeCss: true
+		optimizeCss: true,
+		viewTransition: true
 	}
 };
 
