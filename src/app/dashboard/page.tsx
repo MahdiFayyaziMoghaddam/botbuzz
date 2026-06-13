@@ -44,7 +44,7 @@ export default function Dashboard() {
 					</div>
 				</div>
 				<Prompt />
-				<p className="text-[1.2rem] text-center my-10 text-typo-medium-gray select-none">
+				<p className="text-[1.2rem] text-center my-11 text-typo-medium-gray select-none">
 					Free Research Preview. BotBuzz may produce inaccurate information about people, places, or facts.{" "}
 					<span className="text-btn-purple">BotBuzz Version 1.0</span>
 				</p>

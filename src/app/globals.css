@@ -62,11 +62,7 @@
 		background-color: var(--color-btn-purple);
 	}
 	&::-webkit-scrollbar {
-		width: 0.6vw;
-		min-width: 5px;
-		height: 0.6vw;
-		min-height: 5px;
-		background-color: var(--color-icon-black);
+		@apply w-[0.6vw] min-w-[5px] h-[0.6vw] min-h-[5px] bg-icon-black/30;
 	}
 	&::-webkit-scrollbar-thumb {
 		background-color: var(--color-btn-purple);
