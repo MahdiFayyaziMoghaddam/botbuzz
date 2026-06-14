@@ -1,12 +1,17 @@
+import { useState } from "react";
 import Button from "../button/Button";
 import ArrowRight from "../icons/arrow-right";
 import Premium from "../icons/premium";
 import { useSidebarContext } from "./Sidebar";
+import PlansModal from "../modal/PlansModal";
 
 export default function SidebarUpgrade() {
 	const isCollapsed = useSidebarContext();
+	const [isPlansModalOpen, setIsPlansModalOpen] = useState(false);
+	const closeModal = () => setIsPlansModalOpen(false);
 	return (
 		<>
+			<PlansModal open={isPlansModalOpen} onClose={closeModal} />
 			{!isCollapsed ? (
 				<div className="relative rounded-[2rem] overflow-hidden select-none">
 					<div className="absolute w-213 h-237 -top-142 -right-60 rounded-full bg-linear-135 from-white/20 from-0% via-white/2 via-94% to-white/0 to-100% z-0!"></div>
@@ -20,6 +25,7 @@ export default function SidebarUpgrade() {
 						<Button
 							variant="solid"
 							className="text-[1.2rem]! text-nowrap bg-typo-main-white! text-icon-purple! hover:bg-icon-purple! hover:text-typo-main-white! border-1 hover:scale-115 active:brightness-80! mt-30 duration-400!"
+							onClick={() => setIsPlansModalOpen(true)}
 						>
 							Upgrade now
 							<ArrowRight className="size-18" />
@@ -30,6 +36,7 @@ export default function SidebarUpgrade() {
 				<Button
 					variant="solid"
 					className="p-10! rounded-[1rem]! *:size-28 bg-typo-main-white! text-icon-purple! hover:bg-icon-purple! hover:text-typo-main-white! hover:scale-115 active:brightness-80! duration-400! self-start overflow-hidden"
+					onClick={() => setIsPlansModalOpen(true)}
 				>
 					<Premium />
 				</Button>

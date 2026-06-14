@@ -16,6 +16,7 @@ export const useSidebarContext = () => useContext(SidebarContext) as boolean;
 export default function Sidebar() {
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	const toggle = () => setIsCollapsed((prev) => !prev);
+
 	return (
 		<SidebarContext.Provider value={isCollapsed}>
 			<aside
