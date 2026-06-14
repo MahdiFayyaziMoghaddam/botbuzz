@@ -8,13 +8,13 @@ import History from "../icons/history";
 import Settings from "../icons/settings";
 import SidebarOption from "./SidebarOption";
 import SidebarUpgrade from "./SidebarUpgrade";
-import { useEffect, useRef, useState, useCallback } from "react";
-import { getMediaQuery } from "@/libs/utils";
+import { useEffect, useRef, useCallback } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import useMediaQuery from "@/hooks/useBreakpoint";
 
 export default function Sidebar() {
 	const { isDrawerOpen, setIsDrawerOpen, isCollapsed, setIsCollapsed } = useDashboardContext();
-	const [isMobile, setIsMobile] = useState(false);
+	const { isBelow: isMobile } = useMediaQuery("md");
 	const scrollY = useRef(0);
 
 	const toggleCollapse = () => setIsCollapsed((prev) => !prev);
@@ -22,10 +22,7 @@ export default function Sidebar() {
 
 	useEffect(() => {
 		const check = () => {
-			const md = getMediaQuery("md");
-			const mobile = window.innerWidth <= md;
-			setIsMobile(mobile);
-			if (mobile) {
+			if (isMobile) {
 				setIsCollapsed(false);
 			} else {
 				setIsDrawerOpen(false);
@@ -35,7 +32,7 @@ export default function Sidebar() {
 		check();
 		window.addEventListener("resize", check);
 		return () => window.removeEventListener("resize", check);
-	}, [setIsDrawerOpen, setIsCollapsed]);
+	}, [setIsDrawerOpen, setIsCollapsed, isMobile]);
 
 	useEffect(() => {
 		if (!isMobile) return;
