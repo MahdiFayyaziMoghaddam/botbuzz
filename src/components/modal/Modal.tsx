@@ -55,9 +55,18 @@ export default function Modal({ open = false, children, onClose }: Modal) {
 				}
 			};
 
+			const handleEscape = (e: KeyboardEvent) => {
+				if (e.key === "Escape") {
+					e.preventDefault();
+					close();
+				}
+			};
+
 			dialog.addEventListener("keydown", trap);
+			window.addEventListener("keydown", handleEscape, true);
 			return () => {
 				dialog.removeEventListener("keydown", trap);
+				window.removeEventListener("keydown", handleEscape, true);
 			};
 		} else {
 			// eslint-disable-next-line react-hooks/set-state-in-effect
@@ -90,10 +99,6 @@ export default function Modal({ open = false, children, onClose }: Modal) {
 		<dialog
 			ref={dialogRef}
 			onClick={(e) => e.target === dialogRef.current && close()}
-			onCancel={(e) => {
-				e.preventDefault();
-				close();
-			}}
 			className={`backdrop:bg-black/50 backdrop:backdrop-blur-[3px] 
 				bg-transparent p-0 m-auto
 				flex items-center justify-center
