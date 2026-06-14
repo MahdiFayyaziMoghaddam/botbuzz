@@ -34,7 +34,7 @@ export default function Sidebar() {
 						</Button>
 					</div>
 					<div className="flex flex-col gap-8 mt-40">
-						<SidebarOption href="/dashboard" icon={<ChatBubble />} title="Chat" />
+						<SidebarOption href="/chat" icon={<ChatBubble />} title="Chat" />
 						<SidebarOption href="/history" icon={<History />} title="Chat History" />
 						<SidebarOption href="/personalities" icon={<People />} title="AI Personalities" />
 						<SidebarOption href="/settings" icon={<Settings />} title="Settings" />
