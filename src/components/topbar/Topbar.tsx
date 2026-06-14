@@ -10,8 +10,8 @@ import { useDashboardContext } from "@/contexts/DashboardContext";
 export default function Topbar() {
 	const { setIsDrawerOpen } = useDashboardContext();
 	return (
-		<div className="flex justify-between flex-row-reverse items-center bg-[#3A3C40] border-b-2 border-glass-stroke py-18 px-24">
-			<div className="flex items-center flex-row-reverse gap-40">
+		<div className="flex justify-between flex-row-reverse items-center bg-[#3A3C40] border-b-2 border-glass-stroke py-18 max-xl:py-16 max-lg:py-14 max-md:py-12 max-sm:py-10 px-24 max-xl:px-20 max-lg:px-16 max-md:px-12 max-sm:px-10">
+			<div className="flex items-center flex-row-reverse gap-40 max-xl:gap-34 max-lg:gap-28 max-md:gap-20 max-sm:gap-16 *:*:*:nth-[2]:text-error">
 				<TopbarSelect
 					items={[
 						{ label: "Profile Details", href: "/profile", icon: <Person /> },
@@ -21,18 +21,18 @@ export default function Topbar() {
 					<Image
 						src="/images/user.png"
 						alt="user-profile"
-						className="relative size-48 rounded-[0.8rem] transition-colors duration-200"
+						className="relative size-48 max-xl:size-42 max-lg:size-36 max-md:size-32 max-sm:size-28 rounded-[0.8rem] max-xl:rounded-[0.7rem] max-lg:rounded-[0.6rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] transition-colors duration-200"
 					/>
 				</TopbarSelect>
 				<TopbarSelect>
-					<Warning className="size-32" />
+					<Warning className="size-32 max-xl:size-28 max-lg:size-24 max-md:size-20 max-sm:size-18" />
 				</TopbarSelect>
 				<TopbarSelect>
-					<Feedback className="size-32" />
+					<Feedback className="size-32 max-xl:size-28 max-lg:size-24 max-md:size-20 max-sm:size-18" />
 				</TopbarSelect>
 			</div>
 			<button
-				className="*:size-24 rounded-[0.4rem] hover:bg-onboarding/50 cursor-pointer p-8 duration-200 outline-none md:hidden"
+				className="*:size-24 max-md:*:size-20 max-sm:*:size-18 rounded-[0.4rem] cursor-pointer outline-none md:hidden"
 				onClick={() => setIsDrawerOpen(true)}
 			>
 				<Menu />

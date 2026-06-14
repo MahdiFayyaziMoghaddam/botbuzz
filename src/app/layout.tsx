@@ -18,11 +18,6 @@ const poppinsFont = localFont({
 			path: "./../fonts/Poppins-Bold.ttf",
 			weight: "700",
 			style: "normal"
-		},
-		{
-			path: "./../fonts/Poppins-SemiBoldItalic.ttf",
-			weight: "600",
-			style: "italic"
 		}
 	],
 	variable: "--font-poppins",
@@ -49,7 +44,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`antialiased ${poppinsFont.variable}`}>
+		<html data-scroll-behavior="smooth" lang="en" className={`antialiased ${poppinsFont.variable}`}>
 			<body className="min-h-dvh text-[1.6rem] font-poppins font-normal text-typo-light-white bg-background">
 				{children}
 			</body>

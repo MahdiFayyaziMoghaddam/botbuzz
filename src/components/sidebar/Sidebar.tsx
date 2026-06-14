@@ -21,17 +21,11 @@ export default function Sidebar() {
 	const closeDrawer = useCallback(() => setIsDrawerOpen(false), [setIsDrawerOpen]);
 
 	useEffect(() => {
-		const check = () => {
-			if (isMobile) {
-				setIsCollapsed(false);
-			} else {
-				setIsDrawerOpen(false);
-			}
-		};
-
-		check();
-		window.addEventListener("resize", check);
-		return () => window.removeEventListener("resize", check);
+		if (isMobile) {
+			setIsCollapsed(false);
+		} else {
+			setIsDrawerOpen(false);
+		}
 	}, [setIsDrawerOpen, setIsCollapsed, isMobile]);
 
 	useEffect(() => {
@@ -69,8 +63,8 @@ export default function Sidebar() {
 			}
 		};
 
-		document.addEventListener("keydown", handleEscape);
-		return () => document.removeEventListener("keydown", handleEscape);
+		document.addEventListener("keydown", handleEscape, true);
+		return () => document.removeEventListener("keydown", handleEscape, true);
 	}, [isDrawerOpen, isMobile, closeDrawer]);
 
 	return (
@@ -83,22 +77,26 @@ export default function Sidebar() {
 			/>
 
 			<aside
-				className={`flex flex-col justify-between py-40 max-md:py-20 bg-[#3A3C40] border-r-2 border-glass-stroke h-full max-md:fixed max-md:top-0 max-md:bottom-0 z-50 transition-all duration-500 md:row-start-1 md:-row-end-1
+				className={`flex flex-col justify-between py-40 max-xl:py-35 max-lg:py-30 max-md:py-20 bg-[#3A3C40] border-r-2 border-glass-stroke h-full max-md:fixed max-md:top-0 max-md:bottom-0 z-50 transition-all duration-500 md:row-start-1 md:-row-end-1
 					${
 						isMobile
 							? `w-260 px-16 ${isDrawerOpen ? "left-0" : "-left-full"}`
 							: isCollapsed
-								? "w-[12.16rem] px-35"
-								: "w-260 px-24"
+								? "w-[12.16rem] max-xl:w-[9.3rem] max-lg:w-[7.3rem] xl:px-35 lg:px-24 md:px-16"
+								: "w-260 max-xl:w-230 max-lg:w-200 xl:px-35 lg:px-24 md:px-16"
 					}`}
 			>
 				<div>
-					<div className={`flex justify-between items-start ${!isMobile && isCollapsed ? "md:-mr-47" : "md:-mr-36"}`}>
-						<Image src="/images/favicon.png" alt="icon" className="relative size-48 rounded-[0.8rem]" />
+					<div className={`flex justify-between items-start xl:-mr-47 lg:-mr-34 md:-mr-24`}>
+						<Image
+							src="/images/favicon.png"
+							alt="icon"
+							className="relative size-48 max-xl:size-42 max-lg:size-36 rounded-[0.8rem] max-xl:rounded-[0.7rem] max-lg:rounded-[0.6rem] shrink-0"
+						/>
 
 						<Button
 							variant="ghost"
-							className={`bg-icon-white! text-icon-black p-0! rounded-[0.5rem] z-10 duration-400 ${
+							className={`bg-icon-white! text-icon-black p-0! rounded-[0.5rem] max-xl:rounded-[0.4rem] max-lg:rounded-[0.3rem] z-10 duration-400 *:size-24 max-xl:*:size-20 max-lg:*:size-16 ${
 								isCollapsed ? "rotate-180" : ""
 							} max-md:hidden`}
 							onClick={toggleCollapse}
@@ -115,7 +113,10 @@ export default function Sidebar() {
 						</button>
 					</div>
 
-					<div className="flex flex-col gap-8 mt-40" onClick={isMobile ? closeDrawer : undefined}>
+					<div
+						className="flex flex-col gap-8 max-xl:gap-7 max-lg:gap-6 mt-40 max-xl:mt-35 max-lg:mt-30"
+						onClick={isMobile ? closeDrawer : undefined}
+					>
 						<SidebarOption href="/chat" icon={<ChatBubble />} title="Chat" />
 						<SidebarOption href="/history" icon={<History />} title="Chat History" />
 						<SidebarOption href="/personalities" icon={<People />} title="AI Personalities" />
