@@ -55,9 +55,11 @@ export default function Home() {
 				<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem] text-typo-dark-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem]">
 					Your Personal AI, Tailored for Every Conversation, Anytime, Anywhere
 				</p>
-				<Button className="font-normal! px-[4.3rem] max-lg:px-[3.5rem] max-md:px-[2.8rem] mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-20 max-sm:mt-15 mx-auto max-lg:text-[1.2rem] max-md:text-[1rem]">
-					Start Conversation for free
-				</Button>
+				<Link href={"/signin"}>
+					<Button className="font-normal! px-[4.3rem] max-lg:px-[3.5rem] max-md:px-[2.8rem] mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-20 max-sm:mt-15 mx-auto max-lg:text-[1.2rem] max-md:text-[1rem]">
+						Start Conversation for free
+					</Button>
+				</Link>
 				<div className="flex justify-center items-center gap-[1.6rem] max-md:gap-[1.2rem] max-sm:gap-[0.8rem] text-center mt-[1.8rem] max-md:mt-[1.4rem] max-sm:mt-[1rem] text-typo-dark-gray select-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
 					<Image
 						src="/images/credit-card.png"
