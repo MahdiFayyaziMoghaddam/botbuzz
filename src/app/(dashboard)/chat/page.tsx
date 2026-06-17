@@ -2,7 +2,6 @@ import DateSeparator from "@/components/dashboard/DateSeparator";
 import ChatSuggestions from "@/components/dashboard/ChatSuggestions";
 import ChatBox from "@/components/dashboard/ChatBox";
 import ChatFooter from "@/components/dashboard/ChatFooter";
-import GetStarted from "@/components/dashboard/GetStarted";
 
 export default function Chat() {
 	return (
