@@ -10,14 +10,17 @@ import Vital from "@/components/icons/vital";
 import Image from "@/components/image/Image";
 import Link from "next/link";
 
-export default function Home() {
+export default function Landing() {
 	return (
 		<>
-			<nav className="grid grid-cols-[1fr_2fr_1fr] items-center place-content-evenly px-64 py-24 max-md:py-20 max-sm:py-18 max-xs:py-14 max-xl:px-48 max-lg:px-32 max-md:px-16 max-sm:px-12 max-xs:px-11">
+			<nav
+				aria-label="Main navigation"
+				className="grid grid-cols-[1fr_2fr_1fr] items-center place-content-evenly px-64 py-24 max-md:py-20 max-sm:py-18 max-xs:py-14 max-xl:px-48 max-lg:px-32 max-md:px-16 max-sm:px-12 max-xs:px-11"
+			>
 				<div className="flex items-center gap-[0.8rem] max-lg:gap-7 max-md:gap-6 max-sm:gap-5 max-xs:gap-4 select-none justify-self-start">
 					<Image
 						src={"/images/logo.png"}
-						alt="icon"
+						alt="BotBuzz AI Logo"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
 					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]">BotBuzz</p>
@@ -39,123 +42,132 @@ export default function Home() {
 						Sign in
 					</Link>
 				</div>
-				<p className="badge">Get Started</p>
+				<Link href={"/signin"} className="badge">
+					Get Started
+				</Link>
 			</nav>
 			<Image
 				src="/images/landing-lines.png"
-				alt="bruh"
+				alt="line-shape"
 				loading="eager"
 				className="absolute w-full aspect-[1.7/1] -z-100"
 			/>
 			<header className="mt-90 max-xl:mt-75 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 max-xs:mt-25">
 				<h1 className="text-center max-lg:text-[3.6rem] max-md:text-[2.8rem] max-sm:text-[2.2rem]">
-					Unlock The Power Of <span className="text-icon-purple text-nowrap">BotBuzz AI</span> <br /> With Smartest
-					AI{" "}
+					Unlock The Power Of <span className="text-icon-purple text-nowrap">BotBuzz AI</span> <br /> With The Smartest
+					AI Assistant
 				</h1>
 				<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem] text-typo-dark-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem]">
-					Your Personal AI, Tailored for Every Conversation, Anytime, Anywhere
+					Your Personal AI Companion, Tailored for Every Conversation, Anytime, Anywhere
 				</p>
 				<Link href={"/signin"}>
 					<Button className="font-normal! px-[4.3rem] max-lg:px-[3.5rem] max-md:px-[2.8rem] mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-20 max-sm:mt-15 mx-auto max-lg:text-[1.2rem] max-md:text-[1rem]">
-						Start Conversation for free
+						Start Conversation for Free
 					</Button>
 				</Link>
 				<div className="flex justify-center items-center gap-[1.6rem] max-md:gap-[1.2rem] max-sm:gap-[0.8rem] text-center mt-[1.8rem] max-md:mt-[1.4rem] max-sm:mt-[1rem] text-typo-dark-gray select-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
 					<Image
 						src="/images/credit-card.png"
-						alt="card"
+						alt="Credit card icon"
 						className="relative w-24 aspect-[1.33/1] max-lg:w-21 max-md:w-18 max-sm:w-15 max-xs:w-13"
 					/>
 					No credit card required
 				</div>
 				<Image
 					src="/images/landing.png"
-					alt="landing-image"
+					alt="BotBuzz AI chat interface preview showing conversation with AI assistant"
 					className="relative w-full aspect-[2.3/1] mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem] mx-auto"
 				/>
 			</header>
-			<section className="flex flex-col mt-90 max-xl:mt-75 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 px-[6.4rem] max-xl:px-[4.8rem] max-lg:px-[3.2rem] max-md:px-[1.6rem]">
+			<section
+				aria-labelledby="features-heading"
+				className="flex flex-col mt-90 max-xl:mt-75 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 px-[6.4rem] max-xl:px-[4.8rem] max-lg:px-[3.2rem] max-md:px-[1.6rem]"
+			>
 				<p className="inline-block badge mx-auto">Get in touch for free</p>
-				<h2 className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem]">
+				<h2 id="features-heading" className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem]">
 					Instant Content Generation with AI
 				</h2>
 				<p className="text-center mt-[1.4rem] max-lg:mt-[0.9rem] max-md:mt-[1rem] max-sm:mt-[0.75rem] max-xs:mt-[0.5rem] text-typo-medium-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]">
 					Provide Descriptions, Get Instant AI Generated Content
 				</p>
 				<div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-[3.2rem] max-lg:gap-[2.4rem] max-md:gap-[1.6rem] mt-60 max-xl:mt-48 max-lg:mt-36 max-md:mt-30 max-sm:mt-24">
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Vital className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Vital className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Effortless Content AI
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
-							Let our AI-powered service the hard work out of content creation. Get started today with AI.
+							Let our AI-powered service take the hard work out of content creation. Get started today with AI.
 						</p>
-					</div>
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Layout className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					</article>
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Layout className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Real Time Web References
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
 							Access up-to-date information on any topic during your conversations with Ai-Con.
 						</p>
-					</div>
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Automation className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					</article>
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Automation className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Emotional Intelligence
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
 							Enhances the empathetic aspect of your interactions, making your conversations more meaningful.
 						</p>
-					</div>
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Group className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					</article>
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Group className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Multiple Personalities
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
-							Ai-Con offers a variety of personalities for your AI companion, such as a Explorer, Sage and etc.
+							Ai-Con offers a variety of personalities for your AI companion, such as Explorer, Sage and more.
 						</p>
-					</div>
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Reload className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					</article>
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Reload className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Dynamic Suggestions
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
 							Ai-Con provides dynamic topic suggestions based on your interests and previous conversations.
 						</p>
-					</div>
-					<div className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
-						<Cast className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" />
+					</article>
+					<article className="py-[5.1rem] max-lg:py-[4rem] max-md:py-[3rem] px-[1.6rem] max-md:px-[1.2rem] border-1 border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1rem] max-md:rounded-[0.8rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-4px_4px_0] shadow-light-pink/14">
+						<Cast className="size-40 max-lg:size-32 max-md:size-28 text-btn-purple mx-auto" aria-hidden="true" />
 						<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] font-semibold text-[2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]">
 							Personalized Responses
 						</p>
 						<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-w-[27rem] mx-auto text-center">
 							Personalization makes your interactions more engaging and tailored to your unique needs.
 						</p>
-					</div>
+					</article>
 				</div>
 			</section>
 			<section
+				aria-labelledby="pricing-heading"
 				className="flex flex-col mt-80 max-xl:mt-65 max-lg:mt-50 max-md:mt-35 max-sm:mt-25 pt-40 max-xl:pt-32 max-lg:pt-24 max-md:pt-16"
 				id="pricing"
 			>
 				<p className="inline-block badge mx-auto">Plan & Pricing</p>
-				<h2 className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem]">
+				<h2 id="pricing-heading" className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem]">
 					Choose the Plan that&apos;s Right For You
 				</h2>
 				<p className="text-center mt-[1.4rem] max-lg:mt-[0.9rem] max-md:mt-[1rem] max-sm:mt-[0.75rem] max-xs:mt-[0.5rem] text-typo-medium-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]">
 					Provide Descriptions, Get Instant AI Generated Content
 				</p>
 				<div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-[3.2rem] max-lg:gap-[2.4rem] max-md:gap-[1.6rem] mt-[5.6rem] max-lg:mt-[4rem] max-md:mt-[3rem] px-[17rem] max-xl:px-[4rem] max-md:px-[1.6rem] max-sm:px-[6rem] max-xs:px-[2rem]">
-					<div className="flex flex-col justify-between bg-glass-white py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke">
+					<article
+						aria-label="Free Plan"
+						className="flex flex-col justify-between bg-glass-white py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke"
+					>
 						<div>
 							<Image
 								src="/images/free-plan.png"
-								alt="free-plan"
+								alt="Free plan illustration"
 								className="relative w-full aspect-[2/1] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] overflow-hidden"
 							/>
 							<h5 className="mt-[1.6rem] max-md:mt-[1.2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.6rem]! max-xs:text-[1.4rem]!">
@@ -166,19 +178,31 @@ export default function Home() {
 							</p>
 							<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-w-[28rem]">
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Limited access to Multiple Personalities (3 personalities)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Basic Dynamic Suggestions
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Multi-platform Integration (limited to 1 device)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Multilingual Support (2 languages)
 								</li>
 							</ul>
@@ -188,59 +212,78 @@ export default function Home() {
 							variant="solid"
 							className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.8rem] text-[1.2rem]! max-lg:text-[1rem]!"
 							disabled
+							aria-label="Your Current Plan - Free"
 						>
 							Your Current Plan
 						</Button>
-					</div>
-					<div className="flex flex-col justify-between bg-[#1E2024] py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke">
+					</article>
+					<article
+						aria-label="Plus Plan"
+						className="flex flex-col justify-between bg-[#1E2024] py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke"
+					>
 						<div>
 							<Image
 								src="/images/plus-plan.png"
-								alt="plus-plan"
+								alt="Plus plan illustration"
 								className="relative w-full aspect-[2/1] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] overflow-hidden"
 							/>
 							<div className="flex items-center justify-between mt-[1.6rem] max-md:mt-[1.2rem]">
 								<h5 className="max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.6rem]! max-xs:text-[1.4rem]!">
 									Plus
 								</h5>
-								<div className="text-btn-purple border-1 py-[0.4rem] px-[0.7rem] text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.8rem] p-10 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem]">
+								<span className="text-btn-purple border-1 py-[0.4rem] px-[0.7rem] text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.8rem] p-10 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem]">
 									Best Selling
-								</div>
+								</span>
 							</div>
 							<p className="mt-[0.8rem] max-md:mt-[0.6rem] text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem]">
 								USD $20/month
 							</p>
 							<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-w-[28rem]">
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Access to Multiple Personalities (10 personalities)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Real-time Web References (unlimited queries)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Multi-platform Integration (up to 5 devices)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Multilingual Support (10 languages)
 								</li>
 							</ul>
 						</div>
 						<Button
 							variant="solid"
-							className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
+							className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
 						>
 							Upgrade to Plus
 						</Button>
-					</div>
-					<div className="flex flex-col justify-between bg-icon-black py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke">
+					</article>
+					<article
+						aria-label="Team Plan"
+						className="flex flex-col justify-between bg-icon-black py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke"
+					>
 						<div>
 							<Image
 								src="/images/team-plan.png"
-								alt="team-plan"
+								alt="Team plan illustration"
 								className="relative w-full aspect-[2/1] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] overflow-hidden"
 							/>
 							<h5 className="mt-[1.6rem] max-md:mt-[1.2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.6rem]! max-xs:text-[1.4rem]!">
@@ -251,19 +294,31 @@ export default function Home() {
 							</p>
 							<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-w-[28rem]">
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Advanced Generated Images (limited to 100 images/month for the team)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Multilingual Support (15 languages)
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Advanced Feedback Mechanism
 								</li>
 								<li className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
-									<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />
+									<Check
+										className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0"
+										aria-hidden="true"
+									/>
 									Collaborative conversation features for team projects
 								</li>
 							</ul>
@@ -271,14 +326,15 @@ export default function Home() {
 
 						<Button
 							variant="solid"
-							className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
+							className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
 						>
 							Upgrade to Team
 						</Button>
-					</div>
+					</article>
 				</div>
 			</section>
 			<section
+				aria-labelledby="personalize-heading"
 				id="personalize"
 				className="flex justify-between items-center max-lg:flex-col max-lg:gap-[4rem] mt-120 max-xl:mt-90 max-lg:mt-60 max-md:mt-35 max-sm:mt-30 px-[14rem] max-xl:px-[4rem] max-md:px-[1.6rem]"
 			>
@@ -286,7 +342,10 @@ export default function Home() {
 					<p className="[background:var(--gradient-text)] text-transparent bg-clip-text! max-lg:text-[1.4rem] max-md:text-[1.2rem]">
 						AI Features
 					</p>
-					<h4 className="mt-20 max-lg:mt-16 max-md:mt-12 max-lg:text-[3rem] max-md:text-[2.4rem]">
+					<h4
+						id="personalize-heading"
+						className="mt-20 max-lg:mt-16 max-md:mt-12 max-lg:text-[3rem] max-md:text-[2.4rem]"
+					>
 						Discover Personalities
 					</h4>
 					<p className="text-typo-medium-gray mt-[1.6rem] max-md:mt-[1.2rem] max-w-520 max-lg:text-[1.4rem] max-md:text-[1.2rem] max-lg:max-w-[45rem]">
@@ -294,15 +353,15 @@ export default function Home() {
 					</p>
 					<ul className="flex flex-col gap-[1.5rem] max-md:gap-[1rem] mt-[4.8rem] max-lg:mt-[3.6rem] max-md:mt-[2.4rem] *:flex *:items-center *:gap-[1.5rem] max-md:*:gap-[1rem] *:text-[1.4rem] max-lg:*:text-[1.2rem] max-md:*:text-[1rem] *:*:nth-[1]:size-[1.6rem] max-lg:*:*:nth-[1]:size-[1.4rem] *:*:nth-[1]:rounded-full *:*:nth-[1]:bg-btn-purple max-lg:*:justify-center">
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							12 different personalities
 						</li>
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							Personalized experience
 						</li>
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							Empathetic interactions
 						</li>
 					</ul>
@@ -312,7 +371,7 @@ export default function Home() {
 						<div className="flex flex-col items-center bg-[#27292E] py-[1.4rem] px-20 rounded-[0.8rem] border-[0.08rem] border-typo-dark-gray">
 							<Image
 								src="/images/sage.png"
-								alt="sage"
+								alt="Sage AI personality avatar"
 								className="relative size-[4.8rem] rounded-full overflow-hidden"
 							/>
 							<p className="mt-[0.8rem] text-[1.2rem]">Sage</p>
@@ -328,7 +387,11 @@ export default function Home() {
 
 					<div className="flex gap-[0.3rem] mt-[10rem] -ml-220">
 						<div className="bg-[#282A2F] rounded-tl-[0.6rem] rounded-bl-[0.6rem] p-[0.9rem] border-typo-dark-gray border-1 shrink-0">
-							<Image src="/images/sage.png" alt="sage" className="relative size-110 rounded-full overflow-hidden" />
+							<Image
+								src="/images/sage.png"
+								alt="Sage AI personality avatar"
+								className="relative size-110 rounded-full overflow-hidden"
+							/>
 							<p className="mt-[0.9rem] text-center font-semibold text-[1.4rem]">Sage</p>
 							<div className="mt-[1.6rem] rounded-[0.2rem] bg-btn-dark w-full h-[0.8rem]"></div>
 							<div className="mt-[0.4rem] rounded-[0.2rem] bg-btn-dark w-full h-[0.8rem]"></div>
@@ -383,15 +446,15 @@ export default function Home() {
 					</p>
 					<ul className="flex flex-col gap-[1.5rem] max-md:gap-[1rem] mt-[4.8rem] max-lg:mt-[3.6rem] max-md:mt-[2.4rem] *:flex *:items-center *:gap-[1.5rem] max-md:*:gap-[1rem] *:text-[1.4rem] max-lg:*:text-[1.2rem] max-md:*:text-[1rem] *:*:nth-[1]:size-[1.6rem] max-lg:*:*:nth-[1]:size-[1.4rem] *:*:nth-[1]:rounded-full *:*:nth-[1]:bg-btn-purple max-lg:*:justify-center">
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							Enhanced Engagement
 						</li>
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							Deeper Understanding
 						</li>
 						<li>
-							<Check />
+							<Check aria-hidden="true" />
 							Smooth Interactions
 						</li>
 					</ul>
@@ -406,7 +469,7 @@ export default function Home() {
 								Your Question
 								<Image
 									src="/images/user.png"
-									alt="user"
+									alt="User avatar"
 									className="relative size-20 rounded-[0.5rem] overflow-hidden shrink-0"
 								/>
 							</div>
@@ -415,7 +478,7 @@ export default function Home() {
 							<div className="flex items-center text-[1rem] text-btn-purple gap-5 py-10 mt-[1.65rem]">
 								<Image
 									src="/images/botbuzz.png"
-									alt="user"
+									alt="BotBuzz AI avatar"
 									className="relative size-20 rounded-[0.5rem] overflow-hidden shrink-0"
 								/>
 								Bot Buzz Response
@@ -438,10 +501,13 @@ export default function Home() {
 				</div>
 			</section>
 			<section
+				aria-labelledby="faq-heading"
 				id="FAQ"
 				className="flex flex-col px-[25.6rem] max-xl:px-[16rem] max-lg:px-[8rem] max-md:px-[3.2rem] max-sm:px-[1.4rem] max-xs:px-[0.5rem] mt-80 max-xl:mt-55 max-lg:mt-40 max-md:mt-25 max-sm:mt-15 pt-40 max-xl:pt-32 max-lg:pt-24 max-md:pt-16"
 			>
-				<h2 className="text-center">Everything You Need To Know</h2>
+				<h2 id="faq-heading" className="text-center">
+					Everything You Need To Know
+				</h2>
 				<p className="text-center mt-[1.4rem] max-lg:mt-[0.9rem] max-md:mt-[1rem] max-sm:mt-[0.75rem] max-xs:mt-[0.5rem] text-typo-medium-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]">
 					Here are some frequently asked questions
 				</p>
@@ -473,8 +539,13 @@ export default function Home() {
 					/>
 				</div>
 			</section>
-			<section className="flex flex-col items-center gap-[2.4rem] max-lg:gap-[2rem] max-md:gap-[1.6rem] mt-120 max-xl:mt-99 max-lg:mt-68 max-md:mt-48 max-sm:mt-38 rounded-[2rem] max-lg:rounded-[1.6rem] max-md:rounded-[1.2rem] py-[5.6rem] max-lg:py-[4rem] max-md:py-[3rem] px-[14.4rem] max-xl:px-[8rem] max-lg:px-[4rem] max-md:px-[2rem] mx-[14.4rem] max-xl:mx-[8rem] max-lg:mx-[4rem] max-md:mx-[1.6rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-2px_10px_0_#E9DFFF45,0_-2px_40px_0_#A7A0F822]">
-				<h3 className="max-lg:text-[3rem] max-md:text-[2.4rem] max-sm:text-[2rem]">Join Our Community</h3>
+			<section
+				aria-labelledby="community-heading"
+				className="flex flex-col items-center gap-[2.4rem] max-lg:gap-[2rem] max-md:gap-[1.6rem] mt-120 max-xl:mt-99 max-lg:mt-68 max-md:mt-48 max-sm:mt-38 rounded-[2rem] max-lg:rounded-[1.6rem] max-md:rounded-[1.2rem] py-[5.6rem] max-lg:py-[4rem] max-md:py-[3rem] px-[14.4rem] max-xl:px-[8rem] max-lg:px-[4rem] max-md:px-[2rem] mx-[14.4rem] max-xl:mx-[8rem] max-lg:mx-[4rem] max-md:mx-[1.6rem] bg-linear-0 from-white/0 to-white/5 shadow-[0_-2px_10px_0_#E9DFFF45,0_-2px_40px_0_#A7A0F822]"
+			>
+				<h2 id="community-heading" className="max-lg:text-[3rem] max-md:text-[2.4rem] max-sm:text-[2rem]">
+					Join Our Community
+				</h2>
 				<p className="text-center text-typo-medium-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]">
 					At Bot Buzz, we value connection and shared experiences. Join our vibrant community to enhance your daily
 					interactions with AI, share stories, exchange tips, and discover new ways to maximize your Ai-Con experience.
@@ -484,22 +555,25 @@ export default function Home() {
 				</Button>
 			</section>
 			<footer className="flex flex-col gap-[4.8rem] max-lg:gap-[3.6rem] max-md:gap-[2.4rem] py-[3.2rem] max-lg:py-[2.4rem] max-md:py-[1.6rem] px-[6.4rem] max-xl:px-[4.8rem] max-lg:px-[3.2rem] max-md:px-[1.6rem] mt-120 max-xl:mt-90 max-lg:mt-60 max-md:mt-35 max-sm:mt-25">
-				<div className="grid grid-cols-[460px_repeat(5,max-content)] max-xl:grid-cols-[repeat(3,max-content)] justify-between max-xl:gap-y-40 max-lg:gap-y-36 max-md:gap-y-29 max-sm:gap-y-26 max-xs:gap-y-24 max-xs:w-full w-full">
+				<nav
+					aria-label="Footer navigation"
+					className="grid grid-cols-[460px_repeat(5,max-content)] max-xl:grid-cols-[repeat(3,max-content)] justify-between max-xl:gap-y-40 max-lg:gap-y-36 max-md:gap-y-29 max-sm:gap-y-26 max-xs:gap-y-24 max-xs:w-full w-full"
+				>
 					<div className="max-xl:justify-self-start">
 						<div className="flex items-center gap-[0.8rem] shrink-0">
 							<Image
 								src="/images/favicon.png"
-								alt="icon"
+								alt="BotBuzz Logo"
 								className="relative size-[4.8rem] max-xl:size-[4rem] max-lg:size-[3.6rem] max-md:size-[3.2rem] max-sm:size-[2.8rem] max-xs:size-[2.4rem]"
 							/>
 							<p className="font-semibold text-[2.4rem] max-xl:text-[2.1rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem] max-xs:text-[1.2rem]">
 								BotBuzz
 							</p>
 						</div>
-						<p className="mt-7 max-sm:mt-6 max-xs:mt-5 max-lg:text-[1.2rem] max-md:text-[1rem] text-typo-medium-gray">
+						<address className="mt-7 max-sm:mt-6 max-xs:mt-5 max-lg:text-[1.2rem] max-md:text-[1rem] text-typo-medium-gray not-italic">
 							Developed by <br className="sm:hidden max-sm:block" />
 							<span className="inline-block text-btn-purple max-sm:mt-2">@mhdifyyzi</span>
-						</p>
+						</address>
 					</div>
 
 					<div className="max-xl:justify-self-start">
@@ -554,12 +628,12 @@ export default function Home() {
 							<Link href="#">Support</Link>
 						</div>
 					</div>
-				</div>
+				</nav>
 				<hr className="border-typo-dark-gray" />
 				<div className="flex justify-between items-center select-none max-md:flex-col max-md:gap-[1.6rem] max-md:text-center">
 					<div>
 						<p className="font-semibold text-[2rem] max-lg:text-[1.6rem] max-md:text-[1.4rem]">
-							Copyright © 2026 . All rights reserved
+							Copyright &copy; {new Date().getFullYear()} BotBuzz. All rights reserved
 						</p>
 					</div>
 					<div className="flex items-center gap-[0.8rem] max-md:gap-[0.6rem]">
