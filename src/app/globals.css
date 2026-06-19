@@ -84,6 +84,9 @@
 @utility bg-gradient-stroke {
 	@apply [background:var(--gradient-stroke)];
 }
+@utility bg-gradient-text {
+	@apply [background:var(--gradient-text)];
+}
 
 h1 {
 	@apply text-[5.8rem] max-xl:text-[5rem] max-lg:text-[4.3rem] max-md:text-[2.9rem] max-sm:text-[2.5rem] max-xs:text-[1.8rem] font-bold;

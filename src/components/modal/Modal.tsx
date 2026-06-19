@@ -99,7 +99,7 @@ export default function Modal({ open = false, children, onClose }: Modal) {
 		<dialog
 			ref={dialogRef}
 			onClick={(e) => e.target === dialogRef.current && close()}
-			className={`backdrop:bg-black/50 backdrop:backdrop-blur-[3px] 
+			className={`backdrop:bg-black/50 backdrop:backdrop-blur-[3px] outline-none 
 				bg-transparent p-0 m-auto
 				flex items-center justify-center
 				max-w-[calc(100%-2.4rem)] max-h-[85vh]
