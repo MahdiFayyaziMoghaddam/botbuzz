@@ -82,12 +82,12 @@ export default function Sidebar() {
 						isMobile
 							? `w-260 px-16 ${isDrawerOpen ? "left-0" : "-left-full"}`
 							: isCollapsed
-								? "w-[12.16rem] max-xl:w-[9.3rem] max-lg:w-[7.3rem] xl:px-35 lg:px-24 md:px-16"
-								: "w-260 max-xl:w-230 max-lg:w-200 xl:px-35 lg:px-24 md:px-16"
+								? "w-[10rem] max-xl:w-[9.3rem] max-lg:w-[7.3rem] xl:px-24 lg:px-24 md:px-16"
+								: "w-260 max-xl:w-230 max-lg:w-200 xl:px-24 lg:px-24 md:px-16"
 					}`}
 			>
 				<div>
-					<div className={`flex justify-between items-start xl:-mr-47 lg:-mr-34 md:-mr-24`}>
+					<div className={`flex justify-between items-start xl:-mr-36 lg:-mr-34 md:-mr-24`}>
 						<Image
 							src="/images/favicon.png"
 							alt="icon"
