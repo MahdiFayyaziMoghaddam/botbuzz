@@ -1,5 +1,5 @@
 export default function Loader() {
 	return (
-		<div className="h-[2.4rem] w-[2.4rem] animate-spin rounded-full border-[3px] border-glass-white border-b-white inline-block"></div>
+		<div className="size-[1.5em] animate-spin rounded-full border-[3px] max-md:border-[2px] max-sm:border-[1px] border-glass-white border-b-white inline-block"></div>
 	);
 }

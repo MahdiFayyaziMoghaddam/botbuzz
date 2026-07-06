@@ -1,19 +1,49 @@
+"use client";
 import Button from "@/components/button/Button";
 import Google from "@/components/icons/google";
 import Image from "@/components/image/Image";
 import Checkbox from "@/components/input/Checkbox";
 import Textbox from "@/components/input/Textbox";
-import { Metadata } from "next";
 import Link from "next/link";
-
-export const metadata: Metadata = {
-	title: "BotBuzz - Sign in"
-};
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Signup() {
+	const router = useRouter();
+	const [isAgreeWithTerms, setIsAgreeWithTerms] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+		name: ""
+	});
+	const resetFormData = () =>
+		setFormData({
+			email: "",
+			password: "",
+			name: ""
+		});
+
 	return (
 		<div className="grid grid-cols-[30vw_51vw] max-lg:grid-cols-1 justify-between items-start bg-onboarding py-[2.2vw] px-[4.4vw] min-h-dvh">
-			<div>
+			<form
+				onSubmit={async (e) => {
+					e.preventDefault();
+					if (isAgreeWithTerms && formData.email && formData.password && formData.name) {
+						setIsLoading(true);
+						resetFormData();
+						const response = await fetch("/api/signup", {
+							method: "POST",
+							body: JSON.stringify(formData)
+						});
+						const { data, error } = await response.json();
+						if (data) {
+							router.replace("/onboarding");
+						}
+						setIsLoading(false);
+					}
+				}}
+			>
 				<div className="flex items-center gap-[0.8rem] max-lg:gap-7 max-md:gap-6 max-sm:gap-5 max-xs:gap-4 select-none justify-self-start">
 					<Image
 						src={"/images/logo.png"}
@@ -22,17 +52,51 @@ export default function Signup() {
 					/>
 					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]">BotBuzz</p>
 				</div>
-				<h3 className="mt-64 max-xl:mt-55 max-lg:mt-50 max-md:mt-40 max-sm:mt-30 max-xs:mt-20 text-nowrap">Sign in</h3>
+				<h3 className="mt-64 max-xl:mt-55 max-lg:mt-50 max-md:mt-40 max-sm:mt-30 max-xs:mt-20 text-nowrap">
+					Create an Account
+				</h3>
 				<p className="text-typo-medium-gray text-[1.8rem] max-xl:text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-nowrap">
-					Add your credentials to sign in
+					Kindly fill in your details to create an account
 				</p>
 				<div className="flex flex-col gap-24 max-xs:gap-16 mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20">
-					<Textbox label="Your email" placeholder="Enter your email" />
-					<Textbox type="password" label="Your password" placeholder="Enter your password" />
-					<Checkbox label="I agree to terms & conditions" />
+					<Textbox
+						value={formData.name}
+						onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+						name="name"
+						label="Your fullname"
+						placeholder="Enter your name"
+						required
+					/>
+					<Textbox
+						value={formData.email}
+						onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+						name="email"
+						label="Your email"
+						placeholder="Enter your email"
+						required
+					/>
+					<Textbox
+						value={formData.password}
+						onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
+						name="password"
+						type="password"
+						label="Your password"
+						placeholder="Enter your password"
+						required
+					/>
+					<Checkbox
+						label="I agree to terms & conditions"
+						checked={isAgreeWithTerms}
+						onChange={(e) => setIsAgreeWithTerms(e.target.checked)}
+					/>
 				</div>
-				<Button variant="solid" className="mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 w-full">
-					Sign in
+				<Button
+					variant="solid"
+					className="mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 w-full"
+					isLoading={isLoading}
+					disabled={!isAgreeWithTerms}
+				>
+					Sign up
 				</Button>
 				<div className="flex items-center w-full mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 select-none">
 					<hr className="w-full" />
@@ -49,12 +113,12 @@ export default function Signup() {
 					Register with Google
 				</Button>
 				<p className="mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 text-center text-[1.6rem] text-typo-light-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
-					Don’t have an Account?
-					<Link href={"/signup"} className="text-btn-purple link-underline ml-4 max-lg:ml-3 max-md:ml-2">
-						Sign up
+					Already have an Account?{" "}
+					<Link href={"/signin"} className="text-btn-purple link-underline ml-4 max-lg:ml-3 max-md:ml-2">
+						Sign in
 					</Link>
 				</p>
-			</div>
+			</form>
 			<Image
 				src="/images/sign-banner.png"
 				alt="ai"

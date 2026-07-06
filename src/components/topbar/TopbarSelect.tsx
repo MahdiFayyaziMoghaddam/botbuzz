@@ -8,6 +8,7 @@ interface TopbarSelectProps {
 		label: string;
 		href: string;
 		icon: React.ReactNode;
+		onClick?: () => void;
 	}[];
 	children?: ReactNode;
 }
@@ -61,6 +62,11 @@ export default function TopbarSelect({ items = [], children }: TopbarSelectProps
 								key={i}
 								href={item.href}
 								className="flex items-center gap-8 max-lg:gap-7 max-md:gap-6 max-sm:gap-5 py-10 max-lg:py-9 max-md:py-8 max-sm:py-7 px-16 max-lg:px-14 max-md:px-12 max-sm:px-10 hover:bg-white/10 transition-colors duration-300 *:first:size-25 max-lg:*:first:size-22 max-md:*:first:size-20 max-sm:*:first:size-18 max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]"
+								onNavigate={() => {
+									setIsOpen(false);
+									detailsRef.current!.open = false;
+								}}
+								onClick={item.onClick}
 							>
 								{item.icon}
 								{item.label}

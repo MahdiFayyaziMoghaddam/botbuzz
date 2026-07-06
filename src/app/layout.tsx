@@ -22,7 +22,7 @@ const poppinsFont = localFont({
 	],
 	variable: "--font-poppins",
 	preload: true,
-	display: "swap",
+	display: "auto",
 	adjustFontFallback: "Arial"
 });
 

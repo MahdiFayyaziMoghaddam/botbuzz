@@ -6,8 +6,11 @@ import Image from "../image/Image";
 import TopbarSelect from "./TopbarSelect";
 import Menu from "../icons/menu";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import { usePathname } from "next/navigation";
+import { signout } from "@/app/(auth)/_signout/action";
 
 export default function Topbar() {
+	const pathname = usePathname();
 	const { setIsDrawerOpen } = useDashboardContext();
 	return (
 		<div className="flex justify-between flex-row-reverse items-center bg-[#3A3C40] border-b-2 border-glass-stroke py-18 max-xl:py-16 max-lg:py-14 max-md:py-12 max-sm:py-10 px-24 max-xl:px-20 max-lg:px-16 max-md:px-12 max-sm:px-10">
@@ -15,7 +18,12 @@ export default function Topbar() {
 				<TopbarSelect
 					items={[
 						{ label: "Profile Details", href: "/profile", icon: <Person /> },
-						{ label: "Sign out", href: "/signout", icon: <Logout /> }
+						{
+							label: "Sign out",
+							href: pathname,
+							icon: <Logout />,
+							onClick: () => signout()
+						}
 					]}
 				>
 					<Image

@@ -10,7 +10,7 @@ import Vital from "@/components/icons/vital";
 import Image from "@/components/image/Image";
 import Link from "next/link";
 
-export default function Landing() {
+export default async function Landing() {
 	return (
 		<>
 			<nav
