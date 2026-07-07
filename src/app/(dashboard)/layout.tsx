@@ -1,16 +1,11 @@
 import { ReactNode } from "react";
 import Provider from "./_provider";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "@/libs/supabase";
+import { getUser } from "@/auth/actions";
 import "./styles.css";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
-	const cookie = await cookies();
-	const supabase = createClient(cookie);
-	const {
-		data: { user }
-	} = await supabase.auth.getUser();
+	const user = await getUser();
 	if (!user) {
 		return redirect("/signin", "replace");
 	}

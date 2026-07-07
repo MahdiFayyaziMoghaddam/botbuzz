@@ -1,11 +1,10 @@
-import { createClient } from "@/libs/supabase";
-import { cookies } from "next/headers";
+import { createAuthClient } from "@/lib/supabase";
 import { type NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
 	const { email, password, name } = await req.json();
-	const cookie = await cookies();
-	const supabase = createClient(cookie);
+
+	const supabase = await createAuthClient();
 	const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
 	if (error) {
 		return Response.json({ error: { name: error.name, message: error.message } }, { status: error.status });

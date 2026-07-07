@@ -1,14 +1,9 @@
 import { ReactNode } from "react";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createClient } from "@/libs/supabase";
+import { getUser } from "@/auth/actions";
 
 export default async function AuthLayout({ children }: { children: ReactNode }) {
-	const cookie = await cookies();
-	const supabase = createClient(cookie);
-	const {
-		data: { user }
-	} = await supabase.auth.getUser();
+	const user = await getUser();
 	if (user) {
 		return redirect("/chat", "replace");
 	}

@@ -1,23 +1,22 @@
 "use client";
+import { signin } from "@/auth/actions";
 import Button from "@/components/button/Button";
 import Google from "@/components/icons/google";
 import Image from "@/components/image/Image";
 import Checkbox from "@/components/input/Checkbox";
 import Textbox from "@/components/input/Textbox";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Signup() {
-	const router = useRouter();
 	const [isAgreeWithTerms, setIsAgreeWithTerms] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [formData, setFormData] = useState({
+	const [data, setData] = useState({
 		email: "",
 		password: ""
 	});
 	const resetFormData = () =>
-		setFormData({
+		setData({
 			email: "",
 			password: ""
 		});
@@ -26,18 +25,18 @@ export default function Signup() {
 			<form
 				onSubmit={async (e) => {
 					e.preventDefault();
-					if (isAgreeWithTerms && formData.email && formData.password) {
+					if (isAgreeWithTerms && data.email && data.password) {
 						setIsLoading(true);
-						resetFormData();
-						const response = await fetch("/api/signin", {
-							method: "POST",
-							body: JSON.stringify(formData)
-						});
-						const { data, error } = await response.json();
-						if (data) {
-							router.replace("/chat");
-						}
+
+						const formData = new FormData();
+						formData.append("email", data.email);
+						formData.append("password", data.password);
+
+						const { error } = await signin(formData);
+						if (error) console.error(error);
+
 						setIsLoading(false);
+						resetFormData();
 					}
 				}}
 			>
@@ -57,16 +56,16 @@ export default function Signup() {
 					<Textbox
 						type="email"
 						name="email"
-						value={formData.email}
-						onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+						value={data.email}
+						onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))}
 						label="Your email"
 						placeholder="Enter your email"
 						required
 					/>
 					<Textbox
 						name="password"
-						value={formData.password}
-						onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
+						value={data.password}
+						onChange={(e) => setData((prev) => ({ ...prev, password: e.target.value }))}
 						type="password"
 						label="Your password"
 						placeholder="Enter your password"
