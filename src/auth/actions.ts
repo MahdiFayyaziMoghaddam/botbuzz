@@ -17,7 +17,7 @@ export async function signup(formData: FormData) {
 		email,
 		password,
 		options: {
-			data: { name }
+			data: { name, notification: false, subscription: "Free" }
 		}
 	});
 
@@ -25,7 +25,7 @@ export async function signup(formData: FormData) {
 		return { error: error.message };
 	}
 
-	redirect("/onboarding");
+	redirect("/onboarding", "replace");
 }
 
 export async function signin(formData: FormData) {
@@ -39,19 +39,21 @@ export async function signin(formData: FormData) {
 	const supabase = await createAuthClient();
 	const { error } = await supabase.auth.signInWithPassword({
 		email,
-		password,
+		password
 	});
 
 	if (error) {
 		return { error: error.message };
 	}
 
-	redirect("/chat");
+	redirect("/chat", "replace");
 }
 
 export const signout = async () => {
 	const supabase = await createAuthClient();
-	await supabase.auth.signOut();
+	try {
+		await supabase.auth.signOut();
+	} catch {}
 	return redirect("/signin", "replace");
 };
 
