@@ -46,8 +46,7 @@ export default function CharacterModal(props: CharacterModal) {
 							Purpose
 						</p>
 						<span className="max-w-630 max-xl:max-w-550 max-lg:max-w-450 max-md:max-w-full text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-typo-medium-gray">
-							To engage in deep and meaningful discussions, provide insights, and guide users through complex topics and
-							life&apos;s profound questions.
+							{props.description?.split(",").slice(1).join(",")}
 						</span>
 					</div>
 					<div className="mt-48 max-xl:mt-40 max-lg:mt-32 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 max-w-740 max-xl:max-w-650 max-lg:max-w-550 max-md:max-w-full">

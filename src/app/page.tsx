@@ -37,12 +37,13 @@ export default async function Landing() {
 					</Link>
 					<Link
 						href={"/signin"}
+						prefetch={false}
 						className="link-underline max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]"
 					>
 						Sign in
 					</Link>
 				</div>
-				<Link href={"/signin"} className="badge">
+				<Link href={"/signin"} prefetch={false} className="badge">
 					Get Started
 				</Link>
 			</nav>
@@ -60,7 +61,7 @@ export default async function Landing() {
 				<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem] text-typo-dark-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem]">
 					Your Personal AI Companion, Tailored for Every Conversation, Anytime, Anywhere
 				</p>
-				<Link href={"/signin"}>
+				<Link href={"/signin"} prefetch={false}>
 					<Button className="font-normal! px-[4.3rem] max-lg:px-[3.5rem] max-md:px-[2.8rem] mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-20 max-sm:mt-15 mx-auto max-lg:text-[1.2rem] max-md:text-[1rem]">
 						Start Conversation for Free
 					</Button>

@@ -4,6 +4,8 @@ const SEED_DATA = {
 	subscriptions: [
 		{
 			plan: "Free",
+			price: 0.0,
+			image: "/images/free-plan.png",
 			features: [
 				"Limited access to Multiple Personalities (3 personalities)",
 				"Basic Dynamic Suggestions",
@@ -13,6 +15,8 @@ const SEED_DATA = {
 		},
 		{
 			plan: "Plus",
+			price: 20.0,
+			image: "/images/plus-plan.png",
 			features: [
 				"Access to Multiple Personalities (10 personalities)",
 				"Real-time Web References (unlimited queries)",
@@ -22,6 +26,8 @@ const SEED_DATA = {
 		},
 		{
 			plan: "Team",
+			price: 40.0,
+			image: "/images/team-plan.png",
 			features: [
 				"Advanced Generated Images (limited to 100 images/month for the team)",
 				"Multilingual Support (15 languages)",

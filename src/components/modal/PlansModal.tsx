@@ -3,8 +3,18 @@ import Modal from "./Modal";
 import Image from "../image/Image";
 import Check from "../icons/check";
 import Button from "../button/Button";
+import { getSubscriptions } from "@/database/subscriptions";
+import { useEffect, useState } from "react";
+import { Subscription } from "@/types/database";
+import { getUser } from "@/auth/actions";
 
 export default function PlansModal({ open = false, onClose }: ModalProps) {
+	const [data, setData] = useState<Subscription[]>([]);
+	const [plan, setPlan] = useState<Subscription["plan"]>("Free");
+	useEffect(() => {
+		getSubscriptions().then(({ data: subscriptions }) => setData(subscriptions));
+		getUser().then(({ user }) => setPlan(user?.user_metadata.subscription));
+	}, []);
 	return (
 		<Modal open={open} onClose={onClose}>
 			<div className="py-40 max-xl:py-35 max-lg:py-30 max-md:py-24 max-sm:py-20 max-xs:py-16 px-45 max-xl:px-38 max-lg:px-30 max-md:px-22 max-sm:px-18 max-xs:px-14 bg-glass-white backdrop-blur-[37px] max-lg:backdrop-blur-[25px] max-md:backdrop-blur-[18px] rounded-[2rem] max-xl:rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] max-sm:rounded-[0.6rem] max-xs:rounded-[0.5rem] overflow-auto">

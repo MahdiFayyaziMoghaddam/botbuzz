@@ -8,19 +8,22 @@
 		"start": "next start",
 		"lint": "eslint",
 		"db:connect": "supabase login && supabase link",
-		"db:migrate": "supabase db push",
-		"db:seed": "npx tsx --env-file=.env src/database/seed.ts",
+		"db:migrate": "supabase db push --linked",
+		"db:repair": "supabase migration repair 001 002 003 004 005 --status reverted --linked",
+		"db:fix": "npm run db:repair && npm run db:migrate",
+		"db:seed": "tsx --env-file=.env src/database/seed.ts",
 		"db:init": "npm run db:connect && npm run db:migrate && npm run db:seed"
 	},
 	"dependencies": {
 		"@supabase/ssr": "^0.12.0",
 		"@supabase/supabase-js": "^2.110.0",
+		"lz-string": "^1.5.0",
 		"next": "16.2.6",
 		"react": "19.2.4",
-		"react-dom": "19.2.4"
+		"react-dom": "19.2.4",
+		"sharp": "^0.35.3"
 	},
 	"devDependencies": {
-		"@prisma/client": "^6.19.3",
 		"@tailwindcss/postcss": "^4",
 		"@types/node": "^20",
 		"@types/react": "^19",
@@ -28,7 +31,6 @@
 		"dotenv": "^17.4.2",
 		"eslint": "^9",
 		"eslint-config-next": "16.2.6",
-		"prisma": "^6.19.3",
 		"supabase": "^2.109.1",
 		"tailwindcss": "^4",
 		"tsx": "^4.23.0",

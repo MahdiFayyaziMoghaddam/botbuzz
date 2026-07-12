@@ -8,23 +8,16 @@ import History from "../icons/history";
 import Settings from "../icons/settings";
 import SidebarOption from "./SidebarOption";
 import SidebarUpgrade from "./SidebarUpgrade";
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import useMediaQuery from "@/hooks/useBreakpoint";
 
 export default function Sidebar() {
 	const { isDrawerOpen, setIsDrawerOpen, isCollapsed, setIsCollapsed } = useDashboardContext();
 	const { isBelow: isMobile } = useMediaQuery("md");
-	const [isMounted, setIsMounted] = useState(false);
 	const scrollY = useRef(0);
-
 	const toggleCollapse = () => setIsCollapsed((prev) => !prev);
 	const closeDrawer = useCallback(() => setIsDrawerOpen(false), [setIsDrawerOpen]);
-
-	useEffect(() => {
-		// eslint-disable-next-line react-hooks/set-state-in-effect
-		setIsMounted(true);
-	}, []);
 
 	useEffect(() => {
 		if (isMobile) {
@@ -72,10 +65,6 @@ export default function Sidebar() {
 		document.addEventListener("keydown", handleEscape, true);
 		return () => document.removeEventListener("keydown", handleEscape, true);
 	}, [isDrawerOpen, isMobile, closeDrawer]);
-
-	if (!isMounted) {
-		return null;
-	}
 
 	return (
 		<>

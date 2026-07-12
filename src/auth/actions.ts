@@ -1,7 +1,12 @@
 "use server";
 
-import { createAuthClient } from "@/lib/supabase";
+import { createAuthClient, createDBClient } from "@/lib/supabase";
+import { type Subscription } from "@/types/database";
+import { cropToSquare } from "@/utils/cropToSquare";
 import { redirect } from "next/navigation";
+import { cache } from "react";
+
+const AVATAR_BUCKET = "avatars";
 
 export async function signup(formData: FormData) {
 	const email = formData.get("email") as string;
@@ -12,17 +17,21 @@ export async function signup(formData: FormData) {
 		return { error: "All fields are required." };
 	}
 
+	if (name.length < 2 || name.length > 33) {
+		return { error: "Name length must be lower than 33 and higher than 2" };
+	}
+
 	const supabase = await createAuthClient();
 	const { error } = await supabase.auth.signUp({
 		email,
 		password,
 		options: {
-			data: { name, notification: false, subscription: "Free" }
+			data: { name, notification: false, subscription: "Free", image: "" }
 		}
 	});
 
 	if (error) {
-		return { error: error.message };
+		return { error };
 	}
 
 	redirect("/onboarding", "replace");
@@ -43,7 +52,7 @@ export async function signin(formData: FormData) {
 	});
 
 	if (error) {
-		return { error: error.message };
+		return { error };
 	}
 
 	redirect("/chat", "replace");
@@ -57,10 +66,110 @@ export const signout = async () => {
 	return redirect("/signin", "replace");
 };
 
-export const getUser = async () => {
+export const getUser = cache(async () => {
 	const supabase = await createAuthClient();
 	const {
-		data: { user }
+		data: { user },
+		error
 	} = await supabase.auth.getUser();
-	return user;
-};
+	return { user, error };
+});
+
+interface UpdateUser {
+	notification?: boolean;
+	name?: string;
+	email?: string;
+	password?: string;
+	confirm?: string;
+	subscription?: Subscription["plan"];
+	image?: string;
+}
+export const updateUser = cache(
+	async ({ email, image, name, notification, password, subscription, confirm }: UpdateUser) => {
+		const imageRegex = /^(https?:\/\/[^\s/$.?#]+\.[^\s/$.?#]+\/[^\s?]*\.[a-zA-Z]{2,4}|^\/[^\s?]*\.[a-zA-Z]{2,4})$/;
+		if (password && confirm && password !== confirm) {
+			return { error: "Passwords don't match" };
+		}
+		if (image && !imageRegex.test(image)) {
+			return { error: "Image must be file url or absolute path" };
+		}
+		if (name && (name.length < 2 || name.length > 33)) {
+			return { error: "Name length must be lower than 33 and higher than 2" };
+		}
+		if (subscription && subscription !== "Free" && subscription !== "Plus" && subscription !== "Team") {
+			return { error: "Subscription must be either Free or Plus or Team" };
+		}
+		const supabase = await createAuthClient();
+		const {
+			data: { user },
+			error
+		} = await supabase.auth.updateUser({
+			email,
+			password,
+			data: { name, notification, subscription, image }
+		});
+		return { user, error: error?.message };
+	}
+);
+
+export const uploadUserAvatar = cache(async (file: File) => {
+	console.log("file", file);
+	if (file.size > 1024 * 1024 * 5) {
+		return {
+			error: "File is too large, Maximum size is 5MB"
+		};
+	}
+	const arrayBuffer = await file.arrayBuffer();
+	const buffer = Buffer.from(arrayBuffer);
+	if (buffer.byteLength > 1024 * 1024 * 5) {
+		return {
+			error: "File is too large, Maximum size is 5MB"
+		};
+	}
+	try {
+		const croppedBuffer = await cropToSquare(buffer);
+		const supabase = await createDBClient();
+		const { user } = await getUser();
+
+		if (!user) {
+			return { error: "User not authenticated" };
+		}
+
+		const fileExt = "webp";
+		const fileName = `${crypto.randomUUID()}.${fileExt}`;
+		const filePath = `${user.id}/${fileName}`;
+
+		const { error: listError, data } = await supabase.storage.from(AVATAR_BUCKET).list(`${user.id}`);
+		if (listError) {
+			return { error: listError.message };
+		}
+
+		const { error: removeError } = await supabase.storage
+			.from(AVATAR_BUCKET)
+			.remove(data.map(({ name }) => `${user.id}/${name}`));
+		if (removeError) {
+			return { error: removeError.message };
+		}
+
+		const { error: uploadError } = await supabase.storage.from(AVATAR_BUCKET).upload(filePath, croppedBuffer, {
+			contentType: "image/webp"
+		});
+		if (uploadError) {
+			return { error: uploadError.message };
+		}
+
+		const {
+			data: { publicUrl }
+		} = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(filePath);
+
+		const { error } = await updateUser({ image: publicUrl });
+		if (error) {
+			return { error };
+		}
+		return { data: publicUrl };
+	} catch (error) {
+		return {
+			error: error instanceof Error ? error.message : "An unexpected error occurred"
+		};
+	}
+});

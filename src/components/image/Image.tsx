@@ -1,7 +1,7 @@
 // "use client";
-import I from "next/image";
+import I, { ImageProps } from "next/image";
 
-interface Image {
+interface Image extends ImageProps {
 	src: string;
 	alt: string;
 	className?: string;

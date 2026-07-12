@@ -3,10 +3,20 @@ import Sidebar from "@/components/sidebar/Sidebar";
 import Topbar from "@/components/topbar/Topbar";
 import { DashboardContextProvider } from "@/contexts/DashboardContext";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function Provider({ children }: { children: ReactNode }) {
+	const [isMounted, setIsMounted] = useState(false);
 	const pathname = usePathname();
+
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setIsMounted(true);
+	}, []);
+
+	if (!isMounted) {
+		return null;
+	}
 	return (
 		<>
 			<DashboardContextProvider>

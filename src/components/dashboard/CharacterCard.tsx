@@ -5,11 +5,12 @@ import CharacterModal from "../modal/CharacterModal";
 
 interface CharacterCard {
 	imgSrc: string;
-	title?: string;
-	description?: string;
+	title: string;
+	description: string;
+	skills: string[];
 }
 
-export default function CharacterCard({ imgSrc, title = "", description }: CharacterCard) {
+export default function CharacterCard({ imgSrc, title = "", description, skills }: CharacterCard) {
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	return (
 		<>
@@ -37,18 +38,14 @@ export default function CharacterCard({ imgSrc, title = "", description }: Chara
 						{description}
 					</p>
 					<div className="flex flex-wrap justify-center items-start gap-8 max-xl:gap-7 max-lg:gap-6 max-md:gap-5 max-sm:gap-4 max-xs:gap-3">
-						<p className="border-1 border-typo-dark-gray rounded-[0.6rem] max-xl:rounded-[0.55rem] max-lg:rounded-[0.5rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem] py-5 max-xl:py-4.5 max-lg:py-4 max-md:py-3.5 max-sm:py-3 max-xs:py-2.5 px-8 max-xl:px-7 max-lg:px-6 max-md:px-5 max-sm:px-4.5 max-xs:px-4 text-nowrap">
-							Curiosity and Open-Mindedness
-						</p>
-						<p className="border-1 border-typo-dark-gray rounded-[0.6rem] max-xl:rounded-[0.55rem] max-lg:rounded-[0.5rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem] py-5 max-xl:py-4.5 max-lg:py-4 max-md:py-3.5 max-sm:py-3 max-xs:py-2.5 px-8 max-xl:px-7 max-lg:px-6 max-md:px-5 max-sm:px-4.5 max-xs:px-4 text-nowrap">
-							Ethical Reasoning
-						</p>
-						<p className="border-1 border-typo-dark-gray rounded-[0.6rem] max-xl:rounded-[0.55rem] max-lg:rounded-[0.5rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem] py-5 max-xl:py-4.5 max-lg:py-4 max-md:py-3.5 max-sm:py-3 max-xs:py-2.5 px-8 max-xl:px-7 max-lg:px-6 max-md:px-5 max-sm:px-4.5 max-xs:px-4 text-nowrap">
-							Power
-						</p>
-						<p className="border-1 border-typo-dark-gray rounded-[0.6rem] max-xl:rounded-[0.55rem] max-lg:rounded-[0.5rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem] py-5 max-xl:py-4.5 max-lg:py-4 max-md:py-3.5 max-sm:py-3 max-xs:py-2.5 px-8 max-xl:px-7 max-lg:px-6 max-md:px-5 max-sm:px-4.5 max-xs:px-4 text-nowrap">
-							Effective Communication
-						</p>
+						{skills.map((skill) => (
+							<p
+								key={skill}
+								className="border-1 border-typo-dark-gray rounded-[0.6rem] max-xl:rounded-[0.55rem] max-lg:rounded-[0.5rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem] py-5 max-xl:py-4.5 max-lg:py-4 max-md:py-3.5 max-sm:py-3 max-xs:py-2.5 px-8 max-xl:px-7 max-lg:px-6 max-md:px-5 max-sm:px-4.5 max-xs:px-4 text-nowrap"
+							>
+								{skill}
+							</p>
+						))}
 					</div>
 				</div>
 			</button>
