@@ -1,6 +1,9 @@
 import Image from "../image/Image";
 import Check from "../icons/check";
 import Button from "../button/Button";
+import { updateUser } from "@/auth/actions";
+import { toast } from "react-toastify";
+import { Dispatch, SetStateAction } from "react";
 
 interface Subscription {
 	imgSrc: string;
@@ -8,22 +11,45 @@ interface Subscription {
 	features: string[];
 	price: number;
 	currentPlan?: this["plan"];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	setCurrentPlan?: Dispatch<SetStateAction<any>>;
+	isLoading?: boolean;
+	setIsLoading?: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Subscription({ features, imgSrc, plan, price, currentPlan }: Subscription) {
+export default function Subscription({
+	features,
+	imgSrc,
+	plan,
+	price,
+	currentPlan,
+	setCurrentPlan,
+	isLoading,
+	setIsLoading
+}: Subscription) {
 	return (
-		<div className="flex flex-col justify-between bg-onboarding py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke">
+		<div
+			className={`flex flex-col justify-between ${plan === "Free" ? "bg-onboarding" : plan === "Plus" ? "bg-[#1E2024]" : "bg-icon-black"} py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke`}
+		>
 			<div>
 				<Image
 					src={imgSrc}
 					alt="free-plan"
 					className="relative w-full aspect-[2/1] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] overflow-hidden"
+					loading="lazy"
 				/>
-				<h5 className="mt-[1.6rem] max-md:mt-[1.2rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.6rem]! max-xs:text-[1.4rem]!">
-					{plan}
-				</h5>
+				<div className="flex items-center justify-between mt-[1.6rem] max-md:mt-[1.2rem]">
+					<h5 className="max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.6rem]! max-xs:text-[1.4rem]!">
+						{plan}
+					</h5>
+					{plan === "Plus" && (
+						<div className="text-btn-purple border-1 py-[0.4rem] px-[0.7rem] text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.8rem] p-10 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem]">
+							Best Selling
+						</div>
+					)}
+				</div>
 				<p className="mt-[0.8rem] max-md:mt-[0.6rem] text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem]">
-					USD ${price}/month
+					USD ${price}/month {plan === "Team" && "(per user)"}
 				</p>
 				<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-w-[28rem]">
 					{features.map((feature) => (
@@ -34,13 +60,33 @@ export default function Subscription({ features, imgSrc, plan, price, currentPla
 					))}
 				</ul>
 			</div>
-			{currentPlan === plan && (
+			{currentPlan === plan ? (
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.8rem] text-[1.2rem]! max-lg:text-[1rem]!"
 					disabled
 				>
 					Your Current Plan
+				</Button>
+			) : (
+				<Button
+					variant="solid"
+					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
+					isLoading={isLoading}
+					onClick={() => {
+						const prevCurrentPlan = currentPlan;
+						if (setCurrentPlan) setCurrentPlan(plan);
+						if (setIsLoading) setIsLoading(true);
+						updateUser({ subscription: plan }).then(({ error }) => {
+							if (setIsLoading) setIsLoading(false);
+							if (error) {
+								if (setCurrentPlan) setCurrentPlan(prevCurrentPlan);
+								return toast.error(error);
+							}
+						});
+					}}
+				>
+					Upgrade to {plan}
 				</Button>
 			)}
 		</div>

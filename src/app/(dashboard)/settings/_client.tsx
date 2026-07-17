@@ -1,11 +1,26 @@
 "use client";
 import { updateUser } from "@/auth/actions";
 import Switch from "@/components/input/Switch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Client({ userPermission }: { userPermission: boolean }) {
 	const [permission, setPermission] = useState(userPermission);
 	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		if (Notification.permission === "denied") {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setPermission(false);
+			if (permission)
+				updateUser({ notification: false }).then(({ error }) => {
+					if (error) {
+						toast.error(error);
+					}
+				});
+		}
+	}, [permission]);
+
 	return (
 		<div className="p-24 max-xl:p-20 max-lg:p-16 max-md:p-12 max-sm:p-10 max-xs:p-8">
 			<div className="flex justify-between items-center">
@@ -14,40 +29,31 @@ export default function Client({ userPermission }: { userPermission: boolean }) 
 					checked={permission}
 					disabled={isLoading}
 					onChange={async () => {
-						if (Notification.permission !== "denied") {
-							if (permission) {
-								setPermission(false);
-								setIsLoading(true);
-								const { error } = await updateUser({ notification: false });
-								setIsLoading(false);
-								if (error) {
-									setPermission(true);
-									// Show toast
-								}
-							} else {
-								if (Notification.permission === "granted") {
-									setPermission(true);
-									setIsLoading(true);
-									const { error } = await updateUser({ notification: true });
-									setIsLoading(false);
-									if (error) {
-										setPermission(false);
-										// Show toast
-									}
-								} else {
-									const response = await Notification.requestPermission();
-									setPermission(response === "granted");
-									setIsLoading(true);
-									const { error } = await updateUser({ notification: response === "granted" });
-									setIsLoading(false);
-									if (error && response !== "denied") {
-										setPermission(false);
-										// Show toast
-									}
-								}
+						if (Notification.permission === "denied")
+							return toast.error("Notifications are blocked, Please enable them in your browser settings");
+
+						if (Notification.permission === "default") {
+							const response = await Notification.requestPermission();
+							if (response === "default") return;
+							setPermission(response === "granted");
+							setIsLoading(true);
+							const { error } = await updateUser({ notification: response === "granted" });
+							setIsLoading(false);
+							if (error) {
+								setPermission(response === "granted");
+								toast.error(error);
 							}
-						} else {
-							// Show toast
+						}
+
+						if (Notification.permission === "granted") {
+							setPermission((prev) => !prev);
+							setIsLoading(true);
+							const { error } = await updateUser({ notification: !permission });
+							setIsLoading(false);
+							if (error) {
+								setPermission((prev) => !prev);
+								toast.error(error);
+							}
 						}
 					}}
 				/>

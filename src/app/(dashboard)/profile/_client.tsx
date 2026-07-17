@@ -5,13 +5,16 @@ import ArrowRight from "@/components/icons/arrow-right";
 import Edit from "@/components/icons/edit";
 import Image from "@/components/image/Image";
 import Textbox from "@/components/input/Textbox";
-import { ChangeEvent, useState } from "react";
+import useLoadingToast from "@/hooks/useLoadingToast";
+import { ChangeEvent, ReactNode, useState } from "react";
+import { toast } from "react-toastify";
 
-export default function Client({ userAvatar }: { userAvatar: string }) {
+export default function Client({ AvatarElement }: { AvatarElement: ReactNode }) {
 	const [data, setData] = useState({ name: "", email: "", password: "", confirm: "" });
-	const [avatar, setAvatar] = useState(userAvatar);
-	const [isLoading, setIsLoading] = useState(false);
+	const [AvatarElem, setAvatarElem] = useState<ReactNode>(AvatarElement);
+	const [isLoading, setIsLoading] = useState({ state: false, content: "" });
 
+	useLoadingToast(isLoading.content, isLoading.state);
 	const inputHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) =>
 		setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	const resetData = () => setData({ name: "", email: "", password: "", confirm: "" });
@@ -21,38 +24,42 @@ export default function Client({ userAvatar }: { userAvatar: string }) {
 			className="flex flex-col items-start p-24 max-xl:p-20 max-lg:p-16 max-md:p-12 max-sm:p-10 max-xs:p-8"
 			onSubmit={async (e) => {
 				e.preventDefault();
-				setIsLoading(true);
+				setIsLoading({ state: true, content: "Update user information ..." });
 				const { error } = await updateUser(data);
-				if (error) console.error(error);
-				setIsLoading(false);
+				if (error) toast.error(error);
+				else toast.success("Successfully user information updated");
+				setIsLoading({ state: false, content: "" });
 				resetData();
 			}}
 		>
 			<div className="relative">
-				<Image
-					src={avatar}
-					alt="profile"
-					loading="eager"
-					className="relative size-112 max-xl:size-100 max-lg:size-88 max-md:size-72 max-sm:size-60 max-xs:size-50 rounded-[1rem] max-lg:rounded-[0.85rem] max-md:rounded-[0.7rem] max-sm:rounded-[0.6rem] max-xs:rounded-[0.5rem] bg-typo-dark-gray"
-					unoptimized
-				/>
+				{AvatarElem}
 				<label className="absolute -bottom-14 max-xl:-bottom-12 max-lg:-bottom-10 max-md:-bottom-8 max-sm:-bottom-7 max-xs:-bottom-6 -right-14 max-xl:-right-12 max-lg:-right-10 max-md:-right-8 max-sm:-right-7 max-xs:-right-6 text-icon-black p-8 max-lg:p-7 max-md:p-6 max-sm:p-5 max-xs:p-4 rounded-[0.4rem] max-lg:rounded-[0.35rem] max-md:rounded-[0.3rem] max-sm:rounded-[0.25rem] max-xs:rounded-[0.2rem] bg-typo-main-white outline-none cursor-pointer">
 					<input
 						type="file"
 						accept="image/*"
 						className="sr-only"
-						disabled={isLoading}
+						disabled={isLoading.state}
 						onChange={async (e) => {
 							if (e.target.files && e.target.files.length === 1) {
-								setIsLoading(true);
+								setIsLoading({ state: true, content: "Upload user avatar ..." });
 								const { data, error } = await uploadUserAvatar(e.target.files[0]);
 								if (data) {
-									setAvatar(data);
+									toast.success("Successfully avatar uploaded");
+									setAvatarElem(
+										<Image
+											src={data}
+											alt="profile"
+											loading="eager"
+											className="relative size-112 max-xl:size-100 max-lg:size-88 max-md:size-72 max-sm:size-60 max-xs:size-50 rounded-[1rem] max-lg:rounded-[0.85rem] max-md:rounded-[0.7rem] max-sm:rounded-[0.6rem] max-xs:rounded-[0.5rem] bg-typo-dark-gray"
+											unoptimized
+										/>
+									);
 								}
 								if (error) {
-									console.log(error);
+									toast.error(error);
 								}
-								setIsLoading(false);
+								setIsLoading({ state: false, content: "" });
 							}
 						}}
 					/>
@@ -106,7 +113,7 @@ export default function Client({ userAvatar }: { userAvatar: string }) {
 			<Button
 				variant="solid"
 				className="mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 font-semibold max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
-				disabled={isLoading}
+				disabled={isLoading.state}
 			>
 				Update
 				<ArrowRight className="size-26 max-xl:size-23 max-lg:size-20 max-md:size-18 max-sm:size-16 max-xs:size-14" />

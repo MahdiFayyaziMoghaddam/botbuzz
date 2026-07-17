@@ -112,7 +112,7 @@ export default function Modal({ open = false, children, onClose }: Modal) {
 					isAnimating ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
 				}`}
 			>
-				{children}
+				{open && children}
 			</div>
 		</dialog>
 	);

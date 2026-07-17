@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import RootProvider from "./_provider";
 import "./globals.css";
 
 const poppinsFont = localFont({
@@ -46,7 +47,7 @@ export default function RootLayout({
 	return (
 		<html data-scroll-behavior="smooth" lang="en" className={`antialiased ${poppinsFont.variable}`}>
 			<body className="min-h-dvh text-[1.6rem] font-poppins font-normal text-typo-light-white bg-background">
-				{children}
+				<RootProvider>{children}</RootProvider>
 			</body>
 		</html>
 	);

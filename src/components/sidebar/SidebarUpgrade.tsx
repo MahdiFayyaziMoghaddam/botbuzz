@@ -31,10 +31,10 @@ export default function SidebarUpgrade() {
 							<Premium />
 						</div>
 						<p className="text-[1.8rem] max-xl:text-[1.6rem] max-lg:text-[1.4rem] leading-[1.8] mt-10 max-xl:mt-9 max-lg:mt-8 font-semibold text-nowrap">
-							Upgrade to Pro
+							Upgrade to Plus
 						</p>
 						<p className="text-[1.085rem] max-xl:text-[1rem] max-lg:text-[0.9rem] text-center mt-10 max-xl:mt-9 max-lg:mt-8 text-nowrap">
-							Unlock powerful features <br /> with our pro upgrade today!
+							Unlock powerful features <br /> with our upgrade today!
 						</p>
 						<Button
 							variant="solid"

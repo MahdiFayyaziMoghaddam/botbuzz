@@ -14,10 +14,12 @@ import User from "@/components/icons/user";
 import Image from "@/components/image/Image";
 import Checkbox from "@/components/input/Checkbox";
 import Radio from "@/components/input/Radio";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Onboarding() {
 	const [step, setStep] = useState(1);
+	const router = useRouter();
 	const STEPS_LENGTH = 5;
 	const questions = [
 		"How would you describe your personality?",
@@ -40,6 +42,8 @@ export default function Onboarding() {
 		3: <Step4 />,
 		4: <Step5 />
 	};
+
+	const skip = () => router.push("/personalities");
 
 	return (
 		<div className="[background-image:url(/images/onboarding.png)] bg-cover bg-center min-h-dvh">
@@ -64,8 +68,17 @@ export default function Onboarding() {
 					</p>
 					{components[(step - 1) as keyof typeof components]}
 					<div className="grid grid-cols-2 items-center gap-24 max-xl:gap-22 max-lg:gap-20 max-md:gap-18 max-sm:gap-16 max-xs:gap-12 mt-80 max-xl:mt-70 max-lg:mt-62 max-md:mt-48 max-sm:mt-40 max-xs:mt-32 max-w-306">
-						<Button variant="ghost">Skip</Button>
-						<Button variant="solid" onClick={() => setStep((prev) => (prev < STEPS_LENGTH ? prev + 1 : prev))}>
+						<Button variant="ghost" onClick={skip}>
+							Skip
+						</Button>
+						<Button
+							variant="solid"
+							onClick={() => {
+								if (step === STEPS_LENGTH) {
+									skip();
+								} else setStep((prev) => prev + 1);
+							}}
+						>
 							{step === STEPS_LENGTH ? "Finish" : "Next"}
 							{step !== STEPS_LENGTH && <ArrowRight className="size-[1.5em]" />}
 						</Button>

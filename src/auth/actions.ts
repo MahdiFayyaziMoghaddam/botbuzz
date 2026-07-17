@@ -31,7 +31,7 @@ export async function signup(formData: FormData) {
 	});
 
 	if (error) {
-		return { error };
+		return { error: error.message };
 	}
 
 	redirect("/onboarding", "replace");
@@ -52,7 +52,7 @@ export async function signin(formData: FormData) {
 	});
 
 	if (error) {
-		return { error };
+		return { error: error.message };
 	}
 
 	redirect("/chat", "replace");
@@ -72,7 +72,7 @@ export const getUser = cache(async () => {
 		data: { user },
 		error
 	} = await supabase.auth.getUser();
-	return { user, error };
+	return { user, error: error?.message };
 });
 
 interface UpdateUser {
@@ -84,36 +84,34 @@ interface UpdateUser {
 	subscription?: Subscription["plan"];
 	image?: string;
 }
-export const updateUser = cache(
-	async ({ email, image, name, notification, password, subscription, confirm }: UpdateUser) => {
-		const imageRegex = /^(https?:\/\/[^\s/$.?#]+\.[^\s/$.?#]+\/[^\s?]*\.[a-zA-Z]{2,4}|^\/[^\s?]*\.[a-zA-Z]{2,4})$/;
-		if (password && confirm && password !== confirm) {
-			return { error: "Passwords don't match" };
-		}
-		if (image && !imageRegex.test(image)) {
-			return { error: "Image must be file url or absolute path" };
-		}
-		if (name && (name.length < 2 || name.length > 33)) {
-			return { error: "Name length must be lower than 33 and higher than 2" };
-		}
-		if (subscription && subscription !== "Free" && subscription !== "Plus" && subscription !== "Team") {
-			return { error: "Subscription must be either Free or Plus or Team" };
-		}
-		const supabase = await createAuthClient();
-		const {
-			data: { user },
-			error
-		} = await supabase.auth.updateUser({
-			email,
-			password,
-			data: { name, notification, subscription, image }
-		});
-		return { user, error: error?.message };
+export const updateUser = async ({ email, image, name, notification, password, subscription, confirm }: UpdateUser) => {
+	const imageRegex =
+		/^(https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}(\/[^\s?]*)*\/[^\s?]*\.[a-zA-Z]{2,4}|^\/[^\s?]*\.[a-zA-Z]{2,4})$/;
+	if (password && confirm && password !== confirm) {
+		return { error: "Passwords don't match" };
 	}
-);
+	if (image && !imageRegex.test(image)) {
+		return { error: "Image must be file url or absolute path" };
+	}
+	if (name && (name.length < 2 || name.length > 33)) {
+		return { error: "Name length must be lower than 33 and higher than 2" };
+	}
+	if (subscription && subscription !== "Free" && subscription !== "Plus" && subscription !== "Team") {
+		return { error: "Subscription must be either Free or Plus or Team" };
+	}
+	const supabase = await createAuthClient();
+	const {
+		data: { user },
+		error
+	} = await supabase.auth.updateUser({
+		email,
+		password,
+		data: { name, notification, subscription, image }
+	});
+	return { user, error: error?.message };
+};
 
-export const uploadUserAvatar = cache(async (file: File) => {
-	console.log("file", file);
+export const uploadUserAvatar = async (file: File) => {
 	if (file.size > 1024 * 1024 * 5) {
 		return {
 			error: "File is too large, Maximum size is 5MB"
@@ -144,15 +142,19 @@ export const uploadUserAvatar = cache(async (file: File) => {
 			return { error: listError.message };
 		}
 
-		const { error: removeError } = await supabase.storage
-			.from(AVATAR_BUCKET)
-			.remove(data.map(({ name }) => `${user.id}/${name}`));
-		if (removeError) {
-			return { error: removeError.message };
+		if (data.length) {
+			const { error: removeError } = await supabase.storage
+				.from(AVATAR_BUCKET)
+				.remove(data.map(({ name }) => `${user.id}/${name}`));
+			if (removeError) {
+				return { error: removeError.message };
+			}
 		}
 
 		const { error: uploadError } = await supabase.storage.from(AVATAR_BUCKET).upload(filePath, croppedBuffer, {
-			contentType: "image/webp"
+			contentType: "image/webp",
+			upsert: true,
+			cacheControl: "0"
 		});
 		if (uploadError) {
 			return { error: uploadError.message };
@@ -161,8 +163,9 @@ export const uploadUserAvatar = cache(async (file: File) => {
 		const {
 			data: { publicUrl }
 		} = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(filePath);
-
-		const { error } = await updateUser({ image: publicUrl });
+		const { error } = await updateUser({
+			image: publicUrl
+		});
 		if (error) {
 			return { error };
 		}
@@ -172,4 +175,4 @@ export const uploadUserAvatar = cache(async (file: File) => {
 			error: error instanceof Error ? error.message : "An unexpected error occurred"
 		};
 	}
-});
+};

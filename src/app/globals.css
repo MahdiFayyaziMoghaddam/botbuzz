@@ -52,6 +52,26 @@
 	--breakpoint-xl: 1280px;
 }
 
+:root {
+	--toastify-color-dark: var(--color-background, #0e0d0d) !important;
+	--toastify-color-light: var(--color-typo-main-white, #fafafa) !important;
+	--toastify-color-info: var(--color-btn-purple, #a7a0f8) !important;
+	--toastify-color-success: var(--color-btn-purple, #a7a0f8) !important;
+	--toastify-color-warning: var(--color-error, #ee2917) !important;
+	--toastify-color-error: var(--color-error, #ee2917) !important;
+
+	--toastify-text-color-dark: var(--color-typo-main-white, #fafafa) !important;
+	--toastify-text-color-light: var(--color-typo-main-black, #181818) !important;
+
+	--toastify-color-progress-dark: var(--color-btn-purple, #a7a0f8) !important;
+	--toastify-color-progress-light: var(--color-btn-purple, #a7a0f8) !important;
+
+	--toastify-color-progress-info: var(--color-btn-purple, #a7a0f8) !important;
+	--toastify-color-progress-success: var(--color-btn-purple, #a7a0f8) !important;
+	--toastify-color-progress-warning: var(--color-error, #ee2917) !important;
+	--toastify-color-progress-error: var(--color-error, #ee2917) !important;
+}
+
 * {
 	accent-color: var(--color-btn-purple);
 	-webkit-user-drag: none;
@@ -71,6 +91,13 @@
 	&::-webkit-scrollbar-corner {
 		background-color: var(--color-btn-purple);
 	}
+}
+
+.Toastify__toast {
+	align-items: start !important;
+	min-height: auto !important;
+	padding: 1.8rem 1.4rem !important;
+	font-size: 1.5rem !important;
 }
 
 @utility link-underline {

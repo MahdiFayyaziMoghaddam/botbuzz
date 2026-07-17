@@ -5,9 +5,13 @@ import { env } from "./utils/env";
 export async function proxy(request: NextRequest) {
 	const { SUPABASE_URL, SUPABASE_KEY } = env();
 
+	const headers = new Headers(request.headers);
+
+	headers.append("x-pathname", request.nextUrl.pathname);
+
 	let response = NextResponse.next({
 		request: {
-			headers: request.headers
+			headers
 		}
 	});
 

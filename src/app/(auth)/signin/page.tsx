@@ -7,6 +7,7 @@ import Checkbox from "@/components/input/Checkbox";
 import Textbox from "@/components/input/Textbox";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Signup() {
 	const [isAgreeWithTerms, setIsAgreeWithTerms] = useState(false);
@@ -21,7 +22,7 @@ export default function Signup() {
 			password: ""
 		});
 	return (
-		<div className="grid grid-cols-[30vw_51vw] max-lg:grid-cols-1 justify-between items-start bg-onboarding py-[2.2vw] px-[4.4vw] min-h-dvh">
+		<>
 			<form
 				onSubmit={async (e) => {
 					e.preventDefault();
@@ -33,7 +34,7 @@ export default function Signup() {
 						formData.append("password", data.password);
 
 						const { error } = await signin(formData);
-						if (error) console.error(error);
+						if (error) toast.error(error);
 
 						setIsLoading(false);
 						resetFormData();
@@ -110,7 +111,8 @@ export default function Signup() {
 				src="/images/sign-banner.png"
 				alt="ai"
 				className="relative aspect-[0.75/1] rounded-[1vw] size-full mx-auto max-lg:hidden justify-self-end"
+				loading="eager"
 			/>
-		</div>
+		</>
 	);
 }

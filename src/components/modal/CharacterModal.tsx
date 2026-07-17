@@ -7,6 +7,7 @@ interface CharacterModal extends ModalProps {
 	imgSrc: string;
 	title?: string;
 	description?: string;
+	skills?: string[];
 }
 
 export default function CharacterModal(props: CharacterModal) {
@@ -27,7 +28,7 @@ export default function CharacterModal(props: CharacterModal) {
 					</p>
 					<Button
 						variant="solid"
-						className="mt-auto max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full font-semibold! max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
+						className="mt-50 max-xl:mt-40 max-lg:mt-30 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full font-semibold! max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
 					>
 						Chat Now
 					</Button>
@@ -52,36 +53,14 @@ export default function CharacterModal(props: CharacterModal) {
 					<div className="mt-48 max-xl:mt-40 max-lg:mt-32 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 max-w-740 max-xl:max-w-650 max-lg:max-w-550 max-md:max-w-full">
 						<h5>Character Skills</h5>
 						<div className="flex flex-wrap items-start gap-16 max-xl:gap-14 max-lg:gap-12 max-md:gap-10 max-sm:gap-8 max-xs:gap-6 mt-16 max-xl:mt-14 max-lg:mt-12 max-md:mt-10 max-sm:mt-8 max-xs:mt-6">
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Curiosity and Open-Mindedness
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Cultural and Historical Knowledge
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Ethical Reasoning
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Interdisciplinary Knowledge
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Philosophical Knowledge
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Emotional Intelligence
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Problem-Solving
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Effective Communication
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Critical Thinking
-							</p>
-							<p className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap">
-								Lifelong Learning
-							</p>
+							{props.skills?.map((skill) => (
+								<p
+									key={skill}
+									className="border-1 border-typo-dark-gray bg-onboarding text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-7 text-nowrap"
+								>
+									{skill}
+								</p>
+							))}
 						</div>
 					</div>
 					<div className="mt-48 max-xl:mt-40 max-lg:mt-32 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 max-w-740 max-xl:max-w-650 max-lg:max-w-550 max-md:max-w-full">

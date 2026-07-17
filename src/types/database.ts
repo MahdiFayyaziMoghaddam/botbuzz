@@ -12,6 +12,8 @@ export interface Personality extends AutoGenerate {
 }
 export interface Subscription extends AutoGenerate {
 	plan: "Free" | "Plus" | "Team";
+	price: number;
+	image: string;
 	features: string[];
 }
 export interface Conversation extends AutoGenerate {

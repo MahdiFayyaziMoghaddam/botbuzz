@@ -7,6 +7,7 @@ import Checkbox from "@/components/input/Checkbox";
 import Textbox from "@/components/input/Textbox";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Signup() {
 	const [isAgreeWithTerms, setIsAgreeWithTerms] = useState(false);
@@ -24,7 +25,7 @@ export default function Signup() {
 		});
 
 	return (
-		<div className="grid grid-cols-[30vw_51vw] max-lg:grid-cols-1 justify-between items-start bg-onboarding py-[2.2vw] px-[4.4vw] min-h-dvh">
+		<>
 			<form
 				onSubmit={async (e) => {
 					e.preventDefault();
@@ -37,7 +38,7 @@ export default function Signup() {
 						formData.append("name", data.name);
 
 						const { error } = await signup(formData);
-						if (error) console.error(error);
+						if (error) toast.error(error);
 
 						setIsLoading(false);
 						resetFormData();
@@ -50,7 +51,9 @@ export default function Signup() {
 						alt="icon"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
-					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]">BotBuzz</p>
+					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]" translate="no">
+						BotBuzz
+					</p>
 				</div>
 				<h3 className="mt-64 max-xl:mt-55 max-lg:mt-50 max-md:mt-40 max-sm:mt-30 max-xs:mt-20 text-nowrap">
 					Create an Account
@@ -123,7 +126,8 @@ export default function Signup() {
 				src="/images/sign-banner.png"
 				alt="ai"
 				className="relative aspect-[0.75/1] rounded-[1vw] size-full mx-auto max-lg:hidden justify-self-end"
+				loading="eager"
 			/>
-		</div>
+		</>
 	);
 }

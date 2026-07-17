@@ -1,4 +1,3 @@
-// "use client";
 import I, { ImageProps } from "next/image";
 
 interface Image extends ImageProps {

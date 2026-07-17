@@ -23,7 +23,9 @@ export default async function Landing() {
 						alt="BotBuzz AI Logo"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
-					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]">BotBuzz</p>
+					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]" translate="no">
+						BotBuzz
+					</p>
 				</div>
 				<div className="flex items-center py-[1.6rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.7rem] px-57 max-xl:px-48 max-lg:px-36 max-md:px-24 max-sm:px-12 max-xs:px-10 gap-48 max-xl:gap-41 max-lg:gap-34 max-md:gap-27 max-sm:gap-20 max-xs:gap-11 justify-self-center border-1 border-glass-stroke rounded-[7rem] max-lg:rounded-[5.5rem] max-md:rounded-[4rem] max-sm:rounded-[3.6rem]">
 					<Link href={"#FAQ"} className="link-underline max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]">
@@ -37,13 +39,12 @@ export default async function Landing() {
 					</Link>
 					<Link
 						href={"/signin"}
-						prefetch={false}
 						className="link-underline max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem]"
 					>
 						Sign in
 					</Link>
 				</div>
-				<Link href={"/signin"} prefetch={false} className="badge">
+				<Link href={"/signin"} className="badge">
 					Get Started
 				</Link>
 			</nav>
@@ -61,7 +62,7 @@ export default async function Landing() {
 				<p className="text-center mt-[1.6rem] max-md:mt-[1.2rem] max-sm:mt-[0.8rem] text-typo-dark-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem]">
 					Your Personal AI Companion, Tailored for Every Conversation, Anytime, Anywhere
 				</p>
-				<Link href={"/signin"} prefetch={false}>
+				<Link href={"/signin"}>
 					<Button className="font-normal! px-[4.3rem] max-lg:px-[3.5rem] max-md:px-[2.8rem] mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-20 max-sm:mt-15 mx-auto max-lg:text-[1.2rem] max-md:text-[1rem]">
 						Start Conversation for Free
 					</Button>
@@ -567,13 +568,22 @@ export default async function Landing() {
 								alt="BotBuzz Logo"
 								className="relative size-[4.8rem] max-xl:size-[4rem] max-lg:size-[3.6rem] max-md:size-[3.2rem] max-sm:size-[2.8rem] max-xs:size-[2.4rem]"
 							/>
-							<p className="font-semibold text-[2.4rem] max-xl:text-[2.1rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem] max-xs:text-[1.2rem]">
+							<p
+								className="font-semibold text-[2.4rem] max-xl:text-[2.1rem] max-lg:text-[1.8rem] max-md:text-[1.6rem] max-sm:text-[1.4rem] max-xs:text-[1.2rem]"
+								translate="no"
+							>
 								BotBuzz
 							</p>
 						</div>
 						<address className="mt-7 max-sm:mt-6 max-xs:mt-5 max-lg:text-[1.2rem] max-md:text-[1rem] text-typo-medium-gray not-italic">
 							Developed by <br className="sm:hidden max-sm:block" />
-							<span className="inline-block text-btn-purple max-sm:mt-2">@mhdifyyzi</span>
+							<Link
+								href={"https://t.me/mhdifyyzi"}
+								target="_blank"
+								className="inline-block text-btn-purple max-sm:mt-2"
+							>
+								@mhdifyyzi
+							</Link>
 						</address>
 					</div>
 

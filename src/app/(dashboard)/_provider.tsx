@@ -5,7 +5,7 @@ import { DashboardContextProvider } from "@/contexts/DashboardContext";
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
-export default function Provider({ children }: { children: ReactNode }) {
+export default function Provider({ children, AvatarElement }: { children: ReactNode; AvatarElement: ReactNode }) {
 	const [isMounted, setIsMounted] = useState(false);
 	const pathname = usePathname();
 
@@ -17,6 +17,7 @@ export default function Provider({ children }: { children: ReactNode }) {
 	if (!isMounted) {
 		return null;
 	}
+
 	return (
 		<>
 			<DashboardContextProvider>
@@ -24,7 +25,7 @@ export default function Provider({ children }: { children: ReactNode }) {
 					{pathname !== "/onboarding" && (
 						<>
 							<Sidebar />
-							<Topbar />
+							<Topbar AvatarElement={AvatarElement} />
 						</>
 					)}
 					{children}

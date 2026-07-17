@@ -18,6 +18,7 @@ export default function CharacterCard({ imgSrc, title = "", description, skills 
 				imgSrc={imgSrc}
 				title={title}
 				description={description}
+				skills={skills}
 				open={isOpenModal}
 				onClose={() => setIsOpenModal(false)}
 			/>
