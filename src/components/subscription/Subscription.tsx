@@ -54,6 +54,7 @@ export default function Subscription({ features, imgSrc, plan, price, isLoading,
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.8rem] text-[1.2rem]! max-lg:text-[1rem]!"
+					isLoading={isLoading}
 					disabled
 				>
 					Your Current Plan
@@ -62,7 +63,7 @@ export default function Subscription({ features, imgSrc, plan, price, isLoading,
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
-					isLoading={isLoading}
+					disabled={isLoading}
 					onClick={() => {
 						const prevUserPlan = state.userPlan;
 						dispatch({ type: "UPDATE_USER_PLAN", payload: plan });
