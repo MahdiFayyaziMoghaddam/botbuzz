@@ -28,9 +28,11 @@ const poppinsFont = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "BotBuzz",
-	description: "Ai chat app by @mhdifyyzi",
-	icons: "/images/favicon.png"
+	title: {
+		template: "BotBuzz | %s",
+		absolute: "BotBuzz"
+	},
+	description: "Ai chat app by @mhdifyyzi"
 };
 
 export const viewport: Viewport = {

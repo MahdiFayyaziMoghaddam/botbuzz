@@ -54,7 +54,7 @@ export default function Onboarding() {
 						alt="icon"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
-					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]">BotBuzz</p>
+					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]" translate="no">BotBuzz</p>
 				</div>
 				<div className="flex flex-col items-center mt-88 max-xl:mt-75 max-lg:mt-65 max-md:mt-50 max-sm:mt-44 max-xs:mt-35 mx-auto max-w-900">
 					<p className="text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] text-typo-light-gray">
