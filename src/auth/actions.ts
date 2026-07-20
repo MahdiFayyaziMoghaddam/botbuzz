@@ -2,6 +2,7 @@
 
 import { createAuthClient, createDBClient } from "@/lib/supabase";
 import { type Subscription } from "@/types/database";
+import { UserMetadata } from "@/types/user";
 import { cropToSquare } from "@/utils/cropToSquare";
 import { redirect } from "next/navigation";
 import { cache } from "react";
@@ -26,7 +27,7 @@ export async function signup(formData: FormData) {
 		email,
 		password,
 		options: {
-			data: { name, notification: false, subscription: "Free", image: "" }
+			data: { name, notification: false, subscription: "Free", image: "/images/user.png" } as UserMetadata
 		}
 	});
 
@@ -72,7 +73,7 @@ export const getUser = cache(async () => {
 		data: { user },
 		error
 	} = await supabase.auth.getUser();
-	return { user, error: error?.message };
+	return { user: { ...user, user_metadata: user?.user_metadata as UserMetadata }, error: error?.message };
 });
 
 interface UpdateUser {

@@ -6,14 +6,14 @@ import PlansModal from "../modal/PlansModal";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 
 export default function SidebarUpgrade() {
-	const { isCollapsed } = useDashboardContext();
+	const { state } = useDashboardContext();
 	const [isPlansModalOpen, setIsPlansModalOpen] = useState(false);
 	const closeModal = () => setIsPlansModalOpen(false);
 
 	return (
 		<>
 			<PlansModal open={isPlansModalOpen} onClose={closeModal} />
-			<div className={`transition-all duration-400 overflow-visible self-center ${isCollapsed ? "" : "hidden"}`}>
+			<div className={`transition-all duration-400 overflow-visible self-center ${state.isCollapsed ? "" : "hidden"}`}>
 				<Button
 					variant="solid"
 					className="p-10! rounded-[1rem]! *:size-28 max-xl:*:size-24 max-lg:*:size-20 bg-typo-main-white! text-icon-purple! hover:bg-icon-purple! hover:text-typo-main-white! hover:scale-115 active:brightness-80! duration-400! self-center overflow-hidden"
@@ -22,7 +22,7 @@ export default function SidebarUpgrade() {
 					<Premium />
 				</Button>
 			</div>
-			<div className={`transition-all duration-400 overflow-hidden ${isCollapsed ? "hidden" : ""}`}>
+			<div className={`transition-all duration-400 overflow-hidden ${state.isCollapsed ? "hidden" : ""}`}>
 				<div className="relative rounded-[2rem] max-xl:rounded-[1.6rem] max-lg:rounded-[1.2rem] overflow-hidden select-none">
 					<div className="absolute w-213 max-xl:w-180 max-lg:w-150 h-237 max-xl:h-200 max-lg:h-170 -top-142 max-xl:-top-120 max-lg:-top-100 -right-60 max-xl:-right-50 max-lg:-right-40 rounded-full bg-linear-135 from-white/20 from-0% via-white/2 via-94% to-white/0 to-100% z-0!"></div>
 					<div className="absolute w-272 max-xl:w-230 max-lg:w-190 h-297 max-xl:h-250 max-lg:h-210 -bottom-180 max-xl:-bottom-150 max-lg:-bottom-120 -left-175 max-xl:-left-145 max-lg:-left-120 rounded-full bg-linear-135 from-white/20 from-0% to-white/0 to-100% z-0!"></div>

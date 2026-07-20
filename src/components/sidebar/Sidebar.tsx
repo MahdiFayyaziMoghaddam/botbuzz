@@ -13,24 +13,24 @@ import { useDashboardContext } from "@/contexts/DashboardContext";
 import useMediaQuery from "@/hooks/useBreakpoint";
 
 export default function Sidebar() {
-	const { isDrawerOpen, setIsDrawerOpen, isCollapsed, setIsCollapsed } = useDashboardContext();
+	const { state, dispatch } = useDashboardContext();
 	const { isBelow: isMobile } = useMediaQuery("md");
 	const scrollY = useRef(0);
-	const toggleCollapse = () => setIsCollapsed((prev) => !prev);
-	const closeDrawer = useCallback(() => setIsDrawerOpen(false), [setIsDrawerOpen]);
+	const toggleCollapse = () => dispatch({ type: "TOGGLE_COLLAPSE" });
+	const closeDrawer = useCallback(() => dispatch({ type: "SET_DRAWER_CLOSE" }), [dispatch]);
 
 	useEffect(() => {
 		if (isMobile) {
-			setIsCollapsed(false);
+			dispatch({ type: "SET_COLLAPSE_CLOSE" });
 		} else {
-			setIsDrawerOpen(false);
+			dispatch({ type: "SET_DRAWER_CLOSE" });
 		}
-	}, [setIsDrawerOpen, setIsCollapsed, isMobile]);
+	}, [isMobile, dispatch]);
 
 	useEffect(() => {
 		if (!isMobile) return;
 
-		if (isDrawerOpen) {
+		if (state.isDrawerOpened) {
 			scrollY.current = window.scrollY;
 			document.body.style.overflow = "hidden";
 			document.body.style.position = "fixed";
@@ -50,10 +50,10 @@ export default function Sidebar() {
 			document.body.style.top = "";
 			document.body.style.width = "";
 		};
-	}, [isDrawerOpen, isMobile]);
+	}, [state, isMobile]);
 
 	useEffect(() => {
-		if (!isMobile || !isDrawerOpen) return;
+		if (!isMobile || !state.isDrawerOpened) return;
 
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === "Escape") {
@@ -64,14 +64,14 @@ export default function Sidebar() {
 
 		document.addEventListener("keydown", handleEscape, true);
 		return () => document.removeEventListener("keydown", handleEscape, true);
-	}, [isDrawerOpen, isMobile, closeDrawer]);
+	}, [state, isMobile, closeDrawer]);
 
 	return (
 		<>
 			<div
 				onClick={closeDrawer}
 				className={`md:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-[3px] transition-opacity duration-600 ${
-					isDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+					state.isDrawerOpened ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 			/>
 
@@ -79,8 +79,8 @@ export default function Sidebar() {
 				className={`flex flex-col justify-between py-40 max-xl:py-35 max-lg:py-30 max-md:py-20 bg-[#3A3C40] border-r-2 border-glass-stroke h-full max-md:fixed max-md:top-0 max-md:bottom-0 z-50 transition-all duration-500 md:row-start-1 md:-row-end-1
 					${
 						isMobile
-							? `w-260 px-16 ${isDrawerOpen ? "left-0" : "-left-full"}`
-							: isCollapsed
+							? `w-260 px-16 ${state.isDrawerOpened ? "left-0" : "-left-full"}`
+							: state.isCollapsed
 								? "w-[10rem] max-xl:w-[9.3rem] max-lg:w-[7.3rem] xl:px-24 lg:px-24 md:px-16"
 								: "w-260 max-xl:w-230 max-lg:w-200 xl:px-24 lg:px-24 md:px-16"
 					}`}
@@ -96,7 +96,7 @@ export default function Sidebar() {
 						<Button
 							variant="ghost"
 							className={`bg-icon-white! text-icon-black p-0! rounded-[0.5rem] max-xl:rounded-[0.4rem] max-lg:rounded-[0.3rem] z-10 duration-400 *:size-24 max-xl:*:size-20 max-lg:*:size-16 ${
-								isCollapsed ? "rotate-180" : ""
+								state.isCollapsed ? "rotate-180" : ""
 							} max-md:hidden`}
 							onClick={toggleCollapse}
 						>

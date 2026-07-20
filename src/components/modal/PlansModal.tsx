@@ -1,20 +1,12 @@
 import { ModalProps } from "@/types/modal";
 import Modal from "./Modal";
-import { Subscription as ISubscription } from "@/types/database";
 import Subscription from "../subscription/Subscription";
-import { useEffect, useState } from "react";
-import { getUser } from "@/auth/actions";
-import { getSubscriptions } from "@/database/subscriptions";
+import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useState } from "react";
 
 export default function PlansModal({ open = false, onClose }: ModalProps) {
-	const [data, setData] = useState<ISubscription[]>([]);
-	const [currentPlan, setCurrentPlan] = useState<ISubscription["plan"] | null>(null);
+	const { state } = useDashboardContext();
 	const [isLoading, setIsLoading] = useState(false);
-
-	useEffect(() => {
-		getSubscriptions().then(({ data: subscriptions }) => setData(subscriptions));
-		getUser().then(({ user }) => setCurrentPlan(user?.user_metadata.subscription || "Free"));
-	}, []);
 
 	return (
 		<Modal open={open} onClose={onClose}>
@@ -29,15 +21,13 @@ export default function PlansModal({ open = false, onClose }: ModalProps) {
 					</button>
 				</div>
 				<div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-[3.2rem] max-lg:gap-[2.4rem] max-md:gap-[1.6rem] max-lg:pr-4 max-lg:max-h-490 max-md:max-h-400 max-sm:max-h-410 max-xs:max-h-385 overflow-auto">
-					{data.map(({ id, features, plan, image, price }) => (
+					{state.subscriptions?.map(({ id, features, plan, image, price }) => (
 						<Subscription
 							key={id}
 							plan={plan}
 							imgSrc={image}
 							price={price}
 							features={features}
-							currentPlan={currentPlan!}
-							setCurrentPlan={setCurrentPlan}
 							isLoading={isLoading}
 							setIsLoading={setIsLoading}
 						/>

@@ -2,10 +2,11 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 import Topbar from "@/components/topbar/Topbar";
 import { DashboardContextProvider } from "@/contexts/DashboardContext";
+import { State } from "@/types/reducer";
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 
-export default function Provider({ children, AvatarElement }: { children: ReactNode; AvatarElement: ReactNode }) {
+export default function Provider({ children, initialState }: { children: ReactNode; initialState?: Partial<State> }) {
 	const [isMounted, setIsMounted] = useState(false);
 	const pathname = usePathname();
 
@@ -20,12 +21,12 @@ export default function Provider({ children, AvatarElement }: { children: ReactN
 
 	return (
 		<>
-			<DashboardContextProvider>
+			<DashboardContextProvider initialState={initialState}>
 				<div className="grid md:grid-cols-[max-content_1fr] max-md:grid-cols-1 grid-rows-[max-content_1fr] h-dvh bg-[#25272B]">
 					{pathname !== "/onboarding" && (
 						<>
 							<Sidebar />
-							<Topbar AvatarElement={AvatarElement} />
+							<Topbar />
 						</>
 					)}
 					{children}
