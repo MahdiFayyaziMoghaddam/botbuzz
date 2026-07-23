@@ -1,4 +1,4 @@
-import { Personality, Subscription } from "./database";
+import { Conversation, Message, Personality, Subscription } from "./database";
 
 export interface State {
 	isDrawerOpened: boolean;
@@ -8,6 +8,11 @@ export interface State {
 	userPlan: Subscription["plan"];
 	subscriptions: Subscription[];
 	personalities: Personality[];
+	conversations: Conversation[];
+	messages: Message[];
+	userPrompt: string;
+	userPersonality: Personality["name"];
+	isModelGenerating: boolean;
 }
 
 type Actions = {
@@ -21,10 +26,13 @@ type Actions = {
 	TURN_NOTIFICATION_OFF: undefined;
 	UPDATE_USER_AVATAR: string;
 	UPDATE_USER_PLAN: Subscription["plan"];
+	SET_USER_PROMPT: string;
+	SET_USER_PERSONALITY: Personality["name"];
+	SET_IS_MODEL_GENERATING: boolean;
+	REMOVE_CONVERSATION: string;
+	ADD_CONVERSATION: Conversation;
 };
 
 export type Action = {
-	[A in keyof Actions]: Actions[A] extends undefined
-		? { type: A; payload?: Actions[A] }
-		: { type: A; payload: Actions[A] };
+	[A in keyof Actions]: Actions[A] extends undefined ? { type: A } : { type: A; payload: Actions[A] };
 }[keyof Actions];

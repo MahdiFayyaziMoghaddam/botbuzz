@@ -1,7 +1,10 @@
-import React from "react";
+"use client";
 import Image from "../image/Image";
 import Link from "../link/Link";
 import Trash from "../icons/trash";
+import { useDashboardContext } from "@/contexts/DashboardContext";
+import { removeConversation } from "@/database/actions";
+import { toast } from "react-toastify";
 
 interface HistoryModel {
 	imgSrc?: string;
@@ -28,11 +31,22 @@ export function HistoryModel({ date, imgSrc = "/images/favicon.png", title }: Hi
 }
 
 interface HistoryLink {
+	id: string;
 	title?: string;
 	href: string;
 }
 
-export default function HistoryLink({ href, title }: HistoryLink) {
+export default function HistoryLink({ href, title, id }: HistoryLink) {
+	const { state, dispatch } = useDashboardContext();
+	const onDelete = async () => {
+		const prevConversation = state.conversations.find((conversation) => conversation.id === id);
+		dispatch({ type: "REMOVE_CONVERSATION", payload: id });
+		const { error } = await removeConversation(id);
+		if (error) {
+			toast.error(error.message);
+			dispatch({ type: "ADD_CONVERSATION", payload: prevConversation! });
+		}
+	};
 	return (
 		<div className="flex items-center gap-16 max-xl:gap-14 max-lg:gap-12 max-md:gap-10 max-sm:gap-8 max-xs:gap-6 pr-16 max-xl:pr-14 max-lg:pr-12 max-md:pr-10 max-sm:pr-8 max-xs:pr-6 bg-glass-white border-1 border-glass-stroke rounded-[0.8rem] max-xl:rounded-[0.7rem] max-lg:rounded-[0.6rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem]">
 			<Link
@@ -41,7 +55,10 @@ export default function HistoryLink({ href, title }: HistoryLink) {
 			>
 				{title}
 			</Link>
-			<button className="*:size-20 max-xl:*:size-18 max-lg:*:size-17 max-md:*:size-16 max-sm:*:size-14 max-xs:*:size-13 text-typo-medium-gray hover:text-error cursor-pointer outline-none duration-300 shrink-0">
+			<button
+				className="*:size-20 max-xl:*:size-18 max-lg:*:size-17 max-md:*:size-16 max-sm:*:size-14 max-xs:*:size-13 text-typo-medium-gray hover:text-error cursor-pointer outline-none duration-300 shrink-0"
+				onClick={onDelete}
+			>
 				<Trash />
 			</button>
 		</div>

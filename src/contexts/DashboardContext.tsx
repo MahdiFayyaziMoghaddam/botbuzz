@@ -1,3 +1,4 @@
+"use client";
 import { Action, State } from "@/types/reducer";
 import { createContext, Dispatch, ReactNode, useContext, useReducer } from "react";
 
@@ -68,6 +69,31 @@ export const DashboardContextProvider = ({
 						...prevState,
 						userPlan: action.payload
 					};
+				case "SET_USER_PROMPT":
+					return {
+						...prevState,
+						userPrompt: action.payload
+					};
+				case "SET_USER_PERSONALITY":
+					return {
+						...prevState,
+						userPersonality: action.payload
+					};
+				case "SET_IS_MODEL_GENERATING":
+					return {
+						...prevState,
+						isModelGenerating: action.payload
+					};
+				case "REMOVE_CONVERSATION":
+					return {
+						...prevState,
+						conversations: prevState.conversations.filter((conversation) => conversation.id !== action.payload)
+					};
+				case "ADD_CONVERSATION":
+					return {
+						...prevState,
+						conversations: action.payload ? [...prevState.conversations, action.payload] : prevState.conversations
+					};
 				default:
 					return prevState;
 			}
@@ -78,8 +104,13 @@ export const DashboardContextProvider = ({
 			notification: false,
 			userAvatar: "/images/user.png",
 			userPlan: "Free",
+			userPrompt: "",
+			userPersonality: "Sage",
 			personalities: [],
 			subscriptions: [],
+			conversations: [],
+			messages: [],
+			isModelGenerating: false,
 			...initialState
 		}
 	);

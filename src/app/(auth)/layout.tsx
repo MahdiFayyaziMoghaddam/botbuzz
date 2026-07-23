@@ -13,8 +13,8 @@ export const generateMetadata = async () => {
 };
 
 export default async function AuthLayout({ children }: { children: ReactNode }) {
-	const { user } = await getUser();
-	if (user) {
+	const { user, error } = await getUser();
+	if (user && !error) {
 		return redirect("/chat", "replace");
 	}
 	return (

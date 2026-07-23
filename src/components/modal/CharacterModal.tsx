@@ -1,16 +1,20 @@
+import { useDashboardContext } from "@/contexts/DashboardContext";
 import Button from "../button/Button";
 import Image from "../image/Image";
 import Modal from "./Modal";
 import { ModalProps } from "@/types/modal";
+import { useRouter } from "next/navigation";
 
 interface CharacterModal extends ModalProps {
 	imgSrc: string;
-	title?: string;
+	title: string;
 	description?: string;
 	skills?: string[];
 }
 
 export default function CharacterModal(props: CharacterModal) {
+	const router = useRouter();
+	const { dispatch } = useDashboardContext();
 	return (
 		<Modal onClose={props.onClose} open={props.open}>
 			<div className="flex gap-8 max-lg:gap-6 max-md:gap-5 max-sm:gap-4 max-xs:gap-3 outline-none overflow-hidden max-md:flex-col max-md:max-h-[85vh]">
@@ -29,6 +33,10 @@ export default function CharacterModal(props: CharacterModal) {
 					<Button
 						variant="solid"
 						className="mt-50 max-xl:mt-40 max-lg:mt-30 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full font-semibold! max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
+						onClick={() => {
+							dispatch({ type: "SET_USER_PERSONALITY", payload: props.title! });
+							router.replace("/chat");
+						}}
 					>
 						Chat Now
 					</Button>

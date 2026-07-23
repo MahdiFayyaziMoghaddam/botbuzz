@@ -3,6 +3,7 @@ import LikeOutline from "@/components/icons/like-outline";
 import DislikeOutline from "@/components/icons/dislike-outline";
 import Refresh from "@/components/icons/refresh";
 import Image from "../image/Image";
+import { toast } from "react-toastify";
 
 interface ChatBox {
 	role?: "user" | "model";
@@ -41,7 +42,13 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 								<DislikeOutline />
 							</button>
 							<hr className="h-9 max-lg:h-8 max-md:h-7 max-sm:h-6 max-xs:h-6 border-glass-stroke" />
-							<button className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-typo-light-white duration-300 cursor-pointer outline-none">
+							<button
+								className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-typo-light-white duration-300 cursor-pointer outline-none"
+								onClick={() => {
+									if (window.navigator) navigator.clipboard.writeText(msg || "");
+									toast.success("Copied to clipboard");
+								}}
+							>
 								<Copy />
 							</button>
 							<hr className="h-9 max-lg:h-8 max-md:h-7 max-sm:h-6 max-xs:h-6 border-glass-stroke" />
