@@ -195,6 +195,10 @@ export const DashboardContextProvider = ({
 			const { data, error } = await getMessages(conversation_id);
 			setIsPending(false);
 			if (!error && data) {
+				dispatch({
+					type: "SET_USER_PERSONALITY_ID",
+					payload: state.conversations.find((p) => p.id === conversation_id)!.id
+				});
 				dispatch({ type: "UPDATE_MESSAGES", payload: data });
 				return { completed: true };
 			}
@@ -203,7 +207,7 @@ export const DashboardContextProvider = ({
 			}
 			return { completed: false };
 		},
-		[dispatch, setIsPending]
+		[dispatch, setIsPending, state.conversations]
 	);
 
 	const updateUserPlanAction = useCallback(

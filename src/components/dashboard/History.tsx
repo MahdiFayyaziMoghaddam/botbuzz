@@ -45,8 +45,11 @@ export default function HistoryLink({ href, title, id }: HistoryLink) {
 			<button
 				className="text-left cursor-pointer grow p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-6 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem]"
 				onClick={async () => {
-					const { completed } = await updateMessagesAction(href.split("chat/")[1]);
-					if (completed) router.replace(href);
+					const conversation_id = href.split("chat/")[1];
+					const { completed } = await updateMessagesAction(conversation_id);
+					if (completed) {
+						router.replace(href);
+					}
 				}}
 			>
 				{title}

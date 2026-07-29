@@ -3,9 +3,10 @@
 import ChatBox from "@/components/dashboard/ChatBox";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 
-export default function Client() {
+export default function Client({ conversation_id }: { conversation_id: string }) {
 	const { state } = useDashboardContext();
-	const personality = state.personalities.find(({ id }) => id === state.userPersonalityID);
+	const personality_id = state.conversations.find(({ id }) => id === conversation_id)!.personality_id;
+	const personality = state.personalities.find(({ id }) => id === personality_id);
 
 	return (
 		<>
