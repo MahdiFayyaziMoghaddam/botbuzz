@@ -5,6 +5,9 @@ import Refresh from "@/components/icons/refresh";
 import Image from "../image/Image";
 import { toast } from "react-toastify";
 import { ClientMessage } from "@/types/database";
+import DOMPurify from "dompurify";
+import { marked } from "marked";
+import "./markdown.css";
 
 interface ChatBox extends Pick<ClientMessage, "content" | "role"> {
 	imgSrc?: string;
@@ -40,7 +43,10 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 						</span>
 					</div>
 					<div className="bg-glass-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
-						{content}
+						<div
+							className="markdown-body *:mb-12! max-xl:*:mb-11! max-lg:*:mb-10! max-md:*:mb-9! max-sm:*:mb-8! max-xs:*:mb-7!"
+							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content).toString()) }}
+						></div>
 						<div className="flex items-center gap-12 max-lg:gap-11 max-md:gap-10 max-sm:gap-9 max-xs:gap-8 mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8">
 							<button className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-icon-purple duration-300 cursor-pointer outline-none">
 								<LikeOutline />

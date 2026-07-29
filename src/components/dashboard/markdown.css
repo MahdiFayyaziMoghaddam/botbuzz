@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "../../app/globals.css";
+
+.markdown-body {
+	@apply text-typo-main-white;
+	font-size: 1.4rem;
+	line-height: 1.4;
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body p {
+	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body h1 {
+	@apply font-bold text-[3.8rem] max-xl:text-[3.2rem] max-lg:text-[2.6rem] max-md:text-[2.2rem] max-sm:text-[1.8rem] max-xs:text-[1.4rem] mt-[3.2rem] max-xl:mt-[2.8rem] max-lg:mt-[2.4rem] max-md:mt-[2rem] max-sm:mt-[1.6rem] max-xs:mt-[1.2rem] mb-[1.6rem] max-xl:mb-[1.4rem] max-lg:mb-[1.2rem] max-md:mb-[1rem] max-sm:mb-[0.8rem] max-xs:mb-[0.6rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body h2 {
+	@apply font-bold text-[3rem] max-xl:text-[2.6rem] max-lg:text-[2.2rem] max-md:text-[1.8rem] max-sm:text-[1.5rem] max-xs:text-[1.2rem] mt-[2.4rem] max-xl:mt-[2rem] max-lg:mt-[1.8rem] max-md:mt-[1.6rem] max-sm:mt-[1.2rem] max-xs:mt-[1rem] mb-[1.2rem] max-xl:mb-[1rem] max-lg:mb-[0.9rem] max-md:mb-[0.8rem] max-sm:mb-[0.7rem] max-xs:mb-[0.6rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body h3 {
+	@apply font-bold text-[2.4rem] max-xl:text-[2rem] max-lg:text-[1.7rem] max-md:text-[1.4rem] max-sm:text-[1.2rem] max-xs:text-[1rem] mt-[2rem] max-xl:mt-[1.8rem] max-lg:mt-[1.5rem] max-md:mt-[1.2rem] max-sm:mt-[1rem] max-xs:mt-[0.9rem] mb-[1rem] max-xl:mb-[0.9rem] max-lg:mb-[0.8rem] max-md:mb-[0.7rem] max-sm:mb-[0.6rem] max-xs:mb-[0.5rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body h4 {
+	@apply font-bold text-[2rem] max-xl:text-[1.7rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] mt-[1.6rem] max-xl:mt-[1.4rem] max-lg:mt-[1.2rem] max-md:mt-[1rem] max-sm:mt-[0.9rem] max-xs:mt-[0.8rem] mb-[0.8rem] max-xl:mb-[0.7rem] max-lg:mb-[0.6rem] max-md:mb-[0.5rem] max-sm:mb-[0.4rem] max-xs:mb-[0.3rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body h5 {
+	@apply font-bold text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] mt-[1.2rem] max-xl:mt-[1rem] max-lg:mt-[0.9rem] max-md:mt-[0.8rem] max-sm:mt-[0.7rem] max-xs:mt-[0.6rem] mb-[0.6rem] max-xl:mb-[0.5rem] max-lg:mb-[0.4rem] max-md:mb-[0.3rem] max-sm:mb-[0.2rem] max-xs:mb-[0.15rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body h6 {
+	@apply font-bold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem] mt-[1rem] max-xl:mt-[0.9rem] max-lg:mt-[0.8rem] max-md:mt-[0.7rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem] mb-[0.4rem] max-xl:mb-[0.3rem] max-lg:mb-[0.25rem] max-md:mb-[0.2rem] max-sm:mb-[0.15rem] max-xs:mb-[0.1rem];
+	color: var(--color-typo-medium-gray);
+}
+
+.markdown-body a {
+	@apply link-underline;
+	color: var(--color-btn-purple);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.markdown-body a:hover {
+	color: var(--color-icon-purple);
+}
+
+.markdown-body ul {
+	@apply list-disc pl-6 max-xl:pl-5 max-lg:pl-4 max-md:pl-3.5 max-sm:pl-3 max-xs:pl-2.5 my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] space-y-[0.4rem] max-xl:space-y-[0.35rem] max-lg:space-y-[0.3rem] max-md:space-y-[0.25rem] max-sm:space-y-[0.2rem] max-xs:space-y-[0.15rem];
+}
+
+.markdown-body ol {
+	@apply list-decimal pl-6 max-xl:pl-5 max-lg:pl-4 max-md:pl-3.5 max-sm:pl-3 max-xs:pl-2.5 my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] space-y-[0.4rem] max-xl:space-y-[0.35rem] max-lg:space-y-[0.3rem] max-md:space-y-[0.25rem] max-sm:space-y-[0.2rem] max-xs:space-y-[0.15rem];
+}
+
+.markdown-body li {
+	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] my-[0.4rem] max-xl:my-[0.35rem] max-lg:my-[0.3rem] max-md:my-[0.25rem] max-sm:my-[0.2rem] max-xs:my-[0.15rem];
+	list-style-position: inside;
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body li::marker {
+	color: var(--color-btn-purple);
+}
+
+.markdown-body blockquote {
+	@apply border-l-4 pl-4 max-xl:pl-3.5 max-lg:pl-3 max-md:pl-2.5 max-sm:pl-2 max-xs:pl-1.5 my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] italic text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	border-color: var(--color-btn-purple);
+	color: var(--color-typo-medium-gray);
+}
+
+.markdown-body code {
+	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.2rem] max-xl:py-[0.15rem] max-lg:py-[0.1rem] max-md:py-[0.1rem] max-sm:py-[0.05rem] max-xs:py-[0.05rem] rounded font-mono text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem];
+	background-color: color-mix(in srgb, var(--color-btn-purple) 15%, transparent);
+	color: var(--color-btn-purple);
+}
+
+.markdown-body pre {
+	@apply p-8 pt-7 max-xl:p-7 max-xl:pt-6 max-lg:p-6 max-lg:pt-5 max-md:p-5 max-md:pt-4 max-sm:p-4 max-sm:pt-3 rounded-lg overflow-x-auto my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] overflow-hidden;
+	background-color: color-mix(in srgb, var(--color-btn-purple) 12%, transparent);
+	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 50%, transparent);
+}
+
+.markdown-body pre code {
+	@apply p-0 bg-transparent text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem];
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body hr {
+	@apply my-[1.2rem] max-xl:my-[1rem] max-lg:my-[0.9rem] max-md:my-[0.8rem] max-sm:my-[0.6rem] max-xs:my-[0.5rem] border-0 h-1.5;
+	background: var(--color-btn-purple);
+}
+
+.markdown-body table {
+	@apply border-collapse w-full my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] overflow-x-auto block whitespace-nowrap;
+}
+
+.markdown-body th {
+	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-left font-semibold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	background-color: color-mix(in srgb, var(--color-btn-purple) 20%, transparent);
+	color: var(--color-typo-main-white);
+	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 30%, transparent);
+}
+
+.markdown-body td {
+	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	color: var(--color-typo-light-white);
+	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 20%, transparent);
+}
+
+.markdown-body tr:nth-child(even) {
+	background-color: color-mix(in srgb, var(--color-btn-purple) 5%, transparent);
+}
+
+.markdown-body img {
+	@apply rounded-lg max-w-full my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem];
+}
+
+.markdown-body strong {
+	color: var(--color-typo-main-white);
+	font-weight: 700;
+}
+
+.markdown-body em {
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body del {
+	color: var(--color-typo-medium-gray);
+}
+
+.markdown-body kbd {
+	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.3rem] max-xl:py-[0.25rem] max-lg:py-[0.2rem] max-md:py-[0.15rem] max-sm:py-[0.15rem] max-xs:py-[0.1rem] rounded font-mono text-[1.1rem] max-xl:text-[1rem] max-lg:text-[0.9rem] max-md:text-[0.8rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+	background-color: color-mix(in srgb, var(--color-btn-dark) 50%, transparent);
+	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 30%, transparent);
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body abbr {
+	cursor: help;
+	border-bottom: 1px dotted var(--color-typo-medium-gray);
+}
+
+.markdown-body input[type="checkbox"] {
+	@apply mr-[0.6rem] max-xl:mr-[0.5rem] max-lg:mr-[0.4rem] max-md:mr-[0.35rem] max-sm:mr-[0.3rem] max-xs:mr-[0.25rem] cursor-pointer;
+	accent-color: var(--color-btn-purple);
+}
+
+.markdown-body input[type="checkbox"]:disabled {
+	cursor: default;
+	opacity: 0.6;
+}
+
+.markdown-body dl {
+	@apply my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem];
+}
+
+.markdown-body dt {
+	@apply font-bold mt-[0.8rem] max-xl:mt-[0.7rem] max-lg:mt-[0.6rem] max-md:mt-[0.5rem] max-sm:mt-[0.4rem] max-xs:mt-[0.3rem] text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	color: var(--color-typo-main-white);
+}
+
+.markdown-body dd {
+	@apply ml-4 max-xl:ml-3.5 max-lg:ml-3 max-md:ml-2.5 max-sm:ml-2 max-xs:ml-1.5 text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	color: var(--color-typo-light-white);
+}
+
+.markdown-body sub {
+	@apply align-sub text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.75rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+}
+
+.markdown-body sup {
+	@apply align-super text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.75rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+}
+
+.markdown-body mark {
+	background-color: color-mix(in srgb, var(--color-icon-yellow) 40%, transparent);
+	color: var(--color-typo-main-black);
+	padding: 0.1rem 0.2rem;
+	border-radius: 0.2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+	.markdown-body {
+		color-scheme: dark;
+	}
+}
+
+.markdown-body ::selection {
+	color: var(--color-btn-white);
+	background-color: var(--color-btn-purple);
+}
+
+.markdown-body pre::-webkit-scrollbar {
+	@apply w-[0.4vw] min-w-[4px] h-[0.4vw] min-h-[4px] bg-icon-black/30;
+}
+
+.markdown-body pre::-webkit-scrollbar-thumb {
+	background-color: var(--color-btn-purple);
+	border-radius: 9999px;
+}
