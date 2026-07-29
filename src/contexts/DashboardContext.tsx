@@ -32,7 +32,7 @@ interface Context {
 		conversation_id: Message["conversation_id"],
 		role: Message["role"],
 		content: Message["content"]
-	) => void;
+	) => Promise<{ completed: boolean }>;
 	updateMessagesAction: (conversation_id: Conversation["id"]) => void;
 	addConversationAction: (personality_id: string, title?: string) => Promise<{ data: Conversation | null }>;
 	removeConversationAction: (id: Conversation["id"]) => void;
@@ -55,7 +55,6 @@ export const DashboardContextProvider = ({
 	const setPendingMessage = useCallback((content: string) => setPendingData((prev) => ({ ...prev, content })), []);
 	const setIsPending = useCallback((state: boolean) => setPendingData((prev) => ({ ...prev, state })), []);
 	useLoadingToast(pendingMessage, isPending);
-	const pathname = usePathname();
 	const [state, dispatch] = useReducer<State, [action: Action]>(
 		(prevState, action) => {
 			switch (action.type) {
@@ -94,6 +93,12 @@ export const DashboardContextProvider = ({
 						...prevState,
 						userPrompt: action.payload
 					};
+				case "SET_COMPLETING": {
+					return {
+						...prevState,
+						isCompleting: action.payload
+					};
+				}
 				case "SET_USER_PERSONALITY_ID": {
 					const personality = prevState.personalities.find((p) => p.id === action.payload);
 					return {
@@ -142,6 +147,7 @@ export const DashboardContextProvider = ({
 			userAvatar: "/images/user.png",
 			userInfo: { name: "", email: "", password: "", confirm: "" },
 			userPlan: null,
+			isCompleting: "NOT_COMPLETED",
 			userPrompt: "",
 			userPersonalityID: "",
 			personalities: [],
@@ -165,16 +171,17 @@ export const DashboardContextProvider = ({
 	useDebug("isPending", isPending);
 
 	const addMessageAction = useCallback(
-		(conversation_id: Message["conversation_id"], role: Message["role"], content: Message["content"]) => {
+		async (conversation_id: Message["conversation_id"], role: Message["role"], content: Message["content"]) => {
 			setIsPending(true);
-			addMessage(conversation_id, role, content).then(({ error }) => {
-				setIsPending(false);
-				if (error) {
-					const prevMessages = state.messages.slice(0, state.messages.length - 1);
-					dispatch({ type: "UPDATE_MESSAGES", payload: prevMessages });
-					toast.error(error.message);
-				}
-			});
+			const { error } = await addMessage(conversation_id, role, content);
+			setIsPending(false);
+			if (error) {
+				const prevMessages = state.messages.slice(0, state.messages.length - 1);
+				dispatch({ type: "UPDATE_MESSAGES", payload: prevMessages });
+				toast.error(error.message);
+				return { completed: false };
+			}
+			return { completed: true };
 		},
 		[setIsPending, state.messages]
 	);
@@ -328,10 +335,10 @@ export const DashboardContextProvider = ({
 
 	const sendUserPromptAction = useCallback(
 		(prompt: string) => {
-			setIsPending(true);
+			dispatch({ type: "SET_COMPLETING", payload: "COMPLETING" });
 			complete(prompt, { body: { personality_id: state.userPersonalityID } });
 		},
-		[complete, setIsPending, state.userPersonalityID]
+		[complete, dispatch, state.userPersonalityID]
 	);
 
 	useEffect(() => {
@@ -339,25 +346,25 @@ export const DashboardContextProvider = ({
 			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setPendingMessage("");
 		}
-		if (completion && isPending) {
-			console.log("start completion, completion:", completion, "messages:", state.messages);
-			// const isRedirected = pathname.startsWith("/chat") && pathname !== "/chat";
-			// if (isRedirected) {
-			dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
-			// }
-		}
-	}, [completion, isPending, setPendingMessage, state.messages]);
+	}, [isPending, setPendingMessage]);
 
-	function onFinish(prompt: string, completion: string) {
-		setIsPending(false);
-		console.log("onFinish, messages:", state.messages, "pathname:", pathname);
-		// const completedMessage = state.messages[state.messages.length - 1];
-		// const conversation_id = pathname.split("chat/")[1];
-		// addMessageAction(conversation_id, "assistant", completion);
+	useEffect(() => {
+		if (completion && state.isCompleting === "COMPLETING") {
+			console.log("start completion, completion:", completion, "messages:", state.messages);
+			dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
+		}
+		if (state.isCompleting === "COMPLETED") {
+			console.log("ready to fetch..., messages:", state.messages);
+			dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+		}
+	}, [completion, state.isCompleting, state.messages]);
+
+	function onFinish() {
+		dispatch({ type: "SET_COMPLETING", payload: "COMPLETED" });
 	}
 
 	function onError(error: Error) {
-		setIsPending(false);
+		dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 		toast.error(error.message);
 	}
 

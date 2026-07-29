@@ -16,7 +16,7 @@ export default function Prompt() {
 		dispatch({ type: "SET_USER_PROMPT", payload: "" });
 	};
 
-	const send = async () => {
+	const sendPrompt = async () => {
 		const prompt = state.userPrompt.trim();
 		clear();
 		const isNewConversation = pathname === "/chat";
@@ -25,17 +25,22 @@ export default function Prompt() {
 			if (data) {
 				console.log("conversation created:", data);
 				dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id: data.id, role: "user" } });
-				addMessageAction(data.id, "user", prompt);
-				dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
-				sendUserPromptAction(prompt);
-				await redirectAction(`/chat/${data.id}`);
+				const { completed } = await addMessageAction(data.id, "user", prompt);
+				if (completed) {
+					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
+					sendUserPromptAction(prompt);
+					await redirectAction(`/chat/${data.id}`);
+				}
 			}
 		} else {
 			const conversation_id = pathname.split("chat/")[1];
+			console.log("conversation_id:", conversation_id);
 			dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id, role: "user" } });
-			addMessageAction(conversation_id, "user", prompt);
-			dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
-			sendUserPromptAction(prompt);
+			const { completed } = await addMessageAction(conversation_id, "user", prompt);
+			if (completed) {
+				dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
+				sendUserPromptAction(prompt);
+			}
 		}
 	};
 
@@ -51,7 +56,7 @@ export default function Prompt() {
 					onKeyDown={(e) => {
 						if (!e.shiftKey && e.key === "Enter" && !isPending) {
 							e.preventDefault();
-							send();
+							sendPrompt();
 						}
 					}}
 				/>
@@ -66,7 +71,7 @@ export default function Prompt() {
 				</div>
 			</div>
 			<button
-				onClick={send}
+				onClick={sendPrompt}
 				disabled={isPending}
 				className="bg-btn-dark hover:bg-glass-white rounded-r-[1.2rem] max-lg:rounded-r-[1rem] max-md:rounded-r-[0.8rem] max-sm:rounded-r-[0.6rem] max-xs:rounded-r-[0.5rem] cursor-pointer px-16 max-lg:px-14 max-md:px-10 max-sm:px-8 max-xs:px-6 disabled:text-typo-dark-gray disabled:cursor-not-allowed disabled:hover:bg-btn-dark *:size-24 max-lg:*:size-20 max-md:*:size-18 max-sm:*:size-16 max-xs:*:size-14 duration-300 active:brightness-50 disabled:active:brightness-100"
 			>
