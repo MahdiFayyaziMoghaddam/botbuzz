@@ -6,6 +6,7 @@ import useLoadingToast from "@/hooks/useLoadingToast";
 import { Conversation, Message, Subscription } from "@/types/database";
 import { Action, State } from "@/types/reducer";
 import { UserInfo } from "@/types/user";
+import { redirectAction } from "@/utils/redirect";
 import { useCompletion } from "@ai-sdk/react";
 import { usePathname } from "next/navigation";
 import {
@@ -33,13 +34,14 @@ interface Context {
 		role: Message["role"],
 		content: Message["content"]
 	) => Promise<{ completed: boolean }>;
-	updateMessagesAction: (conversation_id: Conversation["id"]) => void;
+	updateMessagesAction: (conversation_id: Conversation["id"]) => Promise<{ completed: boolean }>;
 	addConversationAction: (personality_id: string, title?: string) => Promise<{ data: Conversation | null }>;
 	removeConversationAction: (id: Conversation["id"]) => void;
 	updateUserPlanAction: (id: Subscription["id"]) => void;
 	updateUserInfoAction: (userInfo: UserInfo) => void;
 	updateUserNotificationAction: (notification: boolean) => void;
 	sendUserPromptAction: (prompt: string) => void;
+	sendPromptProcess: (prompt?: string) => Promise<void>;
 }
 
 const DashboardContext = createContext<Context | null>(null);
@@ -55,6 +57,7 @@ export const DashboardContextProvider = ({
 	const setPendingMessage = useCallback((content: string) => setPendingData((prev) => ({ ...prev, content })), []);
 	const setIsPending = useCallback((state: boolean) => setPendingData((prev) => ({ ...prev, state })), []);
 	useLoadingToast(pendingMessage, isPending);
+	const pathname = usePathname();
 	const [state, dispatch] = useReducer<State, [action: Action]>(
 		(prevState, action) => {
 			switch (action.type) {
@@ -187,17 +190,18 @@ export const DashboardContextProvider = ({
 	);
 
 	const updateMessagesAction = useCallback(
-		(conversation_id: Conversation["id"]) => {
+		async (conversation_id: Conversation["id"]) => {
 			setIsPending(true);
-			getMessages(conversation_id).then(({ data, error }) => {
-				setIsPending(false);
-				if (error) {
-					toast.error(error.message);
-				}
-				if (!error && data) {
-					dispatch({ type: "UPDATE_MESSAGES", payload: data });
-				}
-			});
+			const { data, error } = await getMessages(conversation_id);
+			setIsPending(false);
+			if (!error && data) {
+				dispatch({ type: "UPDATE_MESSAGES", payload: data });
+				return { completed: true };
+			}
+			if (error) {
+				toast.error(error.message);
+			}
+			return { completed: false };
 		},
 		[dispatch, setIsPending]
 	);
@@ -341,6 +345,46 @@ export const DashboardContextProvider = ({
 		[complete, dispatch, state.userPersonalityID]
 	);
 
+	const sendPromptProcess = useCallback(
+		async (prompt?: string) => {
+			prompt = prompt || state.userPrompt.trim();
+			// const prompt = state.userPrompt.trim();
+			dispatch({ type: "SET_USER_PROMPT", payload: "" });
+			const isNewConversation = pathname === "/chat";
+			if (isNewConversation) {
+				const { data } = await addConversationAction(state.userPersonalityID, prompt.split(" ").slice(0, 8).join(" "));
+				if (data) {
+					console.log("conversation created:", data);
+					dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id: data.id, role: "user" } });
+					const { completed } = await addMessageAction(data.id, "user", prompt);
+					if (completed) {
+						dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
+						sendUserPromptAction(prompt);
+						await redirectAction(`/chat/${data.id}`);
+					}
+				}
+			} else {
+				const conversation_id = pathname.split("chat/")[1];
+				console.log("conversation_id:", conversation_id);
+				dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id, role: "user" } });
+				const { completed } = await addMessageAction(conversation_id, "user", prompt);
+				if (completed) {
+					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
+					sendUserPromptAction(prompt);
+				}
+			}
+		},
+		[
+			addConversationAction,
+			addMessageAction,
+			dispatch,
+			pathname,
+			sendUserPromptAction,
+			state.userPersonalityID,
+			state.userPrompt
+		]
+	);
+
 	useEffect(() => {
 		if (!isPending) {
 			// eslint-disable-next-line react-hooks/set-state-in-effect
@@ -350,14 +394,17 @@ export const DashboardContextProvider = ({
 
 	useEffect(() => {
 		if (completion && state.isCompleting === "COMPLETING") {
-			console.log("start completion, completion:", completion, "messages:", state.messages);
 			dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
 		}
 		if (state.isCompleting === "COMPLETED") {
-			console.log("ready to fetch..., messages:", state.messages);
+			const lastMessage = state.messages[state.messages.length - 1];
+			if (lastMessage) {
+				// eslint-disable-next-line react-hooks/set-state-in-effect
+				addMessageAction(lastMessage.conversation_id, lastMessage.role, completion);
+			}
 			dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 		}
-	}, [completion, state.isCompleting, state.messages]);
+	}, [completion, state.isCompleting, state.messages, addMessageAction]);
 
 	function onFinish() {
 		dispatch({ type: "SET_COMPLETING", payload: "COMPLETED" });
@@ -383,7 +430,8 @@ export const DashboardContextProvider = ({
 			updateUserPlanAction,
 			updateUserInfoAction,
 			updateUserNotificationAction,
-			sendUserPromptAction
+			sendUserPromptAction,
+			sendPromptProcess
 		}),
 		[
 			dispatch,
@@ -399,7 +447,8 @@ export const DashboardContextProvider = ({
 			updateUserPlanAction,
 			updateUserInfoAction,
 			updateUserNotificationAction,
-			sendUserPromptAction
+			sendUserPromptAction,
+			sendPromptProcess
 		]
 	);
 

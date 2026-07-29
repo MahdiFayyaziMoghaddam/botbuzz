@@ -7,7 +7,7 @@ import Image from "@/components/image/Image";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 
 export default function GetStarted() {
-	const { state, dispatch } = useDashboardContext();
+	const { state, sendPromptProcess } = useDashboardContext();
 	const prompts = [
 		{ icon: <Shapes8 className="text-icon-cyan" />, text: "Create a crossword puzzle for me" },
 		{ icon: <Shapes7 className="text-icon-peach" />, text: "Plan a budget for my vacation" },
@@ -32,7 +32,9 @@ export default function GetStarted() {
 						key={i}
 						className="bg-gradient-stroke rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] p-[0.1rem] cursor-pointer outline-none"
 						onClick={() => {
-							dispatch({ type: "SET_USER_PROMPT", payload: text });
+							if (state.isCompleting !== "COMPLETING") {
+								sendPromptProcess(text);
+							}
 						}}
 					>
 						<div className="bg-onboarding hover:bg-btn-dark duration-300 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-9 max-xs:p-8 *:first:size-24 max-lg:*:first:size-20 max-md:*:first:size-18 max-sm:*:first:size-16 max-xs:*:first:size-14">
