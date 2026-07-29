@@ -38,6 +38,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 	// initial validation and preload for /chat/[conversation_id]
 	if (pathname.startsWith("/chat") && pathname !== "/chat") {
 		const conversation_id = pathname.split("chat/")[1];
+		console.log("dash layout validation!, conversation_id:", conversation_id);
 		if (!conversations.find((conversation) => conversation.id === conversation_id)) redirect("/chat", "replace");
 		else {
 			const { data } = await getMessages(conversation_id);

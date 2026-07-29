@@ -35,7 +35,7 @@ interface HistoryLink {
 }
 
 export default function HistoryLink({ href, title, id }: HistoryLink) {
-	const { removeConversationAction } = useDashboardContext();
+	const { removeConversationAction, updateMessagesAction } = useDashboardContext();
 	const onDelete = () => {
 		removeConversationAction(id);
 	};
@@ -44,6 +44,9 @@ export default function HistoryLink({ href, title, id }: HistoryLink) {
 			<Link
 				className="grow p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-6 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem]"
 				href={href}
+				onClick={() => {
+					updateMessagesAction(href.split("chat/")[1]);
+				}}
 			>
 				{title}
 			</Link>

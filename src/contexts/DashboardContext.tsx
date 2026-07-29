@@ -7,6 +7,7 @@ import { Conversation, Message, Subscription } from "@/types/database";
 import { Action, State } from "@/types/reducer";
 import { UserInfo } from "@/types/user";
 import { useCompletion } from "@ai-sdk/react";
+import { usePathname } from "next/navigation";
 import {
 	createContext,
 	Dispatch,
@@ -54,6 +55,7 @@ export const DashboardContextProvider = ({
 	const setPendingMessage = useCallback((content: string) => setPendingData((prev) => ({ ...prev, content })), []);
 	const setIsPending = useCallback((state: boolean) => setPendingData((prev) => ({ ...prev, state })), []);
 	useLoadingToast(pendingMessage, isPending);
+	const pathname = usePathname();
 	const [state, dispatch] = useReducer<State, [action: Action]>(
 		(prevState, action) => {
 			switch (action.type) {
@@ -118,7 +120,7 @@ export const DashboardContextProvider = ({
 				}
 				case "UPDATE_LAST_MESSAGE": {
 					const content = action.payload;
-					prevState.messages[prevState.messages.length - 1].content += content;
+					prevState.messages[prevState.messages.length - 1].content = content;
 					return prevState;
 				}
 				case "UPDATE_USER_AVATAR": {
@@ -161,7 +163,6 @@ export const DashboardContextProvider = ({
 	useDebug("userPrompt", state.userPrompt);
 	useDebug("personality_id", state.userPersonalityID);
 	useDebug("isPending", isPending);
-	useDebug("completion", completion);
 
 	const addMessageAction = useCallback(
 		(conversation_id: Message["conversation_id"], role: Message["role"], content: Message["content"]) => {
@@ -339,18 +340,20 @@ export const DashboardContextProvider = ({
 			setPendingMessage("");
 		}
 		if (completion && isPending) {
+			console.log("start completion, completion:", completion, "messages:", state.messages);
 			// const isRedirected = pathname.startsWith("/chat") && pathname !== "/chat";
 			// if (isRedirected) {
 			dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
 			// }
 		}
-	}, [completion, isPending, setPendingMessage]);
+	}, [completion, isPending, setPendingMessage, state.messages]);
 
 	function onFinish(prompt: string, completion: string) {
 		setIsPending(false);
-		console.log("onFinish");
-		const completedMessage = state.messages[state.messages.length - 1];
-		addMessageAction(completedMessage.conversation_id, "assistant", completion);
+		console.log("onFinish, messages:", state.messages, "pathname:", pathname);
+		// const completedMessage = state.messages[state.messages.length - 1];
+		// const conversation_id = pathname.split("chat/")[1];
+		// addMessageAction(conversation_id, "assistant", completion);
 	}
 
 	function onError(error: Error) {

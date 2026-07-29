@@ -70,7 +70,7 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 				<div className="flex flex-col items-end ml-auto">
 					<div className="flex items-center gap-8 max-sm:gap-6 max-xs:gap-5 mb-16 max-lg:mb-14 max-md:mb-12 max-sm:mb-10 max-xs:mb-8">
 						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.7rem] max-sm:text-[0.6rem] max-xs:text-[0.5rem] text-typo-light-gray select-none">
-							{date}
+							{formatTimestamp(date!)}
 						</span>
 						<Image
 							src={imgSrc}

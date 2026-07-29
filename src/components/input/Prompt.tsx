@@ -3,14 +3,14 @@ import { useDashboardContext } from "@/contexts/DashboardContext";
 import AddPhoto from "../icons/add-photo";
 import Microphone from "../icons/microphone";
 import Send from "../icons/send";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Vital from "../icons/vital";
+import { redirectAction } from "@/utils/redirect";
 
 export default function Prompt() {
 	const { state, dispatch, isPending, addConversationAction, sendUserPromptAction, addMessageAction } =
 		useDashboardContext();
 	const pathname = usePathname();
-	const router = useRouter();
 
 	const clear = () => {
 		dispatch({ type: "SET_USER_PROMPT", payload: "" });
@@ -19,23 +19,24 @@ export default function Prompt() {
 	const send = async () => {
 		const prompt = state.userPrompt.trim();
 		clear();
-		console.log("prompt input:", prompt);
 		const isNewConversation = pathname === "/chat";
 		if (isNewConversation) {
 			const { data } = await addConversationAction(state.userPersonalityID, prompt.split(" ").slice(0, 8).join(" "));
 			if (data) {
-				router.replace(`/chat/${data.id}`);
+				console.log("conversation created:", data);
 				dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id: data.id, role: "user" } });
 				addMessageAction(data.id, "user", prompt);
 				dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
+				sendUserPromptAction(prompt);
+				await redirectAction(`/chat/${data.id}`);
 			}
 		} else {
 			const conversation_id = pathname.split("chat/")[1];
 			dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id, role: "user" } });
 			addMessageAction(conversation_id, "user", prompt);
 			dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
+			sendUserPromptAction(prompt);
 		}
-		sendUserPromptAction(prompt);
 	};
 
 	return (
