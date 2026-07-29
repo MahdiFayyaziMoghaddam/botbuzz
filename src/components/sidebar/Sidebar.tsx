@@ -17,13 +17,13 @@ export default function Sidebar() {
 	const { isBelow: isMobile } = useMediaQuery("md");
 	const scrollY = useRef(0);
 	const toggleCollapse = () => dispatch({ type: "TOGGLE_COLLAPSE" });
-	const closeDrawer = useCallback(() => dispatch({ type: "SET_DRAWER_CLOSE" }), [dispatch]);
+	const closeDrawer = useCallback(() => dispatch({ type: "SET_DRAWER_OPEN", payload: false }), [dispatch]);
 
 	useEffect(() => {
 		if (isMobile) {
-			dispatch({ type: "SET_COLLAPSE_CLOSE" });
+			dispatch({ type: "SET_COLLAPSE_OPEN", payload: false });
 		} else {
-			dispatch({ type: "SET_DRAWER_CLOSE" });
+			dispatch({ type: "SET_DRAWER_OPEN", payload: false });
 		}
 	}, [isMobile, dispatch]);
 

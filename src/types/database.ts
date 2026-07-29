@@ -8,6 +8,7 @@ export interface Personality extends AutoGenerate {
 	name: string;
 	description: string;
 	image: string;
+	instructions: string;
 	skills: string[];
 }
 export interface Subscription extends AutoGenerate {
@@ -26,3 +27,4 @@ export interface Message extends AutoGenerate {
 	role: "user" | "assistant";
 	content: string;
 }
+export type ClientMessage = Pick<Message, "content" | "conversation_id" | "role" | "created_at">;

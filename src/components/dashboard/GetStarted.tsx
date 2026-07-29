@@ -14,13 +14,14 @@ export default function GetStarted() {
 		{ icon: <Shapes9 className="text-icon-green" />, text: "Ethical implications of AI" },
 		{ icon: <Shapes10 className="text-icon-yellow" />, text: "Calendar for the whole month" }
 	];
+	const personality = state.personalities.find(({ id }) => id === state.userPersonalityID);
 	return (
 		<div className="flex flex-col items-center justify-center m-auto max-w-800 grow select-none px-16 max-lg:px-14 max-md:px-12 max-sm:px-10 max-xs:px-8">
 			<Image
-				src={state.personalities.find(({ name }) => name === state.userPersonality)?.image || "/images/favicon.png"}
+				src={personality?.image || "/images/favicon.png"}
 				alt="icon"
 				className="relative size-48 max-lg:size-40 max-md:size-32 max-sm:size-28 max-xs:size-24 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem]"
-				title={state.userPersonality || "Sage"}
+				title={personality?.name || "Assistant"}
 			/>
 			<p className="text-[2rem] max-xl:text-[1.8rem] max-lg:text-[1.6rem] max-md:text-[1.4rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] leading-[1.6] mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8 text-center">
 				Your Daily AI Assistant

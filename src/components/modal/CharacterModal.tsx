@@ -6,6 +6,7 @@ import { ModalProps } from "@/types/modal";
 import { useRouter } from "next/navigation";
 
 interface CharacterModal extends ModalProps {
+	id: string;
 	imgSrc: string;
 	title: string;
 	description?: string;
@@ -34,7 +35,7 @@ export default function CharacterModal(props: CharacterModal) {
 						variant="solid"
 						className="mt-50 max-xl:mt-40 max-lg:mt-30 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full font-semibold! max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
 						onClick={() => {
-							dispatch({ type: "SET_USER_PERSONALITY", payload: props.title! });
+							dispatch({ type: "SET_USER_PERSONALITY_ID", payload: props.id });
 							router.replace("/chat");
 						}}
 					>

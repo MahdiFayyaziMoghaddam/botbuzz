@@ -1,7 +1,8 @@
 "use server";
 
+import { getSubscriptions } from "@/database/actions";
 import { createAuthClient, createDBClient } from "@/lib/supabase";
-import { type Subscription } from "@/types/database";
+import { Subscription } from "@/types/database";
 import { UserMetadata } from "@/types/user";
 import { cropToSquare } from "@/utils/cropToSquare";
 import { redirect } from "next/navigation";
@@ -27,7 +28,7 @@ export async function signup(formData: FormData) {
 		email,
 		password,
 		options: {
-			data: { name, notification: false, subscription: "Free", image: "/images/user.png" } as UserMetadata
+			data: { name, notification: false, subscription: null, image: "/images/user.png" } as UserMetadata
 		}
 	});
 
@@ -82,10 +83,18 @@ interface UpdateUser {
 	email?: string;
 	password?: string;
 	confirm?: string;
-	subscription?: Subscription["plan"];
+	subscriptionID?: Subscription["id"];
 	image?: string;
 }
-export const updateUser = async ({ email, image, name, notification, password, subscription, confirm }: UpdateUser) => {
+export const updateUser = async ({
+	email,
+	image,
+	name,
+	notification,
+	password,
+	subscriptionID,
+	confirm
+}: UpdateUser) => {
 	const imageRegex =
 		/^(https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}(\/[^\s?]*)*\/[^\s?]*\.[a-zA-Z]{2,4}|^\/[^\s?]*\.[a-zA-Z]{2,4})$/;
 	if (password && confirm && password !== confirm) {
@@ -97,8 +106,11 @@ export const updateUser = async ({ email, image, name, notification, password, s
 	if (name && (name.length < 2 || name.length > 33)) {
 		return { error: "Name length must be lower than 33 and higher than 2" };
 	}
-	if (subscription && subscription !== "Free" && subscription !== "Plus" && subscription !== "Team") {
-		return { error: "Subscription must be either Free or Plus or Team" };
+	let subscription = undefined;
+	if (subscriptionID) {
+		const { data } = await getSubscriptions();
+		subscription = data.find((sub) => sub.id === subscriptionID);
+		if (!subscription) return { error: "Subscription id is invalid" };
 	}
 	const supabase = await createAuthClient();
 	const {

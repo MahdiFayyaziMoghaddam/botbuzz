@@ -1,36 +1,25 @@
 "use client";
-import { updateUser, uploadUserAvatar } from "@/auth/actions";
 import Button from "@/components/button/Button";
 import ArrowRight from "@/components/icons/arrow-right";
 import Edit from "@/components/icons/edit";
 import Image from "@/components/image/Image";
 import Textbox from "@/components/input/Textbox";
 import { useDashboardContext } from "@/contexts/DashboardContext";
-import useLoadingToast from "@/hooks/useLoadingToast";
-import { ChangeEvent, useState } from "react";
-import { toast } from "react-toastify";
+import { ChangeEvent } from "react";
 
 export default function Profile() {
-	const { state, dispatch } = useDashboardContext();
-	const [data, setData] = useState({ name: "", email: "", password: "", confirm: "" });
-	const [isLoading, setIsLoading] = useState({ state: false, content: "" });
-
-	useLoadingToast(isLoading.content, isLoading.state);
+	const { state, dispatch, isPending, setPendingMessage, updateUserAvatarAction, updateUserInfoAction } =
+		useDashboardContext();
 	const inputHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) =>
-		setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-	const resetData = () => setData({ name: "", email: "", password: "", confirm: "" });
+		dispatch({ type: "SET_USER_INFO", payload: { [e.target.name]: e.target.value } });
 
 	return (
 		<form
 			className="flex flex-col items-start p-24 max-xl:p-20 max-lg:p-16 max-md:p-12 max-sm:p-10 max-xs:p-8"
-			onSubmit={async (e) => {
+			onSubmit={(e) => {
 				e.preventDefault();
-				setIsLoading({ state: true, content: "Update user information ..." });
-				const { error } = await updateUser(data);
-				if (error) toast.error(error);
-				else toast.success("Successfully user information updated");
-				setIsLoading({ state: false, content: "" });
-				resetData();
+				setPendingMessage("Update user information ...");
+				updateUserInfoAction(state.userInfo);
 			}}
 		>
 			<div className="relative">
@@ -47,22 +36,11 @@ export default function Profile() {
 						type="file"
 						accept="image/*"
 						className="sr-only"
-						disabled={isLoading.state}
-						onChange={async (e) => {
+						disabled={isPending}
+						onChange={(e) => {
 							if (e.target.files && e.target.files.length === 1) {
-								setIsLoading({ state: true, content: "Upload user avatar ..." });
-								const { data, error } = await uploadUserAvatar(e.target.files[0]);
-								if (data) {
-									toast.success("Successfully avatar uploaded");
-									dispatch({
-										type: "UPDATE_USER_AVATAR",
-										payload: data
-									});
-								}
-								if (error) {
-									toast.error(error);
-								}
-								setIsLoading({ state: false, content: "" });
+								setPendingMessage("Upload user avatar ...");
+								updateUserAvatarAction(e.target.files[0]);
 							}
 						}}
 					/>
@@ -73,7 +51,7 @@ export default function Profile() {
 			<div className="flex gap-24 max-xl:gap-20 max-lg:gap-16 max-md:flex-col max-md:gap-12 max-sm:gap-10 max-xs:gap-8 mt-32 max-xl:mt-28 max-lg:mt-24 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full max-w-914 max-xl:max-w-800 max-lg:max-w-700 max-md:max-w-full">
 				<Textbox
 					name="name"
-					value={data.name}
+					value={state.userInfo.name}
 					onChange={inputHandler}
 					label="Your fullname"
 					placeholder="Enter your fullname"
@@ -82,7 +60,7 @@ export default function Profile() {
 				/>
 				<Textbox
 					name="email"
-					value={data.email}
+					value={state.userInfo.email}
 					onChange={inputHandler}
 					label="Your email"
 					placeholder="Enter your email"
@@ -94,7 +72,7 @@ export default function Profile() {
 			<div className="flex gap-24 max-xl:gap-20 max-lg:gap-16 max-md:flex-col max-md:gap-12 max-sm:gap-10 max-xs:gap-8 mt-32 max-xl:mt-28 max-lg:mt-24 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full max-w-914 max-xl:max-w-800 max-lg:max-w-700 max-md:max-w-full">
 				<Textbox
 					name="password"
-					value={data.password}
+					value={state.userInfo.password}
 					onChange={inputHandler}
 					label="Password"
 					type="password"
@@ -104,7 +82,7 @@ export default function Profile() {
 				/>
 				<Textbox
 					name="confirm"
-					value={data.confirm}
+					value={state.userInfo.confirm}
 					onChange={inputHandler}
 					label="Confirm password"
 					type="password"
@@ -116,7 +94,7 @@ export default function Profile() {
 			<Button
 				variant="solid"
 				className="mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 font-semibold max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
-				disabled={isLoading.state}
+				disabled={isPending}
 			>
 				Update
 				<ArrowRight className="size-26 max-xl:size-23 max-lg:size-20 max-md:size-18 max-sm:size-16 max-xs:size-14" />

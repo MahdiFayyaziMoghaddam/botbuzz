@@ -26,7 +26,7 @@ export default function Textbox({ label, className, required = false, error, typ
 					ref={borderElemRef}
 					className="p-[0.1rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] mt-[1.2rem] max-lg:mt-[1rem] max-md:mt-[0.8rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem] duration-200"
 				>
-					<div className="flex items-center gap-[0.8rem] max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem] bg-input-dark w-full rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] px-[1.4rem] max-lg:px-[1.2rem] max-md:px-[1rem] max-sm:px-[0.8rem] max-xs:px-[0.6rem]">
+					<div className="flex items-center gap-[0.8rem] max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem] bg-input-dark w-full rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem]">
 						<input
 							type={isVisible ? (type === "password" ? "text" : type) : "password"}
 							onFocus={(e) => {
@@ -41,7 +41,7 @@ export default function Textbox({ label, className, required = false, error, typ
 									: "var(--gradient-stroke)";
 								onBlur?.(e);
 							}}
-							className="placeholder:text-input-light-gray duration-200 py-[1.7rem] max-xl:py-[1.5rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.7rem] text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]"
+							className="placeholder:text-input-light-gray duration-200 py-[1.7rem] max-xl:py-[1.5rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.7rem] text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] px-[1.4rem] max-lg:px-[1.2rem] max-md:px-[1rem] max-sm:px-[0.8rem] max-xs:px-[0.6rem]"
 							required={required}
 							{...props}
 						/>
@@ -50,9 +50,10 @@ export default function Textbox({ label, className, required = false, error, typ
 						)}
 						{type === "password" && (
 							<button
+								type="button"
 								autoFocus={false}
 								tabIndex={-1}
-								className="cursor-pointer text-icon-blue shrink-0 *:size-[2.4rem] max-lg:*:size-[2.6rem] max-md:*:size-[2.2rem] max-sm:*:size-[1.9rem] max-xs:*:size-[1.5rem]"
+								className="cursor-pointer text-icon-blue shrink-0 *:size-[2.4rem] max-lg:*:size-[2.6rem] max-md:*:size-[2.2rem] max-sm:*:size-[1.9rem] max-xs:*:size-[1.5rem] mr-[1.4rem] max-lg:mr-[1.2rem] max-md:mr-[1rem] max-sm:mr-[0.8rem] max-xs:mr-[0.6rem]"
 								onFocus={(e) => e.target.blur()}
 								onClick={() => setIsVisible((prev) => !prev)}
 							>

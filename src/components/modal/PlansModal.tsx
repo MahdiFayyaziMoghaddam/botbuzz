@@ -2,11 +2,9 @@ import { ModalProps } from "@/types/modal";
 import Modal from "./Modal";
 import Subscription from "../subscription/Subscription";
 import { useDashboardContext } from "@/contexts/DashboardContext";
-import { useState } from "react";
 
 export default function PlansModal({ open = false, onClose }: ModalProps) {
 	const { state } = useDashboardContext();
-	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<Modal open={open} onClose={onClose}>
@@ -22,15 +20,7 @@ export default function PlansModal({ open = false, onClose }: ModalProps) {
 				</div>
 				<div className="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-[3.2rem] max-lg:gap-[2.4rem] max-md:gap-[1.6rem] max-lg:pr-4 max-lg:max-h-490 max-md:max-h-400 max-sm:max-h-410 max-xs:max-h-385 overflow-auto">
 					{state.subscriptions?.map(({ id, features, plan, image, price }) => (
-						<Subscription
-							key={id}
-							plan={plan}
-							imgSrc={image}
-							price={price}
-							features={features}
-							isLoading={isLoading}
-							setIsLoading={setIsLoading}
-						/>
+						<Subscription key={id} id={id} plan={plan} image={image} price={price} features={features} />
 					))}
 				</div>
 			</div>

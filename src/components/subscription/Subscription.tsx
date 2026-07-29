@@ -1,29 +1,20 @@
 import Image from "../image/Image";
 import Check from "../icons/check";
 import Button from "../button/Button";
-import { updateUser } from "@/auth/actions";
-import { toast } from "react-toastify";
-import { Dispatch, SetStateAction } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import { type Subscription } from "@/types/database";
 
-interface Subscription {
-	imgSrc: string;
-	plan: "Free" | "Plus" | "Team";
-	features: string[];
-	price: number;
-	isLoading?: boolean;
-	setIsLoading?: Dispatch<SetStateAction<boolean>>;
-}
+type SubscriptionProps = Pick<Subscription, "id" | "features" | "image" | "plan" | "price">;
 
-export default function Subscription({ features, imgSrc, plan, price, isLoading, setIsLoading }: Subscription) {
-	const { state, dispatch } = useDashboardContext();
+export default function Subscription({ id, features, image, plan, price }: SubscriptionProps) {
+	const { state, isPending, updateUserPlanAction } = useDashboardContext();
 	return (
 		<div
 			className={`flex flex-col justify-between ${plan === "Free" ? "bg-onboarding" : plan === "Plus" ? "bg-[#1E2024]" : "bg-icon-black"} py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke`}
 		>
 			<div>
 				<Image
-					src={imgSrc}
+					src={image}
 					alt="free-plan"
 					className="relative w-full aspect-[2/1] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] overflow-hidden"
 					loading="lazy"
@@ -50,11 +41,10 @@ export default function Subscription({ features, imgSrc, plan, price, isLoading,
 					))}
 				</ul>
 			</div>
-			{state.userPlan === plan ? (
+			{state.userPlan && state.userPlan.id === id ? (
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.8rem] text-[1.2rem]! max-lg:text-[1rem]!"
-					isLoading={isLoading}
 					disabled
 				>
 					Your Current Plan
@@ -63,18 +53,9 @@ export default function Subscription({ features, imgSrc, plan, price, isLoading,
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
-					disabled={isLoading}
+					isLoading={isPending}
 					onClick={() => {
-						const prevUserPlan = state.userPlan;
-						dispatch({ type: "UPDATE_USER_PLAN", payload: plan });
-						if (setIsLoading) setIsLoading(true);
-						updateUser({ subscription: plan }).then(({ error }) => {
-							if (setIsLoading) setIsLoading(false);
-							if (error) {
-								dispatch({ type: "UPDATE_USER_PLAN", payload: prevUserPlan });
-								return toast.error(error);
-							}
-						});
+						updateUserPlanAction(id);
 					}}
 				>
 					Upgrade to {plan}

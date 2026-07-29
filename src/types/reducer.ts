@@ -1,36 +1,41 @@
-import { Conversation, Message, Personality, Subscription } from "./database";
+import { ClientMessage, Conversation, Personality, Subscription } from "./database";
+import { UserInfo } from "./user";
 
 export interface State {
-	isDrawerOpened: boolean;
-	isCollapsed: boolean;
 	notification: boolean;
-	userAvatar: string;
-	userPlan: Subscription["plan"];
+	userPlan: Subscription | null;
 	subscriptions: Subscription[];
 	personalities: Personality[];
 	conversations: Conversation[];
-	messages: Message[];
+	messages: ClientMessage[];
+	userAvatar: string;
 	userPrompt: string;
-	userPersonality: Personality["name"];
-	isModelGenerating: boolean;
+	userPersonalityID: Personality["id"];
+	userInfo: UserInfo;
+	isDrawerOpened: boolean;
+	isCollapsed: boolean;
 }
 
 type Actions = {
-	SET_DRAWER_OPEN: undefined;
-	SET_DRAWER_CLOSE: undefined;
+	SET_NOTIFICATION_STATUS: boolean;
+	SET_USER_PERSONALITY_ID: Personality["id"];
+	SET_DRAWER_OPEN: boolean;
 	TOGGLE_DRAWER: undefined;
-	SET_COLLAPSE_OPEN: undefined;
-	SET_COLLAPSE_CLOSE: undefined;
+	SET_COLLAPSE_OPEN: boolean;
 	TOGGLE_COLLAPSE: undefined;
-	TURN_NOTIFICATION_ON: undefined;
-	TURN_NOTIFICATION_OFF: undefined;
-	UPDATE_USER_AVATAR: string;
-	UPDATE_USER_PLAN: Subscription["plan"];
 	SET_USER_PROMPT: string;
-	SET_USER_PERSONALITY: Personality["name"];
-	SET_IS_MODEL_GENERATING: boolean;
-	REMOVE_CONVERSATION: string;
+	SET_USER_INFO: Partial<UserInfo>;
+
+	ADD_MESSAGE: Pick<ClientMessage, "content" | "conversation_id" | "role">;
+	UPDATE_LAST_MESSAGE: ClientMessage["content"];
+	UPDATE_MESSAGES: ClientMessage[];
+	UPDATE_USER_PLAN: Subscription;
 	ADD_CONVERSATION: Conversation;
+	REMOVE_CONVERSATION: Conversation["id"];
+	UPDATE_USER_AVATAR: string;
+	// UPDATE_LAST_MESSAGE: Pick<ClientMessage, "content">;
+	// UPDATE_USER_INFO: undefined;
+	// SEND_PROMPT: string;
 };
 
 export type Action = {

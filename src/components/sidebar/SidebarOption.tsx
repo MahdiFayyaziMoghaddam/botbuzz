@@ -16,7 +16,7 @@ export default function SidebarOption({ href, icon, title }: SidebarOption) {
 				{icon}
 				<span
 					className={`overflow-hidden whitespace-nowrap transition-all duration-300 ease-in ${
-						state.isCollapsed ? "max-w-0 opacity-0 -translate-x-2" : "max-w-[200px] opacity-100 translate-x-0"
+						state.isCollapsed ? "md:max-w-0 md:opacity-0 md:-translate-x-2" : "max-w-[200px] opacity-100 translate-x-0"
 					}`}
 				>
 					{title}

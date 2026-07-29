@@ -5,7 +5,7 @@ export default function useLoadingToast(content: string, isLoading: boolean) {
 	const toastId = useRef<Id | null>(null);
 
 	useEffect(() => {
-		if (isLoading) {
+		if (isLoading && content) {
 			toastId.current = toast.loading(content);
 		} else {
 			if (toastId.current) {
@@ -20,4 +20,6 @@ export default function useLoadingToast(content: string, isLoading: boolean) {
 			}
 		};
 	}, [isLoading, content]);
+
+	return toastId;
 }

@@ -4,19 +4,27 @@ import DislikeOutline from "@/components/icons/dislike-outline";
 import Refresh from "@/components/icons/refresh";
 import Image from "../image/Image";
 import { toast } from "react-toastify";
+import { ClientMessage } from "@/types/database";
 
-interface ChatBox {
-	role?: "user" | "model";
-	title?: string;
+interface ChatBox extends Pick<ClientMessage, "content" | "role"> {
 	imgSrc?: string;
-	msg?: string;
 	date?: string;
+	title?: string;
 }
 
-export default function ChatBox({ role = "user", date, imgSrc = "/images/user.png", msg, title }: ChatBox) {
+function formatTimestamp(timestamp: string): string {
+	const date = new Date(timestamp);
+	const day = String(date.getDate()).padStart(2, "0");
+	const month = date.toLocaleString("en-US", { month: "long" });
+	const hours = date.getHours();
+	const minutes = String(date.getMinutes()).padStart(2, "0");
+	return `${day} ${month} ▪ ${hours}:${minutes}`;
+}
+
+export default function ChatBox({ role = "user", date, imgSrc = "/images/user.png", content, title }: ChatBox) {
 	return (
 		<>
-			{role === "model" ? (
+			{role === "assistant" ? (
 				<div className="w-full">
 					<div className="flex items-center gap-8 max-sm:gap-6 max-xs:gap-5 mb-16 max-lg:mb-14 max-md:mb-12 max-sm:mb-10 max-xs:mb-8">
 						<Image
@@ -28,11 +36,11 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 							{title}
 						</span>
 						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.7rem] max-sm:text-[0.6rem] max-xs:text-[0.5rem] text-typo-light-gray select-none">
-							{date}
+							{formatTimestamp(date!)}
 						</span>
 					</div>
 					<div className="bg-glass-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
-						{msg}
+						{content}
 						<div className="flex items-center gap-12 max-lg:gap-11 max-md:gap-10 max-sm:gap-9 max-xs:gap-8 mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8">
 							<button className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-icon-purple duration-300 cursor-pointer outline-none">
 								<LikeOutline />
@@ -45,7 +53,7 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 							<button
 								className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-typo-light-white duration-300 cursor-pointer outline-none"
 								onClick={() => {
-									if (window.navigator) navigator.clipboard.writeText(msg || "");
+									if (window.navigator) navigator.clipboard.writeText(content || "");
 									toast.success("Copied to clipboard");
 								}}
 							>
@@ -71,7 +79,7 @@ export default function ChatBox({ role = "user", date, imgSrc = "/images/user.pn
 						/>
 					</div>
 					<div className="bg-onboarding border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8 text-typo-light-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem]">
-						{msg}
+						{content}
 					</div>
 				</div>
 			)}
