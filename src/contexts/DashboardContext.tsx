@@ -1,7 +1,6 @@
 "use client";
 import { updateUser, uploadUserAvatar } from "@/auth/actions";
 import { addConversation, addMessage, getMessages, removeConversation } from "@/database/actions";
-import useDebug from "@/hooks/useDebug";
 import useLoadingToast from "@/hooks/useLoadingToast";
 import { Conversation, Message, Subscription } from "@/types/database";
 import { Action, State } from "@/types/reducer";
@@ -21,6 +20,8 @@ import {
 	useState
 } from "react";
 import { toast } from "react-toastify";
+import { reducer } from "./reducer";
+import { initialState } from "./initialState";
 
 interface Context {
 	state: State;
@@ -48,7 +49,7 @@ const DashboardContext = createContext<Context | null>(null);
 
 export const DashboardContextProvider = ({
 	children,
-	initialState
+	initialState: initialStateProp
 }: {
 	children: ReactNode;
 	initialState?: Partial<State>;
@@ -58,120 +59,12 @@ export const DashboardContextProvider = ({
 	const setIsPending = useCallback((state: boolean) => setPendingData((prev) => ({ ...prev, state })), []);
 	useLoadingToast(pendingMessage, isPending);
 	const pathname = usePathname();
-	const [state, dispatch] = useReducer<State, [action: Action]>(
-		(prevState, action) => {
-			switch (action.type) {
-				case "TOGGLE_DRAWER":
-					return {
-						...prevState,
-						isDrawerOpened: !prevState.isDrawerOpened
-					};
-				case "SET_DRAWER_OPEN":
-					return {
-						...prevState,
-						isDrawerOpened: action.payload
-					};
-				case "SET_COLLAPSE_OPEN":
-					return {
-						...prevState,
-						isCollapsed: action.payload
-					};
-				case "TOGGLE_COLLAPSE":
-					return {
-						...prevState,
-						isCollapsed: !prevState.isCollapsed
-					};
-				case "SET_NOTIFICATION_STATUS":
-					return {
-						...prevState,
-						notification: action.payload
-					};
-				case "UPDATE_USER_PLAN":
-					return {
-						...prevState,
-						userPlan: action.payload
-					};
-				case "SET_USER_PROMPT":
-					return {
-						...prevState,
-						userPrompt: action.payload
-					};
-				case "SET_COMPLETING": {
-					return {
-						...prevState,
-						isCompleting: action.payload
-					};
-				}
-				case "SET_USER_PERSONALITY_ID": {
-					const personality = prevState.personalities.find((p) => p.id === action.payload);
-					return {
-						...prevState,
-						userPersonalityID: personality ? action.payload : prevState.userPersonalityID
-					};
-				}
-				case "ADD_CONVERSATION":
-					return { ...prevState, conversations: [...prevState.conversations, action.payload] };
-				case "REMOVE_CONVERSATION":
-					return { ...prevState, conversations: prevState.conversations.filter((c) => c.id !== action.payload) };
-				case "ADD_MESSAGE": {
-					const { content, conversation_id, role } = action.payload;
-					return {
-						...prevState,
-						messages: [...prevState.messages, { content, conversation_id, role, created_at: new Date().toISOString() }]
-					};
-				}
-				case "UPDATE_MESSAGES": {
-					return {
-						...prevState,
-						messages: Array.isArray(action.payload) ? action.payload : []
-					};
-				}
-				case "UPDATE_LAST_MESSAGE": {
-					const content = action.payload;
-					prevState.messages[prevState.messages.length - 1].content = content;
-					return prevState;
-				}
-				case "UPDATE_USER_AVATAR": {
-					return { ...prevState, userAvatar: action.payload };
-				}
-				case "SET_USER_INFO":
-					return {
-						...prevState,
-						userInfo: { ...prevState.userInfo, ...action.payload }
-					};
-				default:
-					return prevState;
-			}
-		},
-		{
-			isCollapsed: false,
-			isDrawerOpened: false,
-			notification: false,
-			userAvatar: "/images/user.png",
-			userInfo: { name: "", email: "", password: "", confirm: "" },
-			userPlan: null,
-			isCompleting: "NOT_COMPLETED",
-			userPrompt: "",
-			userPersonalityID: "",
-			personalities: [],
-			subscriptions: [],
-			conversations: [],
-			messages: [],
-			...initialState
-		}
-	);
-
+	const [state, dispatch] = useReducer<State, [action: Action]>(reducer, { ...initialState, ...initialStateProp });
 	const { complete, completion } = useCompletion({
 		api: "/api/chat",
 		onFinish,
 		onError
 	});
-
-	useDebug("conversations", state.conversations);
-	useDebug("messages", state.messages);
-	useDebug("userPrompt", state.userPrompt);
-	useDebug("personality_id", state.userPersonalityID);
-	useDebug("isPending", isPending);
 
 	const addMessageAction = useCallback(
 		async (conversation_id: Message["conversation_id"], role: Message["role"], content: Message["content"]) => {
@@ -352,7 +245,7 @@ export const DashboardContextProvider = ({
 	const sendPromptProcess = useCallback(
 		async (prompt?: string) => {
 			prompt = prompt || state.userPrompt.trim();
-			// const prompt = state.userPrompt.trim();
+			if (!prompt) return;
 			dispatch({ type: "SET_USER_PROMPT", payload: "" });
 			const isNewConversation = pathname === "/chat";
 			if (isNewConversation) {
