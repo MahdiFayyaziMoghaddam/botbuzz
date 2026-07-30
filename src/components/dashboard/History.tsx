@@ -3,6 +3,7 @@ import Image from "../image/Image";
 import Trash from "../icons/trash";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import { useRouter } from "next/navigation";
+import { StaticImages } from "../image/StaticImages";
 
 interface HistoryModel {
 	imgSrc?: string;
@@ -10,11 +11,11 @@ interface HistoryModel {
 	date?: string;
 }
 
-export function HistoryModel({ date, imgSrc = "/images/favicon.png", title }: HistoryModel) {
+export function HistoryModel({ date, imgSrc, title }: HistoryModel) {
 	return (
 		<div className="flex items-center gap-8 max-xl:gap-7 max-lg:gap-6 max-md:gap-5 max-sm:gap-4 max-xs:gap-3">
 			<Image
-				src={imgSrc}
+				src={StaticImages[`${imgSrc}`] || StaticImages.default}
 				alt="model"
 				className="relative size-32 max-xl:size-30 max-lg:size-28 max-md:size-24 max-sm:size-20 max-xs:size-18 rounded-[0.8rem] max-xl:rounded-[0.75rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] flex items-center justify-center shrink-0"
 			/>

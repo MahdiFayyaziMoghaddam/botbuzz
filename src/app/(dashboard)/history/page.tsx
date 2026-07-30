@@ -42,9 +42,7 @@ export default function History() {
 									<div key={personality_id} className="flex flex-col gap-16">
 										<HistoryModel
 											title={state.personalities.find(({ id }) => id === personality_id)?.name || "assistant"}
-											imgSrc={
-												state.personalities.find(({ id }) => id === personality_id)?.image || "/images/favicon.png"
-											}
+											imgSrc={state.personalities.find(({ id }) => id === personality_id)!.image}
 											date={formatted_created_at}
 										/>
 										{[

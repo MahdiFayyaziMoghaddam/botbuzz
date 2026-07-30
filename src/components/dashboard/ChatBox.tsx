@@ -5,12 +5,13 @@ import Refresh from "@/components/icons/refresh";
 import Image from "../image/Image";
 import { toast } from "react-toastify";
 import { ClientMessage } from "@/types/database";
+import { StaticImages } from "../image/StaticImages";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import "./markdown.css";
 
 interface ChatBox extends Pick<ClientMessage, "content" | "role"> {
-	imgSrc?: string;
+	imgSrc: string;
 	date?: string;
 	title?: string;
 }
@@ -24,14 +25,14 @@ function formatTimestamp(timestamp: string): string {
 	return `${day} ${month} ▪ ${hours}:${minutes}`;
 }
 
-export default function ChatBox({ role = "user", date, imgSrc = "/images/user.png", content, title }: ChatBox) {
+export default function ChatBox({ role = "user", date, imgSrc, content, title }: ChatBox) {
 	return (
 		<>
 			{role === "assistant" ? (
 				<div className="w-full">
 					<div className="flex items-center gap-8 max-sm:gap-6 max-xs:gap-5 mb-16 max-lg:mb-14 max-md:mb-12 max-sm:mb-10 max-xs:mb-8">
 						<Image
-							src={imgSrc}
+							src={StaticImages[`${imgSrc}`] || StaticImages.default}
 							alt="model"
 							className="relative size-32 max-lg:size-28 max-md:size-24 max-sm:size-20 max-xs:size-18 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] flex items-center justify-center shrink-0"
 						/>

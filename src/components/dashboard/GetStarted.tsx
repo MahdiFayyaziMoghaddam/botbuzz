@@ -5,6 +5,7 @@ import Shapes8 from "@/components/icons/shapes8";
 import Shapes9 from "@/components/icons/shapes9";
 import Image from "@/components/image/Image";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import { StaticImages } from "../image/StaticImages";
 
 export default function GetStarted() {
 	const { state, sendPromptProcess } = useDashboardContext();
@@ -18,7 +19,7 @@ export default function GetStarted() {
 	return (
 		<div className="flex flex-col items-center justify-center m-auto max-w-800 grow select-none px-16 max-lg:px-14 max-md:px-12 max-sm:px-10 max-xs:px-8">
 			<Image
-				src={personality?.image || "/images/favicon.png"}
+				src={StaticImages[`${personality?.image}`] || StaticImages.default}
 				alt="icon"
 				className="relative size-48 max-lg:size-40 max-md:size-32 max-sm:size-28 max-xs:size-24 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem]"
 				title={personality?.name || "Assistant"}

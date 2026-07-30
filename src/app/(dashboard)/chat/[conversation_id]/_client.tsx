@@ -16,7 +16,7 @@ export default function Client({ conversation_id }: { conversation_id: string })
 					role={message.role}
 					date={message.created_at}
 					title={message.role === "user" ? state.userInfo.name : personality?.name || "assistant"}
-					imgSrc={message.role === "user" ? state.userAvatar : personality?.image || "/images/favicon.png"}
+					imgSrc={message.role === "user" ? state.userAvatar : personality!.image}
 					content={message.content}
 				/>
 			))}
