@@ -1,5 +1,5 @@
 "use client";
-import { signup } from "@/auth/actions";
+import { signinWithGoogle, signup } from "@/auth/actions";
 import Button from "@/components/button/Button";
 import Google from "@/components/icons/google";
 import Image from "@/components/image/Image";
@@ -110,7 +110,11 @@ export default function Signup() {
 				</div>
 				<Button
 					variant="solid"
+					type="button"
 					className="bg-btn-black! text-typo-light-white mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 w-full gap-56! max-md:gap-44! max-sm:gap-35! max-xs:gap-23! shadow-black/25 shadow-[0_4px_4px_0]"
+					onClick={async () => {
+						await signinWithGoogle(`${window.location.href}/onboarding`);
+					}}
 				>
 					<Google className="size-26 max-lg:size-23 max-md:size-20 max-sm:size-18 max-xs:size-15" />
 					Register with Google

@@ -60,6 +60,17 @@ export async function signin(formData: FormData) {
 	redirect("/chat", "replace");
 }
 
+export const signinWithGoogle = async (redirectTo?: string) => {
+	const supabase = await createAuthClient();
+	await supabase.auth.signInWithOAuth({
+		provider: "google",
+		options: {
+			redirectTo,
+			skipBrowserRedirect: false
+		}
+	});
+};
+
 export const signout = async () => {
 	const supabase = await createAuthClient();
 	try {
