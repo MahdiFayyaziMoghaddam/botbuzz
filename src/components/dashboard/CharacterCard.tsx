@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "../image/Image";
 import CharacterModal from "../modal/CharacterModal";
+import { staticImages } from "../image/staticImages";
 
 interface CharacterCard {
 	id: string;
@@ -22,7 +23,7 @@ export default function CharacterCard(props: CharacterCard) {
 			>
 				<div className="flex flex-col items-center bg-onboarding hover:bg-btn-dark gap-16 max-xl:gap-14 max-lg:gap-12 max-md:gap-10 max-sm:gap-8 max-xs:gap-7 rounded-[1.2rem] max-xl:rounded-[1rem] max-lg:rounded-[0.85rem] max-md:rounded-[0.7rem] max-sm:rounded-[0.6rem] max-xs:rounded-[0.5rem] p-24 max-xl:p-20 max-lg:p-16 max-md:p-14 max-sm:p-12 max-xs:p-10 duration-500">
 					<Image
-						src={props.imgSrc}
+						src={staticImages[`${props.imgSrc}`] || staticImages.default}
 						alt={props.title}
 						className="relative rounded-full size-80 max-xl:size-70 max-lg:size-60 max-md:size-50 max-sm:size-42 max-xs:size-36"
 					/>

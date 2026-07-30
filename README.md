@@ -1,6 +1,6 @@
 <div align="center">
   
-  <img src="./public/images/favicon.png" alt="BotBuzz Logo" width="120" height="120" />
+  <img src="./src/assets/default.png" alt="BotBuzz Logo" width="120" height="120" />
   
   # BotBuzz
   

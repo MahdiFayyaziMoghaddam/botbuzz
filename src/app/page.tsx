@@ -9,6 +9,7 @@ import Reload from "@/components/icons/reload";
 import Vital from "@/components/icons/vital";
 import Image from "@/components/image/Image";
 import Link from "next/link";
+import { staticImages } from "@/components/image/staticImages";
 
 export default async function Landing() {
 	return (
@@ -564,7 +565,7 @@ export default async function Landing() {
 					<div className="max-xl:justify-self-start">
 						<div className="flex items-center gap-[0.8rem] shrink-0">
 							<Image
-								src="/images/favicon.png"
+								src={staticImages.default}
 								alt="BotBuzz Logo"
 								className="relative size-[4.8rem] max-xl:size-[4rem] max-lg:size-[3.6rem] max-md:size-[3.2rem] max-sm:size-[2.8rem] max-xs:size-[2.4rem]"
 							/>

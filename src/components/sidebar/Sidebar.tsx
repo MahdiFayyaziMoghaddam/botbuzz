@@ -11,6 +11,7 @@ import SidebarUpgrade from "./SidebarUpgrade";
 import { useEffect, useRef, useCallback } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import useMediaQuery from "@/hooks/useBreakpoint";
+import { staticImages } from "../image/staticImages";
 
 export default function Sidebar() {
 	const { state, dispatch } = useDashboardContext();
@@ -88,7 +89,7 @@ export default function Sidebar() {
 				<div>
 					<div className={`flex justify-between items-start xl:-mr-36 lg:-mr-34 md:-mr-24`}>
 						<Image
-							src="/images/favicon.png"
+							src={staticImages.default}
 							alt="icon"
 							className="relative size-48 max-xl:size-42 max-lg:size-36 rounded-[0.8rem] max-xl:rounded-[0.7rem] max-lg:rounded-[0.6rem] shrink-0"
 						/>

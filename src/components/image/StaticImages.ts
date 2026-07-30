@@ -9,7 +9,7 @@ import HealthGuru from "@/assets/health-guru.png";
 import Default from "@/assets/default.png";
 import { type StaticImport } from "next/dist/shared/lib/get-img-props";
 
-export const StaticImages: Record<string, StaticImport> = {
+export const staticImages: Record<string, StaticImport> & { default: StaticImport } = {
 	"/images/sage.png": Sage,
 	"/images/scholar.png": Scholar,
 	"/images/explorer.png": Explorer,

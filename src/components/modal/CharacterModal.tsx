@@ -4,6 +4,7 @@ import Image from "../image/Image";
 import Modal from "./Modal";
 import { ModalProps } from "@/types/modal";
 import { useRouter } from "next/navigation";
+import { staticImages } from "../image/staticImages";
 
 interface CharacterModal extends ModalProps {
 	id: string;
@@ -21,7 +22,7 @@ export default function CharacterModal(props: CharacterModal) {
 			<div className="flex gap-8 max-lg:gap-6 max-md:gap-5 max-sm:gap-4 max-xs:gap-3 outline-none overflow-hidden max-md:flex-col max-md:max-h-[85vh]">
 				<div className="flex flex-col items-center rounded-l-[1.6rem] max-lg:rounded-l-[1.2rem] max-md:rounded-[1.2rem] max-md:rounded-b-none bg-glass-white border-1 border-glass-stroke backdrop-blur-[1.2rem] max-lg:backdrop-blur-[0.8rem] max-md:backdrop-blur-[0.6rem] p-24 max-xl:p-20 max-lg:p-16 max-md:p-14 max-sm:p-12 max-xs:p-10 overflow-y-auto shrink-0">
 					<Image
-						src={props.imgSrc}
+						src={staticImages[`${props.imgSrc}`] || staticImages.default}
 						alt={props.title || ""}
 						className="relative size-280 max-xl:size-240 max-lg:size-200 max-md:size-160 max-sm:size-140 max-xs:size-120 rounded-full shrink-0"
 					/>
