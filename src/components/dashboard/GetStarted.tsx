@@ -5,7 +5,7 @@ import Shapes8 from "@/components/icons/shapes8";
 import Shapes9 from "@/components/icons/shapes9";
 import Image from "@/components/image/Image";
 import { useDashboardContext } from "@/contexts/DashboardContext";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 
 export default function GetStarted() {
 	const { state, sendPromptProcess } = useDashboardContext();

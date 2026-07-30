@@ -3,7 +3,7 @@ import Image from "../image/Image";
 import Trash from "../icons/trash";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import { useRouter } from "next/navigation";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 
 interface HistoryModel {
 	imgSrc?: string;

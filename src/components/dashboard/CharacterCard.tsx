@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "../image/Image";
 import CharacterModal from "../modal/CharacterModal";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 
 interface CharacterCard {
 	id: string;

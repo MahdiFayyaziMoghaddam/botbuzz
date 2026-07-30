@@ -4,7 +4,7 @@ import Image from "../image/Image";
 import Modal from "./Modal";
 import { ModalProps } from "@/types/modal";
 import { useRouter } from "next/navigation";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 
 interface CharacterModal extends ModalProps {
 	id: string;

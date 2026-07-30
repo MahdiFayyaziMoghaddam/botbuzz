@@ -11,7 +11,7 @@ import SidebarUpgrade from "./SidebarUpgrade";
 import { useEffect, useRef, useCallback } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import useMediaQuery from "@/hooks/useBreakpoint";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 
 export default function Sidebar() {
 	const { state, dispatch } = useDashboardContext();

@@ -5,7 +5,7 @@ import Refresh from "@/components/icons/refresh";
 import Image from "../image/Image";
 import { toast } from "react-toastify";
 import { ClientMessage } from "@/types/database";
-import { staticImages } from "../image/staticImages";
+import { staticImages } from "../image/static-images";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import "./markdown.css";

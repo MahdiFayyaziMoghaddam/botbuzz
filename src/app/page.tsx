@@ -9,7 +9,7 @@ import Reload from "@/components/icons/reload";
 import Vital from "@/components/icons/vital";
 import Image from "@/components/image/Image";
 import Link from "next/link";
-import { staticImages } from "@/components/image/staticImages";
+import { staticImages } from "@/components/image/static-images";
 
 export default async function Landing() {
 	return (
