@@ -60,15 +60,19 @@ export async function signin(formData: FormData) {
 	redirect("/chat", "replace");
 }
 
-export const signinWithGoogle = async (redirectTo?: string) => {
+export const signinWithGoogle = async (origin: string, redirectFrom?: "signin" | "signup") => {
 	const supabase = await createAuthClient();
-	await supabase.auth.signInWithOAuth({
+	const redirectTo =
+		redirectFrom === "signup" ? `${origin}/api/oauth?next=/onboarding` : `${origin}/api/oauth?next=/chat`;
+	const { data, error } = await supabase.auth.signInWithOAuth({
 		provider: "google",
 		options: {
 			redirectTo,
 			skipBrowserRedirect: false
 		}
 	});
+	if (data.url) redirect(data.url);
+	return { error };
 };
 
 export const signout = async () => {
