@@ -21,5 +21,7 @@ export async function POST(req: Request) {
 		return createUIMessageStreamResponse({
 			stream: toUIMessageStream({ stream })
 		});
-	} catch {}
+	} catch (error) {
+		console.log(error);
+	}
 }
