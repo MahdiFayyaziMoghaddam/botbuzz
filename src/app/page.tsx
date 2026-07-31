@@ -373,7 +373,7 @@ export default async function Landing() {
 					<div className="flex">
 						<div className="flex flex-col items-center bg-[#27292E] py-[1.4rem] px-20 rounded-[0.8rem] border-[0.08rem] border-typo-dark-gray">
 							<Image
-								src="/images/sage.png"
+								src={staticImages["/images/sage.png"]}
 								alt="Sage AI personality avatar"
 								className="relative size-[4.8rem] rounded-full overflow-hidden"
 							/>
@@ -391,7 +391,7 @@ export default async function Landing() {
 					<div className="flex gap-[0.3rem] mt-[10rem] -ml-220">
 						<div className="bg-[#282A2F] rounded-tl-[0.6rem] rounded-bl-[0.6rem] p-[0.9rem] border-typo-dark-gray border-1 shrink-0">
 							<Image
-								src="/images/sage.png"
+								src={staticImages["/images/sage.png"]}
 								alt="Sage AI personality avatar"
 								className="relative size-110 rounded-full overflow-hidden"
 							/>
