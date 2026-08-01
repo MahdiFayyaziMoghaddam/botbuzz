@@ -7,7 +7,7 @@
   ![Version](https://img.shields.io/badge/version-1.0.0-blue)
   ![License](https://img.shields.io/badge/license-MIT-green)
   ![Next.js](https://img.shields.io/badge/Next.js-16-black)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue)
   ![Tailwind](https://img.shields.io/badge/Tailwind-4.0-38B2AC)
   
   <p>complete ai chat app <br/> developed by Mahdi Fayyazi Moghaddam</p>
@@ -20,10 +20,10 @@
 
 ## ✨ Features
 
+- ⚙️ **Full Stack** - Built with Next.js and Supabase
 - 🚀 **Fast & Responsive** - Optimized for all devices with responsive design
 - 🎨 **Modern UI** - Built with Tailwind CSS for beautiful, customizable components
 - 🔒 **Type Safe** - Full TypeScript support with strict type checking
-- 📱 **Mobile First** - Designed for mobile devices first, then scales up
 - 🎯 **Performance Focused** - Optimized for Core Web Vitals and fast loading
 - 🔧 **Easy to Customize** - Modular components with clear documentation
 
@@ -32,6 +32,8 @@
 | Technology       | Purpose                        |
 | ---------------- | ------------------------------ |
 | **Next.js**      | React framework for production |
+| **AI SDK**       | SDK from Vercel for using AI   |
+| **Supabase**     | Database and authentication    |
 | **TypeScript**   | Type safety and better DX      |
 | **Tailwind CSS** | Utility-first styling          |
 | **React**        | UI components                  |
@@ -66,10 +68,12 @@ bun install
 ### Step 3: Set up environment variables
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 Then fill in your environment variables.
+
+> The `SUPABASE_KEY` environment variable can also accept the service role key.
 
 ### Step 4: Run development server
 
@@ -90,11 +94,24 @@ Open [http://localhost:3000](http://localhost:3000/) to see your app.
 ### Development
 
 ```bash
-npm run dev     # Start dev server with hot reload
-npm run build   # Create production build
-npm run start   # Start production server
-npm run lint    # Run ESLint
+npm run dev      # Start development server
+npm run build    # Create production build
+npm run start    # Start production server
+npm run lint     # Run ESLint
 ```
+
+### Database
+
+```bash
+npm run db:connect    # Connect Supabase CLI to database
+npm run db:migrate    # Migrate database tables
+npm run db:repair     # Repair migrations
+npm run db:fix        # Repair migrations and migrate database tables
+npm run db:seed       # Seed database
+npm run db:init       # Initialize database
+```
+
+> At the starting point you can just run `npm run db:init` to initialize database.
 
 ### Building for production
 
@@ -151,5 +168,6 @@ Project Link: [https://github.com/MahdiFayyaziMoghaddam/botbuzz](https://github
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Figma Design](https://www.figma.com/community/file/1392823164800309153)
-- [Vercel](https://vercel.com/) for hosting
+- [Vercel](https://vercel.com/) for hosting and AI SDK
+- [Supabase](https://supabase.com/) for database and authentication
 - All contributors and supporters
