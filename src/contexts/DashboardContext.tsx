@@ -236,10 +236,9 @@ export const DashboardContextProvider = ({
 
 	const sendUserPromptAction = useCallback(
 		(prompt: string) => {
-			dispatch({ type: "SET_COMPLETING", payload: "COMPLETING" });
 			complete(prompt, { body: { personality_id: state.userPersonalityID } });
 		},
-		[complete, dispatch, state.userPersonalityID]
+		[complete, state.userPersonalityID]
 	);
 
 	const sendPromptProcess = useCallback(
@@ -247,6 +246,7 @@ export const DashboardContextProvider = ({
 			prompt = prompt || state.userPrompt.trim();
 			if (!prompt) return;
 			dispatch({ type: "SET_USER_PROMPT", payload: "" });
+			dispatch({ type: "SET_COMPLETING", payload: "COMPLETING" });
 			const isNewConversation = pathname === "/chat";
 			if (isNewConversation) {
 				const { data } = await addConversationAction(state.userPersonalityID, prompt.split(" ").slice(0, 8).join(" "));
@@ -259,6 +259,8 @@ export const DashboardContextProvider = ({
 						sendUserPromptAction(prompt);
 						await redirectAction(`/chat/${data.id}`);
 					}
+				} else {
+					dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 				}
 			} else {
 				const conversation_id = pathname.split("chat/")[1];
@@ -268,6 +270,8 @@ export const DashboardContextProvider = ({
 				if (completed) {
 					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
 					sendUserPromptAction(prompt);
+				} else {
+					dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 				}
 			}
 		},
