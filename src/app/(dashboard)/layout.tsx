@@ -5,6 +5,7 @@ import { getUser } from "@/auth/actions";
 import { getServerSidePathname } from "@/utils/getServerSidePathname";
 import { State } from "@/types/reducer";
 import { getConversations, getMessages, getPersonalities, getSubscriptions } from "@/database/actions";
+import { cookies } from "next/headers";
 
 export const generateMetadata = async () => {
 	const title = (await getServerSidePathname())
@@ -26,6 +27,8 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 		getSubscriptions(),
 		getConversations()
 	]);
+	const cookieStore = await cookies();
+	const initialBreakpoint = JSON.parse(cookieStore.get("breakpoint")?.value || "{}");
 	const initialState: Partial<State> = {
 		notification: user.user_metadata?.notification || false,
 		userAvatar: user?.user_metadata?.image || "/images/user.png",
@@ -44,5 +47,9 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 			initialState.messages = data || [];
 		}
 	}
-	return <Provider initialState={initialState}>{children}</Provider>;
+	return (
+		<Provider initialState={initialState} initialBreakpoint={initialBreakpoint}>
+			{children}
+		</Provider>
+	);
 }

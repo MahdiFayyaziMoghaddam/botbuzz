@@ -12,10 +12,11 @@ import { useEffect, useRef, useCallback } from "react";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import useMediaQuery from "@/hooks/useBreakpoint";
 import { staticImages } from "../image/static-images";
+import { MediaQueryResult } from "@/types/breakpoint";
 
-export default function Sidebar() {
+export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Partial<MediaQueryResult> }) {
 	const { state, dispatch } = useDashboardContext();
-	const { isBelow: isMobile } = useMediaQuery("md");
+	const { isBelow: isMobile } = useMediaQuery("md", initialBreakpoint);
 	const scrollY = useRef(0);
 	const toggleCollapse = () => dispatch({ type: "TOGGLE_COLLAPSE" });
 	const closeDrawer = useCallback(() => dispatch({ type: "SET_DRAWER_OPEN", payload: false }), [dispatch]);

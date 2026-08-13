@@ -1,3 +1,5 @@
+import { MediaQueryResult } from "@/types/breakpoint";
+import { clientCookie } from "@/utils/clientCookie";
 import { useCallback, useEffect, useState } from "react";
 
 type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
@@ -10,14 +12,11 @@ const FALLBACKS: Record<Breakpoint, number> = {
 	xl: 1280
 };
 
-interface MediaQueryResult {
-	width: number;
-	isBelow: boolean;
-	isOver: boolean;
-}
-
-export default function useBreakpoint(breakpoint: Breakpoint): MediaQueryResult {
-	const [result, setResult] = useState<MediaQueryResult>({ width: 0, isBelow: false, isOver: false });
+export default function useBreakpoint(
+	breakpoint: Breakpoint,
+	initialData?: Partial<MediaQueryResult>
+): MediaQueryResult {
+	const [result, setResult] = useState<MediaQueryResult>({ width: 0, isBelow: false, isOver: false, ...initialData });
 
 	const check = useCallback(() => {
 		const value = getComputedStyle(document.documentElement).getPropertyValue(`--breakpoint-${breakpoint}`).trim();
@@ -25,7 +24,7 @@ export default function useBreakpoint(breakpoint: Breakpoint): MediaQueryResult 
 		const width = parseInt(value) || FALLBACKS[breakpoint];
 		const isBelow = window.innerWidth <= width;
 		const isOver = window.innerWidth > width;
-
+		clientCookie.set("breakpoint", JSON.stringify({ width, isBelow, isOver }));
 		setResult({ width, isBelow, isOver });
 	}, [breakpoint]);
 
