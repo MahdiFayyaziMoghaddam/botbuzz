@@ -1,10 +1,11 @@
 "use client";
-import { ButtonHTMLAttributes, useCallback } from "react";
+import { ButtonHTMLAttributes, Ref, useCallback } from "react";
 import Loader from "../loader/Loader";
 
 interface Button extends ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: "gradient" | "solid" | "outline" | "ghost";
 	isLoading?: boolean;
+	ref?: Ref<HTMLButtonElement>;
 }
 
 export default function Button({
