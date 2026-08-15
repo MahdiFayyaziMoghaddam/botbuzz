@@ -9,7 +9,16 @@ interface Input extends InputHTMLAttributes<HTMLInputElement> {
 	error?: string;
 }
 
-export default function Textbox({ label, className, required = false, error, type, onBlur, onFocus, ...props }: Input) {
+export default function Textbox({
+	label,
+	className = "",
+	required = false,
+	error,
+	type,
+	onBlur,
+	onFocus,
+	...props
+}: Input) {
 	const [isVisible, setIsVisible] = useState(type !== "password");
 	const borderElemRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
@@ -21,10 +30,10 @@ export default function Textbox({ label, className, required = false, error, typ
 		<div className={`select-none ${className}`}>
 			<label className="font-semibold text-input-gray max-xl:text-[1.5rem] max-lg:text-[1.4rem] max-md:text-[1.3rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
 				{label}
-				{required && "*"}
+				{label && required && "*"}
 				<div
 					ref={borderElemRef}
-					className="p-[0.1rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] mt-[1.2rem] max-lg:mt-[1rem] max-md:mt-[0.8rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem] duration-200"
+					className={`p-[0.1rem] rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] ${label && "mt-[1.2rem] max-lg:mt-[1rem] max-md:mt-[0.8rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem]"} duration-200`}
 				>
 					<div className="flex items-center gap-[0.8rem] max-lg:gap-[0.65rem] max-md:gap-[0.5rem] max-sm:gap-[0.4rem] max-xs:gap-[0.3rem] bg-input-dark w-full rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem]">
 						<input
