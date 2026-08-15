@@ -14,6 +14,7 @@ export default function Textbox({
 	className = "",
 	required = false,
 	error,
+	disabled,
 	type,
 	onBlur,
 	onFocus,
@@ -25,7 +26,7 @@ export default function Textbox({
 		(borderElemRef.current as HTMLDivElement).style.background = error
 			? "var(--color-error)"
 			: "var(--gradient-stroke)";
-	}, [error]);
+	}, [error, disabled]);
 	return (
 		<div className={`select-none ${className}`}>
 			<label className="font-semibold text-input-gray max-xl:text-[1.5rem] max-lg:text-[1.4rem] max-md:text-[1.3rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
@@ -41,7 +42,9 @@ export default function Textbox({
 							onFocus={(e) => {
 								(borderElemRef.current as HTMLDivElement).style.background = error
 									? "var(--color-error)"
-									: "var(--color-icon-purple)";
+									: !disabled
+										? "var(--color-icon-purple)"
+										: "var(--gradient-stroke)";
 								onFocus?.(e);
 							}}
 							onBlur={(e) => {
@@ -52,6 +55,7 @@ export default function Textbox({
 							}}
 							className="placeholder:text-input-light-gray duration-200 py-[1.7rem] max-xl:py-[1.5rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.7rem] text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] px-[1.4rem] max-lg:px-[1.2rem] max-md:px-[1rem] max-sm:px-[0.8rem] max-xs:px-[0.6rem]"
 							required={required}
+							disabled={disabled}
 							{...props}
 						/>
 						{error && (
