@@ -14,6 +14,7 @@ export interface State {
 	userPrompt: string;
 	userPersonalityID: Personality["id"];
 	userInfo: UserInfo;
+	userAPIKey: string;
 	isDrawerOpened: boolean;
 	isCollapsed: boolean;
 	isCompleting: CompletingState;
@@ -33,6 +34,7 @@ type Actions = {
 	UPDATE_LAST_MESSAGE: ClientMessage["content"];
 	UPDATE_MESSAGES: ClientMessage[];
 	UPDATE_USER_PLAN: Subscription;
+	UPDATE_USER_API_KEY: string;
 	ADD_CONVERSATION: Conversation;
 	REMOVE_CONVERSATION: Conversation["id"];
 	UPDATE_USER_AVATAR: string;

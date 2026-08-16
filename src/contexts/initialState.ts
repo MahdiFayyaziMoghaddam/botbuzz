@@ -7,6 +7,7 @@ export const initialState: State = {
 	userAvatar: "/images/user.png",
 	userInfo: { name: "", email: "", password: "", confirm: "" },
 	userPlan: null,
+	userAPIKey: "",
 	isCompleting: "NOT_COMPLETED",
 	userPrompt: "",
 	userPersonalityID: "",

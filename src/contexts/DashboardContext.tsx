@@ -43,6 +43,7 @@ interface Context {
 	updateUserNotificationAction: (notification: boolean) => void;
 	sendUserPromptAction: (prompt: string) => void;
 	sendPromptProcess: (prompt?: string) => Promise<void>;
+	updateUserAPIkeyAction: (apiKey: string) => void;
 }
 
 const DashboardContext = createContext<Context | null>(null);
@@ -236,9 +237,9 @@ export const DashboardContextProvider = ({
 
 	const sendUserPromptAction = useCallback(
 		(prompt: string) => {
-			complete(prompt, { body: { personality_id: state.userPersonalityID } });
+			complete(prompt, { body: { personality_id: state.userPersonalityID, api_key: state.userAPIKey } });
 		},
-		[complete, state.userPersonalityID]
+		[complete, state.userPersonalityID, state.userAPIKey]
 	);
 
 	const sendPromptProcess = useCallback(
@@ -284,6 +285,22 @@ export const DashboardContextProvider = ({
 			state.userPersonalityID,
 			state.userPrompt
 		]
+	);
+
+	const updateUserAPIkeyAction = useCallback(
+		(apiKey: string) => {
+			setIsPending(true);
+			updateUser({ apiKey }).then(({ error }) => {
+				setIsPending(false);
+				if (error) {
+					toast.error(error);
+				} else {
+					toast.success("User API key updated successfully");
+					dispatch({ type: "UPDATE_USER_API_KEY", payload: apiKey });
+				}
+			});
+		},
+		[dispatch, setIsPending]
 	);
 
 	useEffect(() => {
@@ -332,7 +349,8 @@ export const DashboardContextProvider = ({
 			updateUserInfoAction,
 			updateUserNotificationAction,
 			sendUserPromptAction,
-			sendPromptProcess
+			sendPromptProcess,
+			updateUserAPIkeyAction
 		}),
 		[
 			dispatch,
@@ -349,7 +367,8 @@ export const DashboardContextProvider = ({
 			updateUserInfoAction,
 			updateUserNotificationAction,
 			sendUserPromptAction,
-			sendPromptProcess
+			sendPromptProcess,
+			updateUserAPIkeyAction
 		]
 	);
 

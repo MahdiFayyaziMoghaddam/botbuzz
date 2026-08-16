@@ -33,6 +33,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 		notification: user.user_metadata?.notification || false,
 		userAvatar: user?.user_metadata?.image || "/images/user.png",
 		userPlan: user.user_metadata?.subscription || subscriptions[0] || null,
+		userAPIKey: user.user_metadata?.apiKey || "",
 		userPersonalityID: personalities?.[0]?.id || "",
 		personalities: personalities || [],
 		subscriptions: subscriptions || [],

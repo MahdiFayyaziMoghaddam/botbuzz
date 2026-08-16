@@ -28,7 +28,7 @@ export async function signup(formData: FormData) {
 		email,
 		password,
 		options: {
-			data: { name, notification: false, subscription: null, image: "/images/user.png" } as UserMetadata
+			data: { name, notification: false, subscription: null, image: "/images/user.png", apiKey: "" } as UserMetadata
 		}
 	});
 
@@ -100,6 +100,7 @@ interface UpdateUser {
 	confirm?: string;
 	subscriptionID?: Subscription["id"];
 	image?: string;
+	apiKey?: string;
 }
 export const updateUser = async ({
 	email,
@@ -108,7 +109,8 @@ export const updateUser = async ({
 	notification,
 	password,
 	subscriptionID,
-	confirm
+	confirm,
+	apiKey
 }: UpdateUser) => {
 	const imageRegex =
 		/^(https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}(\/[^\s?]*)*\/[^\s?]*\.[a-zA-Z]{2,4}|^\/[^\s?]*\.[a-zA-Z]{2,4})$/;
@@ -127,6 +129,8 @@ export const updateUser = async ({
 		subscription = data.find((sub) => sub.id === subscriptionID);
 		if (!subscription) return { error: "Subscription id is invalid" };
 	}
+	if (apiKey && typeof apiKey !== "string") return { error: "API key must be a string" };
+
 	const supabase = await createAuthClient();
 	const {
 		data: { user },
@@ -134,7 +138,7 @@ export const updateUser = async ({
 	} = await supabase.auth.updateUser({
 		email,
 		password,
-		data: { name, notification, subscription, image }
+		data: { name, notification, subscription, image, apiKey: apiKey?.trim() }
 	});
 	return { user, error: error?.message };
 };

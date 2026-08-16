@@ -5,6 +5,7 @@ export interface UserMetadata {
 	name: string;
 	notification: boolean;
 	subscription: Subscription | null;
+	apiKey: string;
 }
 
 export interface UserInfo {

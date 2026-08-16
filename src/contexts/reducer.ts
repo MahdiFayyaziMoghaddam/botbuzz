@@ -75,6 +75,9 @@ export const reducer = (prevState: State, action: Action) => {
 		case "UPDATE_USER_AVATAR": {
 			return { ...prevState, userAvatar: action.payload };
 		}
+		case "UPDATE_USER_API_KEY": {
+			return { ...prevState, userAPIKey: action.payload };
+		}
 		case "SET_USER_INFO":
 			return {
 				...prevState,
