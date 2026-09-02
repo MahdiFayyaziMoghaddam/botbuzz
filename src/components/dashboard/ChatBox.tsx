@@ -26,6 +26,7 @@ function formatTimestamp(timestamp: string): string {
 }
 
 export default function ChatBox({ role = "user", date, imgSrc, content, title }: ChatBox) {
+	const direction = /[\u0590-\u083F\u08A0-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/.test(content) ? "rtl" : "ltr";
 	return (
 		<>
 			{role === "assistant" ? (
@@ -46,6 +47,7 @@ export default function ChatBox({ role = "user", date, imgSrc, content, title }:
 					<div className="bg-glass-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
 						<div
 							className="markdown-body *:mb-12! max-xl:*:mb-11! max-lg:*:mb-10! max-md:*:mb-9! max-sm:*:mb-8! max-xs:*:mb-7!"
+							dir={direction}
 							dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content).toString()) }}
 						></div>
 						<div className="flex items-center gap-12 max-lg:gap-11 max-md:gap-10 max-sm:gap-9 max-xs:gap-8 mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8">
