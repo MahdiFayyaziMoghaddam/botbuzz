@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"postinstall": "npm install --include=optional --os=linux --cpu=x64 sharp && npm approve-scripts sharp",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
@@ -41,5 +42,12 @@
 		"tailwindcss": "^4",
 		"tsx": "^4.23.0",
 		"typescript": "^5"
+	},
+	"optionalDependencies": {
+		"@img/sharp-linux-x64": "^0.35.3",
+		"@img/sharp-linux-arm64": "^0.35.3",
+		"@img/sharp-darwin-x64": "^0.35.3",
+		"@img/sharp-darwin-arm64": "^0.35.3",
+		"@img/sharp-win32-x64": "^0.35.3"
 	}
 }
