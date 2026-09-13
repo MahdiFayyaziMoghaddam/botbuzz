@@ -5,6 +5,7 @@ import Edit from "@/components/icons/edit";
 import Image from "@/components/image/Image";
 import Textbox from "@/components/input/Textbox";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import { profileImageExtensions } from "@/utils/profileImageExtensions";
 import { ChangeEvent } from "react";
 
 export default function Profile() {
@@ -34,7 +35,7 @@ export default function Profile() {
 				<label className="absolute -bottom-14 max-xl:-bottom-12 max-lg:-bottom-10 max-md:-bottom-8 max-sm:-bottom-7 max-xs:-bottom-6 -right-14 max-xl:-right-12 max-lg:-right-10 max-md:-right-8 max-sm:-right-7 max-xs:-right-6 text-icon-black p-8 max-lg:p-7 max-md:p-6 max-sm:p-5 max-xs:p-4 rounded-[0.4rem] max-lg:rounded-[0.35rem] max-md:rounded-[0.3rem] max-sm:rounded-[0.25rem] max-xs:rounded-[0.2rem] bg-typo-main-white outline-none cursor-pointer">
 					<input
 						type="file"
-						accept="image/*"
+						accept={profileImageExtensions.map((ext) => `.${ext}`).join(", ")}
 						className="sr-only"
 						disabled={isPending}
 						onChange={(e) => {

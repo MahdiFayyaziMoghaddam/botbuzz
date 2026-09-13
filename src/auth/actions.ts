@@ -4,7 +4,7 @@ import { getSubscriptions } from "@/database/actions";
 import { createAuthClient, createDBClient } from "@/lib/supabase";
 import { Subscription } from "@/types/database";
 import { UserMetadata } from "@/types/user";
-import { cropToSquare } from "@/utils/cropToSquare";
+import { profileImageExtensions } from "@/utils/profileImageExtensions";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
@@ -144,20 +144,23 @@ export const updateUser = async ({
 };
 
 export const uploadUserAvatar = async (file: File) => {
-	if (file.size > 1024 * 1024 * 5) {
+	const SIZE_LIMIT = 1024 * 1024 * 5;
+	if (!profileImageExtensions.find((ext) => file.name.endsWith(ext))) {
+		return { error: "Invalid file type" };
+	}
+	if (file.size > SIZE_LIMIT) {
 		return {
 			error: "File is too large, Maximum size is 5MB"
 		};
 	}
 	const arrayBuffer = await file.arrayBuffer();
 	const buffer = Buffer.from(arrayBuffer);
-	if (buffer.byteLength > 1024 * 1024 * 5) {
+	if (buffer.byteLength > SIZE_LIMIT) {
 		return {
 			error: "File is too large, Maximum size is 5MB"
 		};
 	}
 	try {
-		const croppedBuffer = await cropToSquare(buffer);
 		const supabase = await createDBClient();
 		const { user } = await getUser();
 
@@ -165,7 +168,7 @@ export const uploadUserAvatar = async (file: File) => {
 			return { error: "User not authenticated" };
 		}
 
-		const fileExt = "webp";
+		const fileExt = file.name.slice(file.name.lastIndexOf(".") + 1);
 		const fileName = `${crypto.randomUUID()}.${fileExt}`;
 		const filePath = `${user.id}/${fileName}`;
 
@@ -183,7 +186,7 @@ export const uploadUserAvatar = async (file: File) => {
 			}
 		}
 
-		const { error: uploadError } = await supabase.storage.from(AVATAR_BUCKET).upload(filePath, croppedBuffer, {
+		const { error: uploadError } = await supabase.storage.from(AVATAR_BUCKET).upload(filePath, buffer, {
 			contentType: "image/webp",
 			upsert: true,
 			cacheControl: "0"
