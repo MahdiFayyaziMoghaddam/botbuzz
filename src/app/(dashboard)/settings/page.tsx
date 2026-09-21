@@ -33,6 +33,7 @@ export default function Settings() {
 					<Button
 						ref={buttonRef}
 						variant="solid"
+						title="Sync"
 						className="*:size-26 max-lg:*:size-24 max-md:*:size-22 max-sm:*:size-20 max-xs:*:size-18 p-14! max-lg:p-11! max-md:p-8! max-sm:p-6! max-xs:p-5!"
 						onClick={(e) => {
 							updateUserAPIkeyAction(apiKey);
