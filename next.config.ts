@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
 	},
 	experimental: {
 		optimizeCss: true,
-		viewTransition: true,
 		serverActions: {
 			bodySizeLimit: "5MB"
 		}
