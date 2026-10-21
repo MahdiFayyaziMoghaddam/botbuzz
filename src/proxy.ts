@@ -8,7 +8,7 @@ export async function proxy(request: NextRequest) {
 
 	const cookieStore = await cookies();
 	const isUserLoggedIn = cookieStore.getAll().some((cookie) => /sb-*/.test(cookie.name));
-	const isUnprotectedPathname = pathname === "/signin" || pathname === "/signup";
+	const isUnprotectedPathname = pathname === "/signin" || pathname === "/signup" || pathname === "/";
 
 	if (!isUserLoggedIn && !isUnprotectedPathname) {
 		return NextResponse.redirect(new URL("/signin", request.url), {
