@@ -12,7 +12,7 @@ export default function PlansModal({ open = false, onClose }: ModalProps) {
 				<div className="flex justify-between items-center mb-32 max-xl:mb-28 max-lg:mb-24 max-md:mb-18 max-sm:mb-14 max-xs:mb-10">
 					<h5>Upgrade Your Plan</h5>
 					<button
-						className="flex justify-center items-center size-32 max-xl:size-28 max-lg:size-24 max-md:size-20 max-sm:size-16 max-xs:size-14 cursor-pointer text-[3.6rem] max-xl:text-[3.2rem] max-lg:text-[2.8rem] max-md:text-[2.4rem] max-sm:text-[2rem] max-xs:text-[1.8rem] select-none outline-none"
+						className="flex justify-center items-center size-32 max-xl:size-28 max-lg:size-24 max-md:size-20 max-sm:size-16 max-xs:size-14 cursor-pointer text-[3.6rem] max-xl:text-[3.2rem] max-lg:text-[2.8rem] max-md:text-[2.4rem] max-sm:text-[2.1rem] max-xs:text-[1.9rem] select-none outline-none"
 						onClick={onClose}
 					>
 						&times;

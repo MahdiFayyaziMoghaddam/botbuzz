@@ -9,37 +9,37 @@
 }
 
 .markdown-body p {
-	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem];
 	color: var(--color-typo-light-white);
 }
 
 .markdown-body h1 {
-	@apply font-bold text-[3.8rem] max-xl:text-[3.2rem] max-lg:text-[2.6rem] max-md:text-[2.2rem] max-sm:text-[1.8rem] max-xs:text-[1.4rem] mt-[3.2rem] max-xl:mt-[2.8rem] max-lg:mt-[2.4rem] max-md:mt-[2rem] max-sm:mt-[1.6rem] max-xs:mt-[1.2rem] mb-[1.6rem] max-xl:mb-[1.4rem] max-lg:mb-[1.2rem] max-md:mb-[1rem] max-sm:mb-[0.8rem] max-xs:mb-[0.6rem];
+	@apply font-bold text-[3.8rem] max-xl:text-[3.2rem] max-lg:text-[2.6rem] max-md:text-[2.2rem] max-sm:text-[2rem] max-xs:text-[1.8rem] mt-[3.2rem] max-xl:mt-[2.8rem] max-lg:mt-[2.4rem] max-md:mt-[2rem] max-sm:mt-[1.6rem] max-xs:mt-[1.2rem] mb-[1.6rem] max-xl:mb-[1.4rem] max-lg:mb-[1.2rem] max-md:mb-[1rem] max-sm:mb-[0.8rem] max-xs:mb-[0.6rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body h2 {
-	@apply font-bold text-[3rem] max-xl:text-[2.6rem] max-lg:text-[2.2rem] max-md:text-[1.8rem] max-sm:text-[1.5rem] max-xs:text-[1.2rem] mt-[2.4rem] max-xl:mt-[2rem] max-lg:mt-[1.8rem] max-md:mt-[1.6rem] max-sm:mt-[1.2rem] max-xs:mt-[1rem] mb-[1.2rem] max-xl:mb-[1rem] max-lg:mb-[0.9rem] max-md:mb-[0.8rem] max-sm:mb-[0.7rem] max-xs:mb-[0.6rem];
+	@apply font-bold text-[3rem] max-xl:text-[2.6rem] max-lg:text-[2.2rem] max-md:text-[1.8rem] max-sm:text-[1.7rem] max-xs:text-[1.5rem] mt-[2.4rem] max-xl:mt-[2rem] max-lg:mt-[1.8rem] max-md:mt-[1.6rem] max-sm:mt-[1.2rem] max-xs:mt-[1rem] mb-[1.2rem] max-xl:mb-[1rem] max-lg:mb-[0.9rem] max-md:mb-[0.8rem] max-sm:mb-[0.7rem] max-xs:mb-[0.6rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body h3 {
-	@apply font-bold text-[2.4rem] max-xl:text-[2rem] max-lg:text-[1.7rem] max-md:text-[1.4rem] max-sm:text-[1.2rem] max-xs:text-[1rem] mt-[2rem] max-xl:mt-[1.8rem] max-lg:mt-[1.5rem] max-md:mt-[1.2rem] max-sm:mt-[1rem] max-xs:mt-[0.9rem] mb-[1rem] max-xl:mb-[0.9rem] max-lg:mb-[0.8rem] max-md:mb-[0.7rem] max-sm:mb-[0.6rem] max-xs:mb-[0.5rem];
+	@apply font-bold text-[2.4rem] max-xl:text-[2rem] max-lg:text-[1.7rem] max-md:text-[1.4rem] max-sm:text-[1.4rem] max-xs:text-[1.3rem] mt-[2rem] max-xl:mt-[1.8rem] max-lg:mt-[1.5rem] max-md:mt-[1.2rem] max-sm:mt-[1rem] max-xs:mt-[0.9rem] mb-[1rem] max-xl:mb-[0.9rem] max-lg:mb-[0.8rem] max-md:mb-[0.7rem] max-sm:mb-[0.6rem] max-xs:mb-[0.5rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body h4 {
-	@apply font-bold text-[2rem] max-xl:text-[1.7rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] mt-[1.6rem] max-xl:mt-[1.4rem] max-lg:mt-[1.2rem] max-md:mt-[1rem] max-sm:mt-[0.9rem] max-xs:mt-[0.8rem] mb-[0.8rem] max-xl:mb-[0.7rem] max-lg:mb-[0.6rem] max-md:mb-[0.5rem] max-sm:mb-[0.4rem] max-xs:mb-[0.3rem];
+	@apply font-bold text-[2rem] max-xl:text-[1.7rem] max-lg:text-[1.4rem] max-md:text-[1.4rem] max-sm:text-[1.4rem] max-xs:text-[1.3rem] mt-[1.6rem] max-xl:mt-[1.4rem] max-lg:mt-[1.2rem] max-md:mt-[1rem] max-sm:mt-[0.9rem] max-xs:mt-[0.8rem] mb-[0.8rem] max-xl:mb-[0.7rem] max-lg:mb-[0.6rem] max-md:mb-[0.5rem] max-sm:mb-[0.4rem] max-xs:mb-[0.3rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body h5 {
-	@apply font-bold text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] mt-[1.2rem] max-xl:mt-[1rem] max-lg:mt-[0.9rem] max-md:mt-[0.8rem] max-sm:mt-[0.7rem] max-xs:mt-[0.6rem] mb-[0.6rem] max-xl:mb-[0.5rem] max-lg:mb-[0.4rem] max-md:mb-[0.3rem] max-sm:mb-[0.2rem] max-xs:mb-[0.15rem];
+	@apply font-bold text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] mt-[1.2rem] max-xl:mt-[1rem] max-lg:mt-[0.9rem] max-md:mt-[0.8rem] max-sm:mt-[0.7rem] max-xs:mt-[0.6rem] mb-[0.6rem] max-xl:mb-[0.5rem] max-lg:mb-[0.4rem] max-md:mb-[0.3rem] max-sm:mb-[0.2rem] max-xs:mb-[0.15rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body h6 {
-	@apply font-bold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem] mt-[1rem] max-xl:mt-[0.9rem] max-lg:mt-[0.8rem] max-md:mt-[0.7rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem] mb-[0.4rem] max-xl:mb-[0.3rem] max-lg:mb-[0.25rem] max-md:mb-[0.2rem] max-sm:mb-[0.15rem] max-xs:mb-[0.1rem];
+	@apply font-bold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] mt-[1rem] max-xl:mt-[0.9rem] max-lg:mt-[0.8rem] max-md:mt-[0.7rem] max-sm:mt-[0.6rem] max-xs:mt-[0.5rem] mb-[0.4rem] max-xl:mb-[0.3rem] max-lg:mb-[0.25rem] max-md:mb-[0.2rem] max-sm:mb-[0.15rem] max-xs:mb-[0.1rem];
 	color: var(--color-typo-medium-gray);
 }
 
@@ -63,7 +63,7 @@
 }
 
 .markdown-body li {
-	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] my-[0.4rem] max-xl:my-[0.35rem] max-lg:my-[0.3rem] max-md:my-[0.25rem] max-sm:my-[0.2rem] max-xs:my-[0.15rem];
+	@apply text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem] my-[0.4rem] max-xl:my-[0.35rem] max-lg:my-[0.3rem] max-md:my-[0.25rem] max-sm:my-[0.2rem] max-xs:my-[0.15rem];
 	list-style-position: inside;
 	color: var(--color-typo-light-white);
 }
@@ -73,13 +73,13 @@
 }
 
 .markdown-body blockquote {
-	@apply border-l-4 pl-4 max-xl:pl-3.5 max-lg:pl-3 max-md:pl-2.5 max-sm:pl-2 max-xs:pl-1.5 my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] italic text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply border-l-4 pl-4 max-xl:pl-3.5 max-lg:pl-3 max-md:pl-2.5 max-sm:pl-2 max-xs:pl-1.5 my-[0.8rem] max-xl:my-[0.7rem] max-lg:my-[0.6rem] max-md:my-[0.5rem] max-sm:my-[0.4rem] italic text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem];
 	border-color: var(--color-btn-purple);
 	color: var(--color-typo-medium-gray);
 }
 
 .markdown-body code {
-	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.2rem] max-xl:py-[0.15rem] max-lg:py-[0.1rem] max-md:py-[0.1rem] max-sm:py-[0.05rem] max-xs:py-[0.05rem] rounded font-mono text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem];
+	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.2rem] max-xl:py-[0.15rem] max-lg:py-[0.1rem] max-md:py-[0.1rem] max-sm:py-[0.05rem] max-xs:py-[0.05rem] rounded font-mono text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem];
 	background-color: color-mix(in srgb, var(--color-btn-purple) 15%, transparent);
 	color: var(--color-btn-purple);
 }
@@ -91,7 +91,7 @@
 }
 
 .markdown-body pre code {
-	@apply p-0 bg-transparent text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[0.9rem] max-sm:text-[0.8rem] max-xs:text-[0.7rem];
+	@apply p-0 bg-transparent text-[1.2rem] max-xl:text-[1.1rem] max-lg:text-[1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem];
 	color: var(--color-typo-light-white);
 }
 
@@ -105,14 +105,14 @@
 }
 
 .markdown-body th {
-	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-left font-semibold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-left font-semibold text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem];
 	background-color: color-mix(in srgb, var(--color-btn-purple) 20%, transparent);
 	color: var(--color-typo-main-white);
 	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 30%, transparent);
 }
 
 .markdown-body td {
-	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply px-4 max-xl:px-3.5 max-lg:px-3 max-md:px-2.5 max-sm:px-2 max-xs:px-1.5 py-2 max-xl:py-1.5 max-lg:py-1.5 max-md:py-1.5 max-sm:py-1 max-xs:py-1 text-[1.3rem] max-xl:text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem];
 	color: var(--color-typo-light-white);
 	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 20%, transparent);
 }
@@ -139,7 +139,7 @@
 }
 
 .markdown-body kbd {
-	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.3rem] max-xl:py-[0.25rem] max-lg:py-[0.2rem] max-md:py-[0.15rem] max-sm:py-[0.15rem] max-xs:py-[0.1rem] rounded font-mono text-[1.1rem] max-xl:text-[1rem] max-lg:text-[0.9rem] max-md:text-[0.8rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+	@apply px-[0.6rem] max-xl:px-[0.5rem] max-lg:px-[0.4rem] max-md:px-[0.35rem] max-sm:px-[0.3rem] max-xs:px-[0.25rem] py-[0.3rem] max-xl:py-[0.25rem] max-lg:py-[0.2rem] max-md:py-[0.15rem] max-sm:py-[0.15rem] max-xs:py-[0.1rem] rounded font-mono text-[1.1rem] max-xl:text-[1rem] max-lg:text-[0.9rem] max-md:text-[0.85rem] max-sm:text-[0.85rem] max-xs:text-[0.8rem];
 	background-color: color-mix(in srgb, var(--color-btn-dark) 50%, transparent);
 	border: 1px solid color-mix(in srgb, var(--color-btn-purple) 30%, transparent);
 	color: var(--color-typo-light-white);
@@ -165,21 +165,21 @@
 }
 
 .markdown-body dt {
-	@apply font-bold mt-[0.8rem] max-xl:mt-[0.7rem] max-lg:mt-[0.6rem] max-md:mt-[0.5rem] max-sm:mt-[0.4rem] max-xs:mt-[0.3rem] text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply font-bold mt-[0.8rem] max-xl:mt-[0.7rem] max-lg:mt-[0.6rem] max-md:mt-[0.5rem] max-sm:mt-[0.4rem] max-xs:mt-[0.3rem] text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem];
 	color: var(--color-typo-main-white);
 }
 
 .markdown-body dd {
-	@apply ml-4 max-xl:ml-3.5 max-lg:ml-3 max-md:ml-2.5 max-sm:ml-2 max-xs:ml-1.5 text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem];
+	@apply ml-4 max-xl:ml-3.5 max-lg:ml-3 max-md:ml-2.5 max-sm:ml-2 max-xs:ml-1.5 text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem];
 	color: var(--color-typo-light-white);
 }
 
 .markdown-body sub {
-	@apply align-sub text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.75rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+	@apply align-sub text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.8rem] max-sm:text-[0.8rem] max-xs:text-[0.8rem];
 }
 
 .markdown-body sup {
-	@apply align-super text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.75rem] max-sm:text-[0.7rem] max-xs:text-[0.65rem];
+	@apply align-super text-[0.9rem] max-xl:text-[0.85rem] max-lg:text-[0.8rem] max-md:text-[0.8rem] max-sm:text-[0.8rem] max-xs:text-[0.8rem];
 }
 
 .markdown-body mark {

@@ -53,7 +53,7 @@ export default function Textbox({
 									: "var(--gradient-stroke)";
 								onBlur?.(e);
 							}}
-							className="placeholder:text-input-light-gray duration-200 py-[1.7rem] max-xl:py-[1.5rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.7rem] text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] px-[1.4rem] max-lg:px-[1.2rem] max-md:px-[1rem] max-sm:px-[0.8rem] max-xs:px-[0.6rem]"
+							className="placeholder:text-input-light-gray duration-200 py-[1.7rem] max-xl:py-[1.5rem] max-lg:py-[1.3rem] max-md:py-[1rem] max-sm:py-[0.8rem] max-xs:py-[0.7rem] text-typo-light-white caret-btn-purple rounded-[0.8rem] w-full font-normal outline-none max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.1rem] max-xs:text-[1rem] px-[1.4rem] max-lg:px-[1.2rem] max-md:px-[1rem] max-sm:px-[0.8rem] max-xs:px-[0.6rem]"
 							required={required}
 							disabled={disabled}
 							{...props}
@@ -77,7 +77,7 @@ export default function Textbox({
 				</div>
 			</label>
 			{error && (
-				<span className="text-error text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] line-clamp-1 mt-[0.8rem] max-lg:mt-[0.65rem] max-md:mt-[0.5rem] max-sm:mt-[0.4rem] max-xs:mt-[0.3rem]">
+				<span className="text-error text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] line-clamp-1 mt-[0.8rem] max-lg:mt-[0.65rem] max-md:mt-[0.5rem] max-sm:mt-[0.4rem] max-xs:mt-[0.3rem]">
 					{error}
 				</span>
 			)}

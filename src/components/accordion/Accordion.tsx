@@ -44,7 +44,7 @@ export default function Accordion({ answer = "", count = 1, question = "" }: Acc
 					              max-xl:text-[1.8rem] 
 					              max-lg:text-[1.6rem] 
 					              max-md:text-[1.4rem] 
-					              max-sm:text-[1.2rem]
+					              max-sm:text-[1.4rem]
 					              font-semibold 
 					              group-open:text-btn-purple 
 					              transition-colors duration-300"
@@ -57,8 +57,8 @@ export default function Accordion({ answer = "", count = 1, question = "" }: Acc
 					              max-xl:text-[2rem] 
 					              max-lg:text-[1.8rem] 
 					              max-md:text-[1.4rem] 
-					              max-sm:text-[1.2rem]
-					              max-xs:text-[1.1rem]
+					              max-sm:text-[1.4rem]
+					              max-xs:text-[1.3rem]
 					              font-semibold text-left 
 					              group-open:text-btn-purple 
 					              transition-colors duration-300"
@@ -76,7 +76,7 @@ export default function Accordion({ answer = "", count = 1, question = "" }: Acc
 					/>
 				</summary>
 				<div className="grid grid-cols-[2.7rem_1fr_3.2rem] max-lg:grid-cols-[2.2rem_1fr_2.6rem] max-md:grid-cols-[1.8rem_1fr_2.2rem] max-sm:grid-cols-[1.4rem_1fr_1.8rem] gap-[5.5rem] max-xl:gap-[4rem] max-lg:gap-[3rem] max-md:gap-[2rem] max-sm:gap-[1.2rem] pt-[0.8rem] max-md:pt-[0.6rem] max-sm:pt-[0.4rem] px-[2.4rem] max-lg:px-[1.8rem] max-md:px-[1.2rem] max-sm:px-[0.8rem]">
-					<p className="col-start-2 col-end-3 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]">
+					<p className="col-start-2 col-end-3 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.2rem] max-sm:text-[1.2rem]">
 						{answer}
 					</p>
 				</div>

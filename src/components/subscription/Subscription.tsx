@@ -26,15 +26,15 @@ export default function Subscription({ id, features, image, plan, price }: Subsc
 						{plan}
 					</h5>
 					{plan === "Plus" && (
-						<div className="text-btn-purple border-1 py-[0.4rem] px-[0.7rem] text-[1.2rem] max-lg:text-[1rem] max-md:text-[0.8rem] p-10 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem]">
+						<div className="text-btn-purple border-1 py-[0.4rem] px-[0.7rem] text-[1.2rem] max-lg:text-[1rem] max-md:text-[1rem] p-10 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem]">
 							Best Selling
 						</div>
 					)}
 				</div>
-				<p className="mt-[0.8rem] max-md:mt-[0.6rem] text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem]">
+				<p className="mt-[0.8rem] max-md:mt-[0.6rem] text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[1rem]">
 					USD ${price}/month {plan === "Team" && "(per user)"}
 				</p>
-				<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-w-[28rem]">
+				<ul className="flex flex-col gap-20 max-lg:gap-16 max-md:gap-12 mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.6rem] text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-w-[28rem]">
 					{features.map((feature) => (
 						<li key={feature} className="flex gap-[1.2rem] max-md:gap-[0.8rem]">
 							<Check className="size-[2.4rem] max-lg:size-[2rem] max-md:size-[1.6rem] shrink-0" />

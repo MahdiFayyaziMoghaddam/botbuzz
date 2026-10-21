@@ -27,7 +27,7 @@ export default function GetStarted() {
 				className="relative size-48 max-lg:size-40 max-md:size-32 max-sm:size-28 max-xs:size-24 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem]"
 				title={personality?.name || "Assistant"}
 			/>
-			<p className="text-[2rem] max-xl:text-[1.8rem] max-lg:text-[1.6rem] max-md:text-[1.4rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] leading-[1.6] mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8 text-center">
+			<p className="text-[2rem] max-xl:text-[1.8rem] max-lg:text-[1.6rem] max-md:text-[1.4rem] max-sm:text-[1.4rem] max-xs:text-[1.3rem] leading-[1.6] mt-16 max-lg:mt-14 max-md:mt-12 max-sm:mt-10 max-xs:mt-8 text-center">
 				Your Daily AI Assistant
 			</p>
 			<div className="grid grid-cols-4 max-xl:grid-cols-2 max-xs:grid-cols-1 items-start gap-24 max-xl:gap-20 max-lg:gap-16 max-md:gap-12 max-sm:gap-10 max-xs:gap-8 mt-48 max-xl:mt-28 max-lg:mt-32 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 w-full">
@@ -44,7 +44,7 @@ export default function GetStarted() {
 						<div className="bg-onboarding hover:bg-btn-dark duration-300 rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-9 max-xs:p-8 *:first:size-24 max-lg:*:first:size-20 max-md:*:first:size-18 max-sm:*:first:size-16 max-xs:*:first:size-14">
 							{icon}
 
-							<p className="text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-typo-light-gray mt-56 max-xl:mt-48 max-lg:mt-40 max-md:mt-32 max-sm:mt-24 max-xs:mt-20 text-left">
+							<p className="text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem] text-typo-light-gray mt-56 max-xl:mt-48 max-lg:mt-40 max-md:mt-32 max-sm:mt-24 max-xs:mt-20 text-left">
 								{text}
 							</p>
 						</div>

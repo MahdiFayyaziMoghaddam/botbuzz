@@ -51,14 +51,14 @@ export default function Signup() {
 						alt="icon"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
-					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]" translate="no">
+					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]" translate="no">
 						BotBuzz
 					</p>
 				</div>
 				<h3 className="mt-64 max-xl:mt-55 max-lg:mt-50 max-md:mt-40 max-sm:mt-30 max-xs:mt-20 text-nowrap">
 					Create an Account
 				</h3>
-				<p className="text-typo-medium-gray text-[1.8rem] max-xl:text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-nowrap">
+				<p className="text-typo-medium-gray text-[1.8rem] max-xl:text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] max-sm:whitespace-normal">
 					Kindly fill in your details to create an account
 				</p>
 				<div className="flex flex-col gap-24 max-xs:gap-16 mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20">
@@ -103,7 +103,7 @@ export default function Signup() {
 				</Button>
 				<div className="flex items-center w-full mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 select-none">
 					<hr className="w-full" />
-					<p className="px-32 max-lg:px-28 max-md:px-26 max-sm:px-18 max-xs:px-10 text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-typo-light-gray">
+					<p className="px-32 max-lg:px-28 max-md:px-26 max-sm:px-18 max-xs:px-10 text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] text-typo-light-gray">
 						Or
 					</p>
 					<hr className="w-full" />
@@ -123,7 +123,7 @@ export default function Signup() {
 					<Google className="size-26 max-lg:size-23 max-md:size-20 max-sm:size-18 max-xs:size-15" />
 					Register with Google
 				</Button>
-				<p className="mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 text-center text-[1.6rem] text-typo-light-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
+				<p className="mt-40 max-md:mt-30 max-sm:mt-25 max-xs:mt-20 text-center text-[1.6rem] text-typo-light-gray max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
 					Already have an Account?{" "}
 					<Link href={"/signin"} className="text-btn-purple link-underline ml-4 max-lg:ml-3 max-md:ml-2">
 						Sign in

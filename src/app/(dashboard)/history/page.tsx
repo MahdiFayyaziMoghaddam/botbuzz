@@ -84,10 +84,10 @@ function EmptyHistory() {
 	return (
 		<div className="flex flex-col justify-center items-center h-full gap-8 max-lg:gap-7 max-md:gap-6 max-sm:gap-5 max-xs:gap-4">
 			<Error className="size-50 max-xl:size-47 max-lg:size-43 max-md:size-39 max-sm:size-35 max-xs:size-31 text-btn-purple" />
-			<p className="text-center text-[1.6rem] max-xl:text-[1.5rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
+			<p className="text-center text-[1.6rem] max-xl:text-[1.5rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
 				No chat history yet
 			</p>
-			<p className="text-center text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] text-typo-medium-gray">
+			<p className="text-center text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem] text-typo-medium-gray">
 				Start chatting with your AI personality
 			</p>
 		</div>

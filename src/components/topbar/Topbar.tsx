@@ -52,7 +52,7 @@ export default function Topbar() {
 					<Menu />
 				</button>
 				{userPlan && !(userPlan.plan === "Free") && (
-					<p className="text-btn-purple border-1 rounded-lg max-md:rounded-md max-sm:rounded-sm px-4 max-md:px-3 max-sm:px-2 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[1rem] select-none">
+					<p className="text-btn-purple border-1 rounded-lg max-md:rounded-md max-sm:rounded-sm px-4 max-md:px-3 max-sm:px-2 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] select-none">
 						{userPlan.plan}
 					</p>
 				)}

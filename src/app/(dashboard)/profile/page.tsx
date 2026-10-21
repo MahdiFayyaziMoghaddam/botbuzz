@@ -96,7 +96,7 @@ export default function Profile() {
 			</div>
 			<Button
 				variant="solid"
-				className="mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 font-semibold max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem]"
+				className="mt-40 max-xl:mt-35 max-lg:mt-30 max-md:mt-24 max-sm:mt-20 max-xs:mt-16 font-semibold max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[1rem]"
 				disabled={isPending}
 			>
 				Update

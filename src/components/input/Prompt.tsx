@@ -16,7 +16,7 @@ export default function Prompt() {
 			<div className="flex items-start gap-x-8 max-lg:gap-x-6 max-md:gap-x-5 max-sm:gap-x-4 max-xs:gap-x-3 rounded-l-[1.2rem] max-lg:rounded-l-[1rem] max-md:rounded-l-[0.8rem] max-sm:rounded-l-[0.6rem] max-xs:rounded-l-[0.5rem] bg-btn-dark grow pl-16 max-lg:pl-14 max-md:pl-10 max-sm:pl-8 max-xs:pl-6 pr-12 max-lg:pr-10 max-md:pr-8 max-sm:pr-6 max-xs:pr-5 overflow-hidden py-8 max-lg:py-7 max-md:py-6 max-sm:py-5 max-xs:py-4 max-h-280 max-xl:max-h-210 max-lg:max-h-240 max-md:max-h-300 max-sm:max-h-300 max-xs:max-h-240 group-focus-within:border-icon-purple duration-200">
 				<textarea
 					id="prompt-input"
-					className="content-center text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.85rem] placeholder:text-typo-light-gray outline-none grow resize-none shrink! field-sizing-content h-full leading-[1.2]"
+					className="content-center text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem] placeholder:text-typo-light-gray outline-none grow resize-none shrink! field-sizing-content h-full leading-[1.2]"
 					placeholder="Enter a prompt here"
 					value={userPrompt}
 					disabled={isCompleting === "COMPLETING"}
