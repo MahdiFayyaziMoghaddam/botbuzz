@@ -54,16 +54,16 @@ export default function Onboarding() {
 						alt="icon"
 						className="relative w-[3.6rem] max-lg:w-[3rem] max-md:w-[2.4rem] max-sm:w-[1.8rem] aspect-[1/1.09] shrink-0"
 					/>
-					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.2rem]" translate="no">BotBuzz</p>
+					<p className="text-[2.4rem] max-lg:text-[2rem] max-md:text-[1.6rem] max-sm:text-[1.4rem]" translate="no">BotBuzz</p>
 				</div>
 				<div className="flex flex-col items-center mt-88 max-xl:mt-75 max-lg:mt-65 max-md:mt-50 max-sm:mt-44 max-xs:mt-35 mx-auto max-w-900">
-					<p className="text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] text-typo-light-gray">
+					<p className="text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem] text-typo-light-gray">
 						{step}/5
 					</p>
 					<h4 className="mt-40 max-xl:mt-30 max-lg:mt-25 max-md:mt-20 max-sm:mt-15 max-xs:mt-10 text-center">
 						{questions[step - 1]}
 					</h4>
-					<p className="mt-8 max-lg:mt-7 max-md:mt-6 max-sm:mt-5 max-xs:mt-4 text-typo-light-gray text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem] text-center mb-56 max-xl:mb-52 max-lg:mb-48 max-md:mb-40 max-sm:mb-32 max-xs:mb-22">
+					<p className="mt-8 max-lg:mt-7 max-md:mt-6 max-sm:mt-5 max-xs:mt-4 text-typo-light-gray text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem] text-center mb-56 max-xl:mb-52 max-lg:mb-48 max-md:mb-40 max-sm:mb-32 max-xs:mb-22">
 						{descriptions[step - 1]}
 					</p>
 					{components[(step - 1) as keyof typeof components]}
@@ -118,7 +118,7 @@ function Step2() {
 	return (
 		<>
 			<input
-				className="outline-none text-[3.6rem] caret-btn-purple placeholder:font-semibold placeholder:text-typo-medium-gray w-788 resize-none text-center shrink-0"
+				className="outline-none text-[3.6rem] max-md:text-[2.8rem] max-sm:text-[2.2rem] max-xs:text-[1.8rem] caret-btn-purple placeholder:font-semibold placeholder:text-typo-medium-gray w-full max-w-788 resize-none text-center shrink-0"
 				placeholder="Type here"
 				autoFocus
 			/>
@@ -141,7 +141,7 @@ function Step3() {
 					className="bg-gradient-stroke p-[0.1rem] rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] select-none cursor-pointer"
 				>
 					<div className="flex items-center justify-between rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] bg-onboarding hover:bg-btn-dark duration-300 py-22 max-lg:py-18 max-md:py-14 max-sm:py-10 max-xs:py-8 px-16 max-lg:px-14 max-md:px-12 max-sm:px-9 max-xs:px-6 w-full">
-						<p className="text-[1.6rem] max-xl:text-[1.5] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem]">
+						<p className="text-[1.6rem] max-xl:text-[1.5rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
 							{item}
 						</p>
 						<Checkbox />
@@ -175,11 +175,11 @@ function Step4() {
 				<label key={i} className="bg-gradient-stroke p-[0.1rem] rounded-[0.8rem] cursor-pointer select-none">
 					<div className="grid grid-cols-[2.4rem_1fr_2rem] max-sm:grid-cols-[2rem_1fr_1.8rem] max-xs:grid-cols-[1.8rem_1fr_1.6rem] items-start gap-x-16 max-lg:gap-x-14 max-md:gap-x-12 max-sm:gap-x-10 max-xs:gap-x-8 gap-y-8 max-md:gap-y-6 max-sm:gap-y-4 *:first:size-24 max-sm:*:first:size-20 max-xs:*:first:size-18 rounded-[0.8rem] bg-onboarding hover:bg-btn-dark duration-300 p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
 						{item.icon}
-						<p className="text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.3rem] max-sm:text-[1.1rem] max-xs:text-[1rem]">
+						<p className="text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.3rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem]">
 							{item.title}
 						</p>
 						<Radio name="ai-interaction-option" />
-						<p className="col-start-2 col-end-3 text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem]">
+						<p className="col-start-2 col-end-3 text-typo-medium-gray text-[1.2rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
 							{item.description}
 						</p>
 					</div>
@@ -205,7 +205,7 @@ function Step5() {
 				>
 					<input type="checkbox" className="sr-only peer" />
 					<div className="py-24 max-lg:py-20 max-md:py-16 max-sm:py-14 max-xs:py-12 px-16 max-lg:px-14 max-md:px-12 max-sm:px-10 max-xs:px-8 rounded-[1rem] max-lg:rounded-[0.8rem] max-md:rounded-[0.7rem] max-sm:rounded-[0.6rem] bg-onboarding hover:bg-btn-dark duration-200 peer-checked:text-icon-purple">
-						<p className="text-[1.4rem] max-lg:text-[1.3rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] line-clamp-1">
+						<p className="text-[1.4rem] max-lg:text-[1.3rem] max-md:text-[1.2rem] max-sm:text-[1.1rem] max-xs:text-[1rem] line-clamp-1">
 							{item.title}
 						</p>
 						<Image

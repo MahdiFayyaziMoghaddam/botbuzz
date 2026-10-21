@@ -3,13 +3,13 @@ import Personalities from "@/components/dashboard/Personalities";
 export default function PersonalitiesPage() {
 	return (
 		<div className="p-27 max-xl:p-23 max-lg:p-19 max-md:p-15 max-sm:p-12 max-xs:p-10 overflow-auto">
-			<p className="text-typo-medium-gray text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
+			<p className="text-typo-medium-gray text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem]">
 				Chat with AI
 			</p>
 			<h3 className="bg-gradient-text text-transparent bg-clip-text! mt-12 max-xl:mt-10 max-lg:mt-9 max-md:mt-8 max-sm:mt-7 max-xs:mt-6">
 				AI Personalities
 			</h3>
-			<p className="mt-6 max-xl:mt-5 max-lg:mt-4.5 max-md:mt-4 max-sm:mt-3.5 max-xs:mt-3 text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1rem] max-xs:text-[0.9rem]">
+			<p className="mt-6 max-xl:mt-5 max-lg:mt-4.5 max-md:mt-4 max-sm:mt-3.5 max-xs:mt-3 text-[1.4rem] max-xl:text-[1.3rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] max-xs:text-[1rem]">
 				Explore diverse AI personalities tailored to meet your unique needs, preferences, and interests.
 			</p>
 			<div className="mt-56 max-xl:mt-48 max-lg:mt-40 max-md:mt-32 max-sm:mt-24 max-xs:mt-20">

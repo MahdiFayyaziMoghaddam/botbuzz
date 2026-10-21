@@ -9,7 +9,7 @@ interface Checkbox extends InputHTMLAttributes<HTMLInputElement> {
 export default function Checkbox({ label = "", className = "", name, ...props }: Checkbox) {
 	return (
 		<label
-			className={`flex items-center w-fit gap-16 max-lg:gap-[1.4rem] max-md:gap-[1.2rem] max-sm:gap-[1rem] max-xs:gap-[0.9rem] cursor-pointer select-none text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.9rem] text-typo-medium-gray ${className}`}
+			className={`flex items-center w-fit gap-16 max-lg:gap-[1.4rem] max-md:gap-[1.2rem] max-sm:gap-[1rem] max-xs:gap-[0.9rem] cursor-pointer select-none text-[1.6rem] max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.2rem] max-xs:text-[1.1rem] text-typo-medium-gray ${className}`}
 			id={name}
 		>
 			<input type="checkbox" className="sr-only peer" name={name} {...props} />

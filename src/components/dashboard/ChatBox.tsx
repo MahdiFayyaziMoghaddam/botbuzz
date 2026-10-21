@@ -37,14 +37,14 @@ export default function ChatBox({ role = "user", date, imgSrc, content, title }:
 							alt="model"
 							className="relative size-32 max-lg:size-28 max-md:size-24 max-sm:size-20 max-xs:size-18 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] flex items-center justify-center shrink-0"
 						/>
-						<span className="font-semibold max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1rem] max-xs:text-[0.8rem] text-btn-purple select-none">
+						<span className="font-semibold max-lg:text-[1.4rem] max-md:text-[1.2rem] max-sm:text-[1.1rem] max-xs:text-[1rem] text-btn-purple select-none">
 							{title}
 						</span>
-						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.7rem] max-sm:text-[0.6rem] max-xs:text-[0.5rem] text-typo-light-gray select-none">
+						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.8rem] max-sm:text-[0.8rem] max-xs:text-[0.8rem] text-typo-light-gray select-none">
 							{formatTimestamp(date!)}
 						</span>
 					</div>
-					<div className="bg-glass-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem] border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
+					<div className="bg-glass-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1.1rem] border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8">
 						<div
 							className="markdown-body *:mb-12! max-xl:*:mb-11! max-lg:*:mb-10! max-md:*:mb-9! max-sm:*:mb-8! max-xs:*:mb-7!"
 							dir={direction}
@@ -78,7 +78,7 @@ export default function ChatBox({ role = "user", date, imgSrc, content, title }:
 			) : (
 				<div className="flex flex-col items-end ml-auto">
 					<div className="flex items-center gap-8 max-sm:gap-6 max-xs:gap-5 mb-16 max-lg:mb-14 max-md:mb-12 max-sm:mb-10 max-xs:mb-8">
-						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.7rem] max-sm:text-[0.6rem] max-xs:text-[0.5rem] text-typo-light-gray select-none">
+						<span className="text-[0.9rem] max-lg:text-[0.8rem] max-md:text-[0.8rem] max-sm:text-[0.8rem] max-xs:text-[0.8rem] text-typo-light-gray select-none">
 							{formatTimestamp(date!)}
 						</span>
 						<Image
@@ -87,7 +87,7 @@ export default function ChatBox({ role = "user", date, imgSrc, content, title }:
 							className="relative size-32 max-lg:size-28 max-md:size-24 max-sm:size-20 max-xs:size-18 rounded-[0.8rem] max-lg:rounded-[0.7rem] max-md:rounded-[0.6rem] max-sm:rounded-[0.5rem] max-xs:rounded-[0.4rem] shrink-0"
 						/>
 					</div>
-					<div className="bg-onboarding border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8 text-typo-light-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.8rem]">
+					<div className="bg-onboarding border border-glass-stroke rounded-[1.2rem] max-lg:rounded-[1.1rem] max-md:rounded-[1rem] max-sm:rounded-[0.9rem] max-xs:rounded-[0.8rem] p-16 max-lg:p-14 max-md:p-12 max-sm:p-10 max-xs:p-8 text-typo-light-white text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1.1rem] max-sm:text-[1.1rem]">
 						{content}
 					</div>
 				</div>
