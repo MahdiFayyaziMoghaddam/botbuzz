@@ -4,18 +4,21 @@ import Shapes7 from "@/components/icons/shapes7";
 import Shapes8 from "@/components/icons/shapes8";
 import Shapes9 from "@/components/icons/shapes9";
 import Image from "@/components/image/Image";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { staticImages } from "../image/static-images";
 
 export default function GetStarted() {
-	const { state, sendPromptProcess } = useDashboardContext();
+	const personalities = useDashboardStore((state) => state.personalities);
+	const userPersonalityID = useDashboardStore((state) => state.userPersonalityID);
+	const isCompleting = useDashboardStore((state) => state.isCompleting);
+	const sendPromptProcess = useDashboardStore((state) => state.action.sendPromptProcess);
 	const prompts = [
 		{ icon: <Shapes8 className="text-icon-cyan" />, text: "Create a crossword puzzle for me" },
 		{ icon: <Shapes7 className="text-icon-peach" />, text: "Plan a budget for my vacation" },
 		{ icon: <Shapes9 className="text-icon-green" />, text: "Ethical implications of AI" },
 		{ icon: <Shapes10 className="text-icon-yellow" />, text: "Calendar for the whole month" }
 	];
-	const personality = state.personalities.find(({ id }) => id === state.userPersonalityID);
+	const personality = personalities.find(({ id }) => id === userPersonalityID);
 	return (
 		<div className="flex flex-col items-center justify-center m-auto max-w-800 grow select-none px-16 max-lg:px-14 max-md:px-12 max-sm:px-10 max-xs:px-8">
 			<Image
@@ -33,7 +36,7 @@ export default function GetStarted() {
 						key={i}
 						className="bg-gradient-stroke rounded-[0.8rem] max-lg:rounded-[0.65rem] max-md:rounded-[0.45rem] max-sm:rounded-[0.35rem] max-xs:rounded-[0.25rem] p-[0.1rem] cursor-pointer outline-none"
 						onClick={() => {
-							if (state.isCompleting !== "COMPLETING") {
+							if (isCompleting !== "COMPLETING") {
 								sendPromptProcess(text);
 							}
 						}}

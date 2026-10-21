@@ -7,6 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint",
+		"check:store": "tsx src/stores/dashboardStore.check.ts",
 		"db:connect": "supabase login && supabase link",
 		"db:migrate": "supabase db push --linked",
 		"db:repair": "supabase migration repair 001 002 003 004 005 --status reverted --linked",
@@ -26,7 +27,8 @@
 		"next": "16.4.1",
 		"react": "19.3.1",
 		"react-dom": "19.3.1",
-		"react-toastify": "^11.1.0"
+		"react-toastify": "^11.1.0",
+		"zustand": "^5.0.15"
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4",

@@ -1,13 +1,15 @@
 import Image from "../image/Image";
 import Check from "../icons/check";
 import Button from "../button/Button";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { type Subscription } from "@/types/database";
 
 type SubscriptionProps = Pick<Subscription, "id" | "features" | "image" | "plan" | "price">;
 
 export default function Subscription({ id, features, image, plan, price }: SubscriptionProps) {
-	const { state, isPending, updateUserPlanAction } = useDashboardContext();
+	const userPlan = useDashboardStore((state) => state.userPlan);
+	const isPending = useDashboardStore((state) => state.isPending);
+	const updateUserPlan = useDashboardStore((state) => state.action.updateUserPlan);
 	return (
 		<div
 			className={`flex flex-col justify-between ${plan === "Free" ? "bg-onboarding" : plan === "Plus" ? "bg-[#1E2024]" : "bg-icon-black"} py-20 max-lg:py-16 max-md:py-12 px-[1.6rem] max-md:px-[1.2rem] rounded-[1.6rem] max-lg:rounded-[1.2rem] max-md:rounded-[0.8rem] border-1 border-glass-stroke`}
@@ -41,7 +43,7 @@ export default function Subscription({ id, features, image, plan, price }: Subsc
 					))}
 				</ul>
 			</div>
-			{state.userPlan && state.userPlan.id === id ? (
+			{userPlan && userPlan.id === id ? (
 				<Button
 					variant="solid"
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-[1.8rem] text-[1.2rem]! max-lg:text-[1rem]!"
@@ -55,7 +57,7 @@ export default function Subscription({ id, features, image, plan, price }: Subsc
 					className="mt-[3.2rem] max-lg:mt-[2.4rem] max-md:mt-1.2rem] text-[1.2rem]! max-lg:text-[1rem]!"
 					isLoading={isPending}
 					onClick={() => {
-						updateUserPlanAction(id);
+						updateUserPlan(id);
 					}}
 				>
 					Upgrade to {plan}

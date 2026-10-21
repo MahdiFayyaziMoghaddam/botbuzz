@@ -2,7 +2,7 @@
 import DateSeparator from "@/components/dashboard/DateSeparator";
 import HistoryLink, { HistoryModel } from "@/components/dashboard/History";
 import Error from "@/components/icons/error";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { Conversation } from "@/types/database";
 import { Fragment } from "react";
 
@@ -17,20 +17,21 @@ function DateFormatter(date: string) {
 }
 
 export default function History() {
-	const { state } = useDashboardContext();
+	const conversations = useDashboardStore((state) => state.conversations);
+	const personalities = useDashboardStore((state) => state.personalities);
 	return (
 		<div className="relative flex flex-col overflow-hidden">
-			{state.conversations.length === 0 ? (
+			{conversations.length === 0 ? (
 				<EmptyHistory />
 			) : (
 				<div className="flex flex-col px-194 max-xl:px-130 max-lg:px-80 max-md:px-60 max-sm:px-30 max-xs:px-20 gap-42 max-lg:gap-28 max-md:gap-24 max-sm:gap-20 max-xs:gap-16 shrink overflow-auto h-full *:shrink-0 py-24 max-lg:py-20 max-md:py-16 max-sm:py-12 max-xs:py-10">
-					{[...new Set(state.conversations.map(({ created_at }) => DateFormatter(created_at)))].map(
+					{[...new Set(conversations.map(({ created_at }) => DateFormatter(created_at)))].map(
 						(formatted_created_at) => (
 							<Fragment key={formatted_created_at}>
 								<DateSeparator title={formatted_created_at} />
 								{[
 									...new Set(
-										state.conversations.reduce(
+										conversations.reduce(
 											(prev: string[], current) =>
 												DateFormatter(current.created_at) === formatted_created_at
 													? [...prev, current.personality_id]
@@ -41,13 +42,13 @@ export default function History() {
 								].map((personality_id) => (
 									<div key={personality_id} className="flex flex-col gap-16">
 										<HistoryModel
-											title={state.personalities.find(({ id }) => id === personality_id)?.name || "assistant"}
-											imgSrc={state.personalities.find(({ id }) => id === personality_id)!.image}
+											title={personalities.find(({ id }) => id === personality_id)?.name || "assistant"}
+											imgSrc={personalities.find(({ id }) => id === personality_id)!.image}
 											date={formatted_created_at}
 										/>
 										{[
 											...new Set(
-												state.conversations.reduce((prev: Conversation[], current: Conversation) => {
+												conversations.reduce((prev: Conversation[], current: Conversation) => {
 													if (
 														current.personality_id === personality_id &&
 														DateFormatter(current.created_at) === formatted_created_at

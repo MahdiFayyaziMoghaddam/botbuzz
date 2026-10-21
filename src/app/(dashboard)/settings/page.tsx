@@ -3,12 +3,15 @@ import Button from "@/components/button/Button";
 import Reload from "@/components/icons/reload";
 import Switch from "@/components/input/Switch";
 import Textbox from "@/components/input/Textbox";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { useEffect, useRef, useState } from "react";
 
 export default function Settings() {
-	const { state, isPending, updateUserNotificationAction, updateUserAPIkeyAction } = useDashboardContext();
-	const [apiKey, setApiKey] = useState(state.userAPIKey || "");
+	const notification = useDashboardStore((state) => state.notification);
+	const isPending = useDashboardStore((state) => state.isPending);
+	const userAPIKey = useDashboardStore((state) => state.userAPIKey);
+	const action = useDashboardStore((state) => state.action);
+	const [apiKey, setApiKey] = useState(userAPIKey || "");
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	useEffect(() => {
@@ -36,7 +39,7 @@ export default function Settings() {
 						title="Sync"
 						className="*:size-26 max-lg:*:size-24 max-md:*:size-22 max-sm:*:size-20 max-xs:*:size-18 p-14! max-lg:p-11! max-md:p-8! max-sm:p-6! max-xs:p-5!"
 						onClick={(e) => {
-							updateUserAPIkeyAction(apiKey);
+							action.updateUserAPIkey(apiKey);
 							e.currentTarget.classList.add("*:animate-spin");
 						}}
 						disabled={isPending}
@@ -48,10 +51,10 @@ export default function Settings() {
 			<div className="flex justify-between items-center">
 				<h5>Notifications</h5>
 				<Switch
-					checked={state.notification}
+					checked={notification}
 					disabled={isPending}
 					onChange={(e) => {
-						updateUserNotificationAction(e.target.checked);
+						action.updateUserNotification(e.target.checked);
 					}}
 				/>
 			</div>

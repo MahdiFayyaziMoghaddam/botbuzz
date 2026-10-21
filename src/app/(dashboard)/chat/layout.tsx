@@ -1,16 +1,16 @@
 "use client";
 import ChatFooter from "@/components/dashboard/ChatFooter";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import React, { useEffect } from "react";
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
-	const { state } = useDashboardContext();
+	const messages = useDashboardStore((state) => state.messages);
 	const messagesBoxRef = React.useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (!messagesBoxRef.current) return;
 		messagesBoxRef.current.scrollTo({ top: messagesBoxRef.current.scrollHeight, behavior: "smooth" });
-	}, [state.messages]);
+	}, [messages]);
 
 	return (
 		<>

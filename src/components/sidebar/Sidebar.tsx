@@ -9,30 +9,31 @@ import Settings from "../icons/settings";
 import SidebarOption from "./SidebarOption";
 import SidebarUpgrade from "./SidebarUpgrade";
 import { useEffect, useRef, useCallback } from "react";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import useMediaQuery from "@/hooks/useBreakpoint";
 import { staticImages } from "../image/static-images";
 import { MediaQueryResult } from "@/types/breakpoint";
 
 export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Partial<MediaQueryResult> }) {
-	const { state, dispatch } = useDashboardContext();
+	const isDrawerOpened = useDashboardStore((state) => state.isDrawerOpened);
+	const isCollapsed = useDashboardStore((state) => state.isCollapsed);
+	const action = useDashboardStore((state) => state.action);
 	const { isBelow: isMobile } = useMediaQuery("md", initialBreakpoint);
 	const scrollY = useRef(0);
-	const toggleCollapse = () => dispatch({ type: "TOGGLE_COLLAPSE" });
-	const closeDrawer = useCallback(() => dispatch({ type: "SET_DRAWER_OPEN", payload: false }), [dispatch]);
+	const closeDrawer = useCallback(() => action.setDrawerOpen(false), [action]);
 
 	useEffect(() => {
 		if (isMobile) {
-			dispatch({ type: "SET_COLLAPSE_OPEN", payload: false });
+			action.setCollapseOpen(false);
 		} else {
-			dispatch({ type: "SET_DRAWER_OPEN", payload: false });
+			action.setDrawerOpen(false);
 		}
-	}, [isMobile, dispatch]);
+	}, [isMobile, action]);
 
 	useEffect(() => {
 		if (!isMobile) return;
 
-		if (state.isDrawerOpened) {
+		if (isDrawerOpened) {
 			scrollY.current = window.scrollY;
 			document.body.style.overflow = "hidden";
 			document.body.style.position = "fixed";
@@ -52,10 +53,10 @@ export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Par
 			document.body.style.top = "";
 			document.body.style.width = "";
 		};
-	}, [state, isMobile]);
+	}, [isDrawerOpened, isMobile]);
 
 	useEffect(() => {
-		if (!isMobile || !state.isDrawerOpened) return;
+		if (!isMobile || !isDrawerOpened) return;
 
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === "Escape") {
@@ -66,14 +67,14 @@ export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Par
 
 		document.addEventListener("keydown", handleEscape, true);
 		return () => document.removeEventListener("keydown", handleEscape, true);
-	}, [state, isMobile, closeDrawer]);
+	}, [isDrawerOpened, isMobile, closeDrawer]);
 
 	return (
 		<>
 			<div
 				onClick={closeDrawer}
 				className={`md:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-[3px] transition-opacity duration-600 ${
-					state.isDrawerOpened ? "opacity-100" : "opacity-0 pointer-events-none"
+					isDrawerOpened ? "opacity-100" : "opacity-0 pointer-events-none"
 				}`}
 			/>
 
@@ -81,8 +82,8 @@ export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Par
 				className={`flex flex-col justify-between py-40 max-xl:py-35 max-lg:py-30 max-md:py-20 bg-[#3A3C40] border-r-2 border-glass-stroke h-full max-md:fixed max-md:top-0 max-md:bottom-0 z-50 transition-all duration-500 md:row-start-1 md:-row-end-1
 					${
 						isMobile
-							? `w-260 px-16 ${state.isDrawerOpened ? "left-0" : "-left-full"}`
-							: state.isCollapsed
+							? `w-260 px-16 ${isDrawerOpened ? "left-0" : "-left-full"}`
+							: isCollapsed
 								? "w-[10rem] max-xl:w-[9.3rem] max-lg:w-[7.3rem] xl:px-24 lg:px-24 md:px-16"
 								: "w-260 max-xl:w-230 max-lg:w-200 xl:px-24 lg:px-24 md:px-16"
 					}`}
@@ -98,9 +99,9 @@ export default function Sidebar({ initialBreakpoint }: { initialBreakpoint?: Par
 						<Button
 							variant="ghost"
 							className={`bg-icon-white! text-icon-black p-0! rounded-[0.5rem] max-xl:rounded-[0.4rem] max-lg:rounded-[0.3rem] z-10 duration-400 *:size-24 max-xl:*:size-20 max-lg:*:size-16 ${
-								state.isCollapsed ? "rotate-180" : ""
+								isCollapsed ? "rotate-180" : ""
 							} max-md:hidden`}
-							onClick={toggleCollapse}
+							onClick={action.toggleCollapse}
 						>
 							<ArrowLeft />
 						</Button>

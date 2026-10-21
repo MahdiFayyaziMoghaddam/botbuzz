@@ -4,28 +4,30 @@ import ArrowRight from "@/components/icons/arrow-right";
 import Edit from "@/components/icons/edit";
 import Image from "@/components/image/Image";
 import Textbox from "@/components/input/Textbox";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { profileImageExtensions } from "@/utils/profileImageExtensions";
 import { ChangeEvent } from "react";
 
 export default function Profile() {
-	const { state, dispatch, isPending, setPendingMessage, updateUserAvatarAction, updateUserInfoAction } =
-		useDashboardContext();
+	const userInfo = useDashboardStore((state) => state.userInfo);
+	const userAvatar = useDashboardStore((state) => state.userAvatar);
+	const isPending = useDashboardStore((state) => state.isPending);
+	const action = useDashboardStore((state) => state.action);
 	const inputHandler = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) =>
-		dispatch({ type: "SET_USER_INFO", payload: { [e.target.name]: e.target.value } });
+		action.setUserInfo({ [e.target.name]: e.target.value });
 
 	return (
 		<form
 			className="flex flex-col items-start p-24 max-xl:p-20 max-lg:p-16 max-md:p-12 max-sm:p-10 max-xs:p-8"
 			onSubmit={(e) => {
 				e.preventDefault();
-				setPendingMessage("Update user information ...");
-				updateUserInfoAction(state.userInfo);
+				action.setPendingMessage("Update user information ...");
+				action.updateUserInfo(userInfo);
 			}}
 		>
 			<div className="relative">
 				<Image
-					src={state.userAvatar}
+					src={userAvatar}
 					alt="profile"
 					loading="eager"
 					className="relative size-112 max-xl:size-100 max-lg:size-88 max-md:size-72 max-sm:size-60 max-xs:size-50 rounded-[1rem] max-lg:rounded-[0.85rem] max-md:rounded-[0.7rem] max-sm:rounded-[0.6rem] max-xs:rounded-[0.5rem] bg-typo-dark-gray"
@@ -40,8 +42,8 @@ export default function Profile() {
 						disabled={isPending}
 						onChange={(e) => {
 							if (e.target.files && e.target.files.length === 1) {
-								setPendingMessage("Upload user avatar ...");
-								updateUserAvatarAction(e.target.files[0]);
+								action.setPendingMessage("Upload user avatar ...");
+								action.updateUserAvatar(e.target.files[0]);
 							}
 						}}
 					/>
@@ -52,7 +54,7 @@ export default function Profile() {
 			<div className="flex gap-24 max-xl:gap-20 max-lg:gap-16 max-md:flex-col max-md:gap-12 max-sm:gap-10 max-xs:gap-8 mt-32 max-xl:mt-28 max-lg:mt-24 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full max-w-914 max-xl:max-w-800 max-lg:max-w-700 max-md:max-w-full">
 				<Textbox
 					name="name"
-					value={state.userInfo.name}
+					value={userInfo.name}
 					onChange={inputHandler}
 					label="Your fullname"
 					placeholder="Enter your fullname"
@@ -61,7 +63,7 @@ export default function Profile() {
 				/>
 				<Textbox
 					name="email"
-					value={state.userInfo.email}
+					value={userInfo.email}
 					onChange={inputHandler}
 					label="Your email"
 					placeholder="Enter your email"
@@ -73,7 +75,7 @@ export default function Profile() {
 			<div className="flex gap-24 max-xl:gap-20 max-lg:gap-16 max-md:flex-col max-md:gap-12 max-sm:gap-10 max-xs:gap-8 mt-32 max-xl:mt-28 max-lg:mt-24 max-md:mt-20 max-sm:mt-16 max-xs:mt-12 w-full max-w-914 max-xl:max-w-800 max-lg:max-w-700 max-md:max-w-full">
 				<Textbox
 					name="password"
-					value={state.userInfo.password}
+					value={userInfo.password}
 					onChange={inputHandler}
 					label="Password"
 					type="password"
@@ -83,7 +85,7 @@ export default function Profile() {
 				/>
 				<Textbox
 					name="confirm"
-					value={state.userInfo.confirm}
+					value={userInfo.confirm}
 					onChange={inputHandler}
 					label="Confirm password"
 					type="password"

@@ -3,7 +3,7 @@ import Provider from "./_provider";
 import { redirect } from "next/navigation";
 import { getUser } from "@/auth/actions";
 import { getServerSidePathname } from "@/utils/getServerSidePathname";
-import { State } from "@/types/reducer";
+import { State } from "@/types/dashboard";
 import { getConversations, getMessages, getPersonalities, getSubscriptions } from "@/database/actions";
 import { cookies } from "next/headers";
 

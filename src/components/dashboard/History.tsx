@@ -1,7 +1,7 @@
 "use client";
 import Image from "../image/Image";
 import Trash from "../icons/trash";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import { useRouter } from "next/navigation";
 import { staticImages } from "../image/static-images";
 
@@ -36,10 +36,10 @@ interface HistoryLink {
 }
 
 export default function HistoryLink({ href, title, id }: HistoryLink) {
-	const { removeConversationAction, updateMessagesAction } = useDashboardContext();
+	const action = useDashboardStore((state) => state.action);
 	const router = useRouter();
 	const onDelete = () => {
-		removeConversationAction(id);
+		action.removeConversation(id);
 	};
 	return (
 		<div className="flex items-center gap-16 max-xl:gap-14 max-lg:gap-12 max-md:gap-10 max-sm:gap-8 max-xs:gap-6 pr-16 max-xl:pr-14 max-lg:pr-12 max-md:pr-10 max-sm:pr-8 max-xs:pr-6 bg-glass-white border-1 border-glass-stroke rounded-[0.8rem] max-xl:rounded-[0.7rem] max-lg:rounded-[0.6rem] max-md:rounded-[0.5rem] max-sm:rounded-[0.4rem] max-xs:rounded-[0.35rem]">
@@ -47,7 +47,7 @@ export default function HistoryLink({ href, title, id }: HistoryLink) {
 				className="text-left cursor-pointer grow p-16 max-xl:p-14 max-lg:p-12 max-md:p-10 max-sm:p-8 max-xs:p-6 text-[1.6rem] max-xl:text-[1.4rem] max-lg:text-[1.2rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.8rem]"
 				onClick={async () => {
 					const conversation_id = href.split("chat/")[1];
-					const { completed } = await updateMessagesAction(conversation_id);
+					const { completed } = await action.updateMessages(conversation_id);
 					if (completed) {
 						router.replace(href);
 					}

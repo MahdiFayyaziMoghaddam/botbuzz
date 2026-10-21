@@ -1,12 +1,15 @@
 "use client";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useDashboardStore } from "@/stores/dashboardStore";
 import AddPhoto from "../icons/add-photo";
 import Microphone from "../icons/microphone";
 import Send from "../icons/send";
 import Stop from "../icons/stop";
 
 export default function Prompt() {
-	const { state, dispatch, sendPromptProcess } = useDashboardContext();
+	const userPrompt = useDashboardStore((state) => state.userPrompt);
+	const isCompleting = useDashboardStore((state) => state.isCompleting);
+	const setUserPrompt = useDashboardStore((state) => state.action.setUserPrompt);
+	const sendPromptProcess = useDashboardStore((state) => state.action.sendPromptProcess);
 	const pausePromptProcess = () => {};
 	return (
 		<div className="flex gap-2 max-md:gap-1 mx-auto w-full *:border-transparent *:border-1 *:first:border-r-0 *:nth-[2]:border-l-0 group">
@@ -15,11 +18,11 @@ export default function Prompt() {
 					id="prompt-input"
 					className="content-center text-[1.3rem] max-lg:text-[1.1rem] max-md:text-[1rem] max-sm:text-[0.9rem] max-xs:text-[0.85rem] placeholder:text-typo-light-gray outline-none grow resize-none shrink! field-sizing-content h-full leading-[1.2]"
 					placeholder="Enter a prompt here"
-					value={state.userPrompt}
-					disabled={state.isCompleting === "COMPLETING"}
-					onChange={(e) => dispatch({ type: "SET_USER_PROMPT", payload: e.target.value })}
+					value={userPrompt}
+					disabled={isCompleting === "COMPLETING"}
+					onChange={(e) => setUserPrompt(e.target.value)}
 					onKeyDown={(e) => {
-						if (!e.shiftKey && e.key === "Enter" && state.isCompleting !== "COMPLETING") {
+						if (!e.shiftKey && e.key === "Enter" && isCompleting !== "COMPLETING") {
 							e.preventDefault();
 							sendPromptProcess();
 						}
@@ -36,11 +39,11 @@ export default function Prompt() {
 				</div>
 			</div>
 			<button
-				onClick={() => (state.isCompleting === "COMPLETING" ? pausePromptProcess() : sendPromptProcess())}
-				disabled={!state.userPrompt.trim() && state.isCompleting !== "COMPLETING"}
+				onClick={() => (isCompleting === "COMPLETING" ? pausePromptProcess() : sendPromptProcess())}
+				disabled={!userPrompt.trim() && isCompleting !== "COMPLETING"}
 				className="bg-btn-dark hover:bg-glass-white rounded-r-[1.2rem] max-lg:rounded-r-[1rem] max-md:rounded-r-[0.8rem] max-sm:rounded-r-[0.6rem] max-xs:rounded-r-[0.5rem] cursor-pointer px-16 max-lg:px-14 max-md:px-10 max-sm:px-8 max-xs:px-6 disabled:text-typo-dark-gray disabled:cursor-not-allowed disabled:hover:bg-btn-dark *:size-24 max-lg:*:size-20 max-md:*:size-18 max-sm:*:size-16 max-xs:*:size-14 duration-200 active:brightness-50 disabled:active:brightness-100 group-focus-within:border-icon-purple text-btn-purple"
 			>
-				{state.isCompleting === "COMPLETING" ? <Stop /> : <Send />}
+				{isCompleting === "COMPLETING" ? <Stop /> : <Send />}
 			</button>
 		</div>
 	);
