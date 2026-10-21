@@ -7,7 +7,6 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint",
-		"check:store": "tsx src/stores/dashboardStore.check.ts",
 		"db:connect": "supabase login && supabase link",
 		"db:migrate": "supabase db push --linked",
 		"db:repair": "supabase migration repair 001 002 003 004 005 --status reverted --linked",

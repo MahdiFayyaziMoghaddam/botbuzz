@@ -1,7 +1,7 @@
 import { ClientMessage, Conversation, Personality, Subscription } from "./database";
 import { UserInfo } from "./user";
 
-export type CompletingState = "COMPLETING" | "COMPLETED" | "NOT_COMPLETED";
+export type CompletingState = "COMPLETING" | "COMPLETED" | "PAUSED" | "NOT_COMPLETED";
 
 export interface State {
 	notification: boolean;

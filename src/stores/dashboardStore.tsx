@@ -34,8 +34,9 @@ export interface DashboardStore extends State {
 	isPending: boolean;
 	pendingMessage: string;
 	pathname: string;
-	// `complete` comes from the useCompletion hook, so the provider injects it once mounted.
+	// `complete` and `stop` come from the useCompletion hook, so the provider injects them once mounted.
 	complete: (prompt: string, options?: CompletionRequestOptions) => Promise<string | null | undefined>;
+	stop: () => void;
 	action: {
 		setUserPrompt: (prompt: string) => void;
 		setUserInfo: (userInfo: Partial<UserInfo>) => void;
@@ -62,6 +63,7 @@ export interface DashboardStore extends State {
 		updateUserInfo: (userInfo: UserInfo) => void;
 		updateUserNotification: (notification: boolean) => void;
 		updateUserAPIkey: (apiKey: string) => void;
+		pausePromptProcess: () => void;
 		sendPromptProcess: (prompt?: string) => Promise<void>;
 	};
 }
@@ -226,8 +228,15 @@ export const createDashboardStore = (preloadedState?: Partial<State>) =>
 					set({ userAPIKey: apiKey });
 				});
 			},
+			pausePromptProcess: () => {
+				if (get().isCompleting !== "COMPLETING") return;
+				get().stop();
+				// the provider persists the partial answer and resets the state
+				set({ isCompleting: "PAUSED" });
+			},
 			sendPromptProcess: async (prompt) => {
-				const { userPrompt, userPersonalityID, pathname } = get();
+				const { userPrompt, userPersonalityID, pathname, isCompleting } = get();
+				if (isCompleting === "COMPLETING") return;
 				const text = (prompt || userPrompt).trim();
 				if (!text) return;
 				set({ userPrompt: "", isCompleting: "COMPLETING" });
@@ -239,10 +248,14 @@ export const createDashboardStore = (preloadedState?: Partial<State>) =>
 							{ content, conversation_id, role, created_at: new Date().toISOString() }
 						]
 					});
-				const sendUserPrompt = () =>
+				const startCompletion = (conversation_id: string) => {
+					// the prompt may have been stopped while the message was being saved
+					if (get().isCompleting !== "COMPLETING") return;
+					appendMessage(conversation_id, "assistant", "");
 					get().complete(text, {
 						body: { personality_id: userPersonalityID, api_key: get().userAPIKey }
 					});
+				};
 
 				if (pathname === "/chat") {
 					const { data } = await action.addConversation(
@@ -260,8 +273,7 @@ export const createDashboardStore = (preloadedState?: Partial<State>) =>
 						set({ isCompleting: "NOT_COMPLETED" });
 						return;
 					}
-					appendMessage(data.id, "assistant", "");
-					sendUserPrompt();
+					startCompletion(data.id);
 					return;
 				}
 
@@ -272,8 +284,7 @@ export const createDashboardStore = (preloadedState?: Partial<State>) =>
 					set({ isCompleting: "NOT_COMPLETED" });
 					return;
 				}
-				appendMessage(conversation_id, "assistant", "");
-				sendUserPrompt();
+				startCompletion(conversation_id);
 			}
 		};
 
@@ -284,6 +295,7 @@ export const createDashboardStore = (preloadedState?: Partial<State>) =>
 			pendingMessage: "",
 			pathname: "/",
 			complete: async () => null,
+			stop: () => {},
 			action
 		};
 	});
@@ -301,7 +313,7 @@ export function DashboardStoreProvider({
 	const [store] = useState(() => createDashboardStore(preloadedState));
 
 	const pathname = usePathname();
-	const { complete, completion } = useCompletion({
+	const { complete, stop, completion } = useCompletion({
 		api: "/api/chat",
 		onFinish: () => store.getState().action.setCompleting("COMPLETED"),
 		onError: (error) => {
@@ -316,17 +328,19 @@ export function DashboardStoreProvider({
 	useLoadingToast(pendingMessage, isPending);
 
 	useEffect(() => {
-		store.setState({ complete, pathname });
-	}, [complete, pathname, store]);
+		store.setState({ complete, stop, pathname });
+	}, [complete, stop, pathname, store]);
 
 	useEffect(() => {
 		const { action, messages } = store.getState();
 		if (completion && isCompleting === "COMPLETING") {
 			action.updateLastMessage(completion);
 		}
-		if (isCompleting === "COMPLETED") {
+		if (isCompleting === "COMPLETED" || isCompleting === "PAUSED") {
 			const lastMessage = messages[messages.length - 1];
-			if (lastMessage) action.addMessage(lastMessage.conversation_id, lastMessage.role, completion);
+			if (lastMessage?.role === "assistant" && completion) {
+				action.addMessage(lastMessage.conversation_id, lastMessage.role, completion);
+			}
 			action.setCompleting("NOT_COMPLETED");
 		}
 	}, [completion, isCompleting, store]);

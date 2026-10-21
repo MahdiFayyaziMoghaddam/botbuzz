@@ -10,7 +10,7 @@ export default function Prompt() {
 	const isCompleting = useDashboardStore((state) => state.isCompleting);
 	const setUserPrompt = useDashboardStore((state) => state.action.setUserPrompt);
 	const sendPromptProcess = useDashboardStore((state) => state.action.sendPromptProcess);
-	const pausePromptProcess = () => {};
+	const pausePromptProcess = useDashboardStore((state) => state.action.pausePromptProcess);
 	return (
 		<div className="flex gap-2 max-md:gap-1 mx-auto w-full *:border-transparent *:border-1 *:first:border-r-0 *:nth-[2]:border-l-0 group">
 			<div className="flex items-start gap-x-8 max-lg:gap-x-6 max-md:gap-x-5 max-sm:gap-x-4 max-xs:gap-x-3 rounded-l-[1.2rem] max-lg:rounded-l-[1rem] max-md:rounded-l-[0.8rem] max-sm:rounded-l-[0.6rem] max-xs:rounded-l-[0.5rem] bg-btn-dark grow pl-16 max-lg:pl-14 max-md:pl-10 max-sm:pl-8 max-xs:pl-6 pr-12 max-lg:pr-10 max-md:pr-8 max-sm:pr-6 max-xs:pr-5 overflow-hidden py-8 max-lg:py-7 max-md:py-6 max-sm:py-5 max-xs:py-4 max-h-280 max-xl:max-h-210 max-lg:max-h-240 max-md:max-h-300 max-sm:max-h-300 max-xs:max-h-240 group-focus-within:border-icon-purple duration-200">
