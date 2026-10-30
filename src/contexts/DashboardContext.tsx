@@ -44,6 +44,7 @@ interface Context {
 	updateUserNotificationAction: (notification: boolean) => void;
 	sendUserPromptAction: (prompt: string) => void;
 	sendPromptProcess: (prompt?: string) => Promise<void>;
+	stopPromptProcess: () => void;
 	updateUserAPIkeyAction: (apiKey: string) => void;
 }
 
@@ -63,8 +64,9 @@ export const DashboardContextProvider = ({
 	const pathname = usePathname();
 	const [state, dispatch] = useReducer<State, [action: Action]>(reducer, { ...initialState, ...initialStateProp });
 	const inFlightRef = useRef(false);
+	const stopRequestedRef = useRef(false);
 	const completingTargetRef = useRef<string | null>(null);
-	const { complete, completion } = useCompletion({
+	const { complete, completion, stop } = useCompletion({
 		api: "/api/chat",
 		onFinish,
 		onError
@@ -254,6 +256,7 @@ export const DashboardContextProvider = ({
 			const promptToSend = (prompt ?? state.userPrompt).trim();
 			if (!promptToSend) return;
 			inFlightRef.current = true;
+			stopRequestedRef.current = false;
 			const personalityId = state.userPersonalityID;
 			const isNewConversation = pathname === "/chat";
 			const prevMessagesSnapshot = state.messages;
@@ -271,6 +274,11 @@ export const DashboardContextProvider = ({
 					const { completed } = await addMessageAction(data.id, "user", promptToSend);
 					if (!completed) {
 						dispatch({ type: "UPDATE_MESSAGES", payload: prevMessagesSnapshot });
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
+					}
+					// Stop pressed before the stream started: keep the saved user message, no reply.
+					if (stopRequestedRef.current) {
 						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 						return;
 					}
@@ -292,6 +300,11 @@ export const DashboardContextProvider = ({
 						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 						return;
 					}
+					// Stop pressed before the stream started: keep the saved user message, no reply.
+					if (stopRequestedRef.current) {
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
+					}
 					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
 					completingTargetRef.current = conversation_id;
 					sendUserPromptAction(promptToSend);
@@ -308,6 +321,7 @@ export const DashboardContextProvider = ({
 				}
 			} finally {
 				inFlightRef.current = false;
+				stopRequestedRef.current = false;
 			}
 		},
 		[
@@ -321,6 +335,27 @@ export const DashboardContextProvider = ({
 			state.messages
 		]
 	);
+
+	const stopPromptProcess = useCallback(() => {
+		const targetId = completingTargetRef.current;
+		// If send is still in-flight (before stream started), request cancellation
+		if (inFlightRef.current) {
+			stopRequestedRef.current = true;
+			return;
+		}
+		// Stream is active - abort and persist/drop accordingly
+		stop();
+		const lastMessage = state.messages[state.messages.length - 1];
+		if (lastMessage && (!targetId || lastMessage.conversation_id === targetId)) {
+			if (lastMessage.content) {
+				addMessageAction(lastMessage.conversation_id, lastMessage.role, lastMessage.content);
+			} else {
+				dispatch({ type: "UPDATE_MESSAGES", payload: state.messages.slice(0, state.messages.length - 1) });
+			}
+		}
+		completingTargetRef.current = null;
+		dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+	}, [addMessageAction, dispatch, state.messages, stop]);
 
 	const updateUserAPIkeyAction = useCallback(
 		(apiKey: string) => {
@@ -402,6 +437,7 @@ export const DashboardContextProvider = ({
 			updateUserNotificationAction,
 			sendUserPromptAction,
 			sendPromptProcess,
+			stopPromptProcess,
 			updateUserAPIkeyAction
 		}),
 		[
@@ -420,6 +456,7 @@ export const DashboardContextProvider = ({
 			updateUserNotificationAction,
 			sendUserPromptAction,
 			sendPromptProcess,
+			stopPromptProcess,
 			updateUserAPIkeyAction
 		]
 	);
