@@ -69,8 +69,10 @@ export const reducer = (prevState: State, action: Action) => {
 		}
 		case "UPDATE_LAST_MESSAGE": {
 			const content = action.payload;
-			prevState.messages[prevState.messages.length - 1].content = content;
-			return prevState;
+			if (prevState.messages.length === 0) return prevState;
+			const messages = [...prevState.messages];
+			messages[messages.length - 1] = { ...messages[messages.length - 1], content };
+			return { ...prevState, messages };
 		}
 		case "UPDATE_USER_AVATAR": {
 			return { ...prevState, userAvatar: action.payload };

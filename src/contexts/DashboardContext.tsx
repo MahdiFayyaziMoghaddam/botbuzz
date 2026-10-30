@@ -17,6 +17,7 @@ import {
 	useEffect,
 	useMemo,
 	useReducer,
+	useRef,
 	useState
 } from "react";
 import { toast } from "react-toastify";
@@ -61,6 +62,8 @@ export const DashboardContextProvider = ({
 	useLoadingToast(pendingMessage, isPending);
 	const pathname = usePathname();
 	const [state, dispatch] = useReducer<State, [action: Action]>(reducer, { ...initialState, ...initialStateProp });
+	const inFlightRef = useRef(false);
+	const completingTargetRef = useRef<string | null>(null);
 	const { complete, completion } = useCompletion({
 		api: "/api/chat",
 		onFinish,
@@ -89,10 +92,13 @@ export const DashboardContextProvider = ({
 			const { data, error } = await getMessages(conversation_id);
 			setIsPending(false);
 			if (!error && data) {
-				dispatch({
-					type: "SET_USER_PERSONALITY_ID",
-					payload: state.conversations.find((p) => p.id === conversation_id)!.id
-				});
+				const conversation = state.conversations.find((p) => p.id === conversation_id);
+				if (conversation) {
+					dispatch({
+						type: "SET_USER_PERSONALITY_ID",
+						payload: conversation.personality_id
+					});
+				}
 				dispatch({ type: "UPDATE_MESSAGES", payload: data });
 				return { completed: true };
 			}
@@ -244,36 +250,64 @@ export const DashboardContextProvider = ({
 
 	const sendPromptProcess = useCallback(
 		async (prompt?: string) => {
-			prompt = prompt || state.userPrompt.trim();
-			if (!prompt) return;
+			if (inFlightRef.current) return;
+			const promptToSend = (prompt ?? state.userPrompt).trim();
+			if (!promptToSend) return;
+			inFlightRef.current = true;
+			const personalityId = state.userPersonalityID;
+			const isNewConversation = pathname === "/chat";
+			const prevMessagesSnapshot = state.messages;
 			dispatch({ type: "SET_USER_PROMPT", payload: "" });
 			dispatch({ type: "SET_COMPLETING", payload: "COMPLETING" });
-			const isNewConversation = pathname === "/chat";
-			if (isNewConversation) {
-				const { data } = await addConversationAction(state.userPersonalityID, prompt.split(" ").slice(0, 8).join(" "));
-				if (data) {
-					console.log("conversation created:", data);
-					dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id: data.id, role: "user" } });
-					const { completed } = await addMessageAction(data.id, "user", prompt);
-					if (completed) {
-						dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
-						sendUserPromptAction(prompt);
-						await redirectAction(`/chat/${data.id}`);
+			try {
+				if (isNewConversation) {
+					const { data } = await addConversationAction(personalityId, promptToSend.split(" ").slice(0, 8).join(" "));
+					if (!data) {
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
 					}
+					console.log("conversation created:", data);
+					dispatch({ type: "ADD_MESSAGE", payload: { content: promptToSend, conversation_id: data.id, role: "user" } });
+					const { completed } = await addMessageAction(data.id, "user", promptToSend);
+					if (!completed) {
+						dispatch({ type: "UPDATE_MESSAGES", payload: prevMessagesSnapshot });
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
+					}
+					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id: data.id, role: "assistant" } });
+					completingTargetRef.current = data.id;
+					sendUserPromptAction(promptToSend);
+					await redirectAction(`/chat/${data.id}`);
 				} else {
-					dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
-				}
-			} else {
-				const conversation_id = pathname.split("chat/")[1];
-				console.log("conversation_id:", conversation_id);
-				dispatch({ type: "ADD_MESSAGE", payload: { content: prompt, conversation_id, role: "user" } });
-				const { completed } = await addMessageAction(conversation_id, "user", prompt);
-				if (completed) {
+					const conversation_id = pathname.split("chat/")[1];
+					if (!conversation_id) {
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
+					}
+					console.log("conversation_id:", conversation_id);
+					dispatch({ type: "ADD_MESSAGE", payload: { content: promptToSend, conversation_id, role: "user" } });
+					const { completed } = await addMessageAction(conversation_id, "user", promptToSend);
+					if (!completed) {
+						dispatch({ type: "UPDATE_MESSAGES", payload: prevMessagesSnapshot });
+						dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+						return;
+					}
 					dispatch({ type: "ADD_MESSAGE", payload: { content: "", conversation_id, role: "assistant" } });
-					sendUserPromptAction(prompt);
-				} else {
-					dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+					completingTargetRef.current = conversation_id;
+					sendUserPromptAction(promptToSend);
 				}
+			} catch (error) {
+				console.error(error);
+				dispatch({ type: "UPDATE_MESSAGES", payload: prevMessagesSnapshot });
+				dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
+				completingTargetRef.current = null;
+				if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+					// Next.js redirect throws - navigation may proceed; keep state consistent
+				} else if (error instanceof Error) {
+					toast.error(error.message);
+				}
+			} finally {
+				inFlightRef.current = false;
 			}
 		},
 		[
@@ -283,7 +317,8 @@ export const DashboardContextProvider = ({
 			pathname,
 			sendUserPromptAction,
 			state.userPersonalityID,
-			state.userPrompt
+			state.userPrompt,
+			state.messages
 		]
 	);
 
@@ -312,23 +347,40 @@ export const DashboardContextProvider = ({
 
 	useEffect(() => {
 		if (completion && state.isCompleting === "COMPLETING") {
-			dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
+			const targetId = completingTargetRef.current;
+			if (targetId) {
+				const lastMessage = state.messages[state.messages.length - 1];
+				if (lastMessage && lastMessage.conversation_id === targetId) {
+					dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
+				}
+			} else {
+				dispatch({ type: "UPDATE_LAST_MESSAGE", payload: completion });
+			}
 		}
 		if (state.isCompleting === "COMPLETED") {
+			const targetId = completingTargetRef.current;
 			const lastMessage = state.messages[state.messages.length - 1];
-			if (lastMessage) {
+			if (lastMessage && (!targetId || lastMessage.conversation_id === targetId) && completion) {
 				// eslint-disable-next-line react-hooks/set-state-in-effect
 				addMessageAction(lastMessage.conversation_id, lastMessage.role, completion);
 			}
+			completingTargetRef.current = null;
 			dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 		}
 	}, [completion, state.isCompleting, state.messages, addMessageAction]);
 
 	function onFinish() {
-		dispatch({ type: "SET_COMPLETING", payload: "COMPLETED" });
+		const targetId = completingTargetRef.current;
+		const lastMessage = state.messages[state.messages.length - 1];
+		if (!targetId || (lastMessage && lastMessage.conversation_id === targetId)) {
+			dispatch({ type: "SET_COMPLETING", payload: "COMPLETED" });
+		} else {
+			completingTargetRef.current = null;
+		}
 	}
 
 	function onError(error: Error) {
+		completingTargetRef.current = null;
 		dispatch({ type: "SET_COMPLETING", payload: "NOT_COMPLETED" });
 		toast.error(error.message);
 	}
