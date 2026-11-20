@@ -61,9 +61,13 @@ export default function ChatBox({ role = "user", date, imgSrc, content, title }:
 							<hr className="h-9 max-lg:h-8 max-md:h-7 max-sm:h-6 max-xs:h-6 border-glass-stroke" />
 							<button
 								className="*:size-12 max-lg:*:size-11 max-md:*:size-10 max-sm:*:size-9 max-xs:*:size-9 text-typo-medium-gray hover:text-typo-light-white duration-300 cursor-pointer outline-none"
-								onClick={() => {
-									if (window.navigator) navigator.clipboard.writeText(content || "");
-									toast.success("Copied to clipboard");
+								onClick={async () => {
+									try {
+										if (window.navigator) await navigator.clipboard.writeText(content);
+										toast.success("Copied to clipboard");
+									} catch {
+										toast.error("Failed to copy!");
+									}
 								}}
 							>
 								<Copy />
